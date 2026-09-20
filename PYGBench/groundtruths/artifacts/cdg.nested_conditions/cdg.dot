@@ -1,0 +1,16 @@
+digraph "cdg.nested_conditions.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first condition";
+  "second condition";
+  "select false return";
+  "select sequence return";
+  "select true return";
+  "first condition" -> "second condition" [label="true"];
+  "first condition" -> "select false return" [label="false"];
+  "second condition" -> "select true return" [label="true"];
+  "second condition" -> "select sequence return" [label="false"];
+  // forbidden: "second condition" -> "select false return" [true]
+  // required path: "first condition" -> "second condition" -> "select true return"
+  // required path: "first condition" -> "second condition" -> "select sequence return"
+}

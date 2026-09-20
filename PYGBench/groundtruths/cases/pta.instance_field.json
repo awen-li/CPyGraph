@@ -1,0 +1,130 @@
+{
+  "case": "pta.instance_field",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "round_trip entry",
+      "round_trip return"
+    ],
+    "required_edges": [
+      {
+        "source": "round_trip entry",
+        "target": "round_trip return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "round_trip",
+        "target": "round_trip"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "round_trip"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "round_trip load attribute payload",
+      "round_trip return"
+    ],
+    "required_edges": [
+      {
+        "source": "round_trip load attribute payload",
+        "target": "round_trip return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "round_trip"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Box instance"
+      ],
+      "points_to": [
+        "parameter payload"
+      ],
+      "subject": "read box.payload"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "field-modeling",
+    "heap"
+  ]
+}

@@ -1,0 +1,11 @@
+digraph "protocol.iteration.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Values.__iter__";
+  "Values.__next__";
+  "Values.unused";
+  "run";
+  "run" -> "Values.__iter__";
+  "run" -> "Values.__next__";
+  // forbidden: "run" -> "Values.unused"
+}

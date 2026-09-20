@@ -1,0 +1,6 @@
+digraph "ddg.field_round_trip.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "field_round_trip";
+  // forbidden: "field_round_trip" -> "field_round_trip"
+}

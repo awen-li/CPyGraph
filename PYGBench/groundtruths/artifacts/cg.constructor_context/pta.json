@@ -1,0 +1,13 @@
+{
+  "case": "cg.constructor_context",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "create parameter constructor"
+      ],
+      "subject": "create constructor"
+    }
+  ],
+  "schema_version": 1
+}

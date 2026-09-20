@@ -1,0 +1,7 @@
+digraph "cdg.exception_outcomes.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "parse entry";
+  "parse return";
+  "parse entry" -> "parse return";
+}

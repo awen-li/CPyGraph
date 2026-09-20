@@ -1,0 +1,145 @@
+{
+  "case": "python.positional_only",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run entry",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "combine",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "combine",
+      "run"
+    ],
+    "required_edges": [
+      {
+        "source": "run",
+        "target": "combine"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "run second",
+        "target": "combine left"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "combine left",
+      "combine right",
+      "run first",
+      "run second"
+    ],
+    "required_edges": [
+      {
+        "source": "run first",
+        "target": "combine left"
+      },
+      {
+        "source": "run second",
+        "target": "combine right"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter first"
+      ],
+      "subject": "run first"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "argument-binding",
+    "positional-only"
+  ]
+}

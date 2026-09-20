@@ -1,0 +1,13 @@
+{
+  "case": "python.descriptor_inheritance",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "unrelated"
+      ],
+      "points_to": [],
+      "subject": "Child.value"
+    }
+  ],
+  "schema_version": 1
+}

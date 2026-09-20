@@ -1,0 +1,7 @@
+digraph "cg.package_precision_recall.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "unreachable_decoy entry";
+  "unreachable_decoy return";
+  "unreachable_decoy entry" -> "unreachable_decoy return";
+}

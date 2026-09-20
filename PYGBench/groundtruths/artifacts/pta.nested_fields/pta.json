@@ -1,0 +1,20 @@
+{
+  "case": "pta.nested_fields",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "value"
+      ],
+      "subject": "outer.inner.payload"
+    },
+    {
+      "must_not_point_to": [
+        "value"
+      ],
+      "points_to": [],
+      "subject": "outer.payload"
+    }
+  ],
+  "schema_version": 1
+}

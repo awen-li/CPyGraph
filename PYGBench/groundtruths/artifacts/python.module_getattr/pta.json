@@ -1,0 +1,13 @@
+{
+  "case": "python.module_getattr",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "__getattr__ parameter name"
+      ],
+      "subject": "__getattr__ name"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,9 @@
+digraph "protocol.reversed_iteration.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Values.__iter__";
+  "Values.__reversed__";
+  "run";
+  "run" -> "Values.__reversed__";
+  // forbidden: "run" -> "Values.__iter__"
+}

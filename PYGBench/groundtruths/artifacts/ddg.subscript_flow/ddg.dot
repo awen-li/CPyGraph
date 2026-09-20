@@ -1,0 +1,13 @@
+digraph "ddg.subscript_flow.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "items key store";
+  "key";
+  "parameter value";
+  "return subscription";
+  "returned payload";
+  "parameter value" -> "items key store";
+  "items key store" -> "return subscription";
+  // forbidden: "key" -> "returned payload"
+  // required path: "parameter value" -> "items key store" -> "return subscription"
+}

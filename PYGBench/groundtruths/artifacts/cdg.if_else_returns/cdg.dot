@@ -1,0 +1,11 @@
+digraph "cdg.if_else_returns.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose condition";
+  "choose false return";
+  "choose true return";
+  "choose condition" -> "choose true return" [label="true"];
+  "choose condition" -> "choose false return" [label="false"];
+  // forbidden: "choose condition" -> "choose false return" [true]
+  // forbidden: "choose condition" -> "choose true return" [false]
+}

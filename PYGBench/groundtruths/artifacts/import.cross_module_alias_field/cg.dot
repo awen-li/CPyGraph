@@ -1,0 +1,6 @@
+digraph "import.cross_module_alias_field.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  // forbidden: "run" -> "run"
+}

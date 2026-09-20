@@ -1,0 +1,7 @@
+digraph "pta.aliased_base.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "store entry";
+  "store return";
+  "store entry" -> "store return";
+}

@@ -1,0 +1,22 @@
+{
+  "case": "pta.aliased_base",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Box instance"
+      ],
+      "points_to": [
+        "value"
+      ],
+      "subject": "alias.payload"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "value"
+      ],
+      "subject": "box.payload"
+    }
+  ],
+  "schema_version": 1
+}

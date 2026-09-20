@@ -1,0 +1,24 @@
+{
+  "case": "import.cross_module_context",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "model.Right instance"
+      ],
+      "points_to": [
+        "model.Left instance"
+      ],
+      "subject": "left result"
+    },
+    {
+      "must_not_point_to": [
+        "model.Left instance"
+      ],
+      "points_to": [
+        "model.Right instance"
+      ],
+      "subject": "right result"
+    }
+  ],
+  "schema_version": 1
+}

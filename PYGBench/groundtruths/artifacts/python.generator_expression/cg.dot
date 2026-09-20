@@ -1,0 +1,9 @@
+digraph "python.generator_expression.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "genexpr";
+  "run";
+  "unrelated";
+  "run" -> "genexpr";
+  // forbidden: "run" -> "unrelated"
+}

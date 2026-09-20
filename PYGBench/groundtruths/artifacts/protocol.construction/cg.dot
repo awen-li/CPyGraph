@@ -1,0 +1,9 @@
+digraph "protocol.construction.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Item.__init__";
+  "Item.unused";
+  "run";
+  "run" -> "Item.__init__";
+  // forbidden: "run" -> "Item.unused"
+}

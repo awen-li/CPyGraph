@@ -1,0 +1,6 @@
+digraph "pta.instance_field.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "round_trip";
+  // forbidden: "round_trip" -> "round_trip"
+}

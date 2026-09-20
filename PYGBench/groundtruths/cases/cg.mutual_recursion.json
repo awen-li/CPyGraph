@@ -1,0 +1,140 @@
+{
+  "case": "cg.mutual_recursion",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "is_even entry",
+      "is_even return"
+    ],
+    "required_edges": [
+      {
+        "source": "is_even entry",
+        "target": "is_even return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "is_even",
+        "target": "decoy"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "decoy",
+      "is_even",
+      "is_odd"
+    ],
+    "required_edges": [
+      {
+        "source": "is_even",
+        "target": "is_odd"
+      },
+      {
+        "source": "is_odd",
+        "target": "is_even"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "is_even constant",
+      "is_even return"
+    ],
+    "required_edges": [
+      {
+        "source": "is_even constant",
+        "target": "is_even return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "is_even",
+    "is_odd"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "is_even parameter value"
+      ],
+      "subject": "is_even value"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "recursion",
+    "cycle"
+  ]
+}

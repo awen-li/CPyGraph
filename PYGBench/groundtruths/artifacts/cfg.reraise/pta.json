@@ -1,0 +1,13 @@
+{
+  "case": "cfg.reraise",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter action"
+      ],
+      "subject": "run action"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,6 @@
+digraph "pta.closure_capture.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "outer";
+  // forbidden: "outer" -> "outer"
+}

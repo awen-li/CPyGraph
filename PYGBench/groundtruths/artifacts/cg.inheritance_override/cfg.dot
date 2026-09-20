@@ -1,0 +1,7 @@
+digraph "cg.inheritance_override.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run entry";
+  "run return";
+  "run entry" -> "run return";
+}

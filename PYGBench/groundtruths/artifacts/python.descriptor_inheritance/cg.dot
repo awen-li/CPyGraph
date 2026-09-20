@@ -1,0 +1,10 @@
+digraph "python.descriptor_inheritance.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Descriptor.__get__";
+  "Descriptor.__set__";
+  "run Child.value read";
+  "run Child.value write";
+  "run Child.value read" -> "Descriptor.__get__";
+  "run Child.value write" -> "Descriptor.__set__";
+}

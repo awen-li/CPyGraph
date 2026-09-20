@@ -1,0 +1,8 @@
+digraph "cg.recursion.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "factorial";
+  "unrelated";
+  "factorial" -> "factorial";
+  // forbidden: "factorial" -> "unrelated"
+}

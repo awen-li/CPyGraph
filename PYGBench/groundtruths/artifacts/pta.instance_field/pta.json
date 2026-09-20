@@ -1,0 +1,15 @@
+{
+  "case": "pta.instance_field",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Box instance"
+      ],
+      "points_to": [
+        "parameter payload"
+      ],
+      "subject": "read box.payload"
+    }
+  ],
+  "schema_version": 1
+}

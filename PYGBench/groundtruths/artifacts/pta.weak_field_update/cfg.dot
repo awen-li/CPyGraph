@@ -1,0 +1,7 @@
+digraph "pta.weak_field_update.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "update entry";
+  "update return";
+  "update entry" -> "update return";
+}

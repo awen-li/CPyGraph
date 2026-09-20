@@ -1,0 +1,153 @@
+{
+  "case": "cg.higher_order",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "decrement entry",
+      "decrement return"
+    ],
+    "required_edges": [
+      {
+        "source": "decrement entry",
+        "target": "decrement return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "apply",
+        "target": "decrement"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "run",
+        "apply",
+        "decrement"
+      ]
+    ],
+    "nodes": [
+      "apply",
+      "decrement",
+      "increment",
+      "run"
+    ],
+    "required_edges": [
+      {
+        "source": "apply",
+        "target": "increment"
+      },
+      {
+        "source": "run",
+        "target": "apply"
+      }
+    ],
+    "required_paths": [
+      [
+        "run",
+        "apply",
+        "increment"
+      ]
+    ]
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "decrement operation",
+      "decrement return"
+    ],
+    "required_edges": [
+      {
+        "source": "decrement operation",
+        "target": "decrement return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "decrement",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "decrement parameter value"
+      ],
+      "subject": "decrement value"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "higher-order",
+    "interprocedural"
+  ]
+}

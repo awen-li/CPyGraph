@@ -1,0 +1,7 @@
+digraph "pta.field_through_argument.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run call";
+  "run return";
+  "run call" -> "run return";
+}

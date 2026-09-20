@@ -1,0 +1,292 @@
+{
+  "case": "ddg.deep_local_chain",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run entry",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "run",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "run"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "return second",
+        "target": "assignment second"
+      },
+      {
+        "source": "assignment second",
+        "target": "load first"
+      },
+      {
+        "source": "load first",
+        "target": "assignment first"
+      },
+      {
+        "source": "assignment first",
+        "target": "load input"
+      },
+      {
+        "source": "load input",
+        "target": "parameter input"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "return second",
+        "assignment second",
+        "load first",
+        "assignment first",
+        "load input",
+        "parameter input"
+      ],
+      [
+        "assignment first",
+        "load input",
+        "parameter input"
+      ],
+      [
+        "assignment second",
+        "load first",
+        "assignment first"
+      ],
+      [
+        "assignment second",
+        "load first",
+        "assignment first",
+        "load input"
+      ],
+      [
+        "assignment second",
+        "load first",
+        "assignment first",
+        "load input",
+        "parameter input"
+      ],
+      [
+        "load first",
+        "assignment first",
+        "load input"
+      ],
+      [
+        "load first",
+        "assignment first",
+        "load input",
+        "parameter input"
+      ],
+      [
+        "return second",
+        "assignment second",
+        "load first"
+      ],
+      [
+        "return second",
+        "assignment second",
+        "load first",
+        "assignment first"
+      ],
+      [
+        "return second",
+        "assignment second",
+        "load first",
+        "assignment first",
+        "load input"
+      ]
+    ],
+    "nodes": [
+      "assignment first",
+      "assignment second",
+      "load first",
+      "load input",
+      "parameter input",
+      "return second"
+    ],
+    "required_edges": [
+      {
+        "source": "parameter input",
+        "target": "load input"
+      },
+      {
+        "source": "load input",
+        "target": "assignment first"
+      },
+      {
+        "source": "assignment first",
+        "target": "load first"
+      },
+      {
+        "source": "load first",
+        "target": "assignment second"
+      },
+      {
+        "source": "assignment second",
+        "target": "return second"
+      }
+    ],
+    "required_paths": [
+      [
+        "parameter input",
+        "load input",
+        "assignment first",
+        "load first",
+        "assignment second",
+        "return second"
+      ],
+      [
+        "assignment first",
+        "load first",
+        "assignment second"
+      ],
+      [
+        "assignment first",
+        "load first",
+        "assignment second",
+        "return second"
+      ],
+      [
+        "load first",
+        "assignment second",
+        "return second"
+      ],
+      [
+        "load input",
+        "assignment first",
+        "load first"
+      ],
+      [
+        "load input",
+        "assignment first",
+        "load first",
+        "assignment second"
+      ],
+      [
+        "load input",
+        "assignment first",
+        "load first",
+        "assignment second",
+        "return second"
+      ],
+      [
+        "parameter input",
+        "load input",
+        "assignment first"
+      ],
+      [
+        "parameter input",
+        "load input",
+        "assignment first",
+        "load first"
+      ],
+      [
+        "parameter input",
+        "load input",
+        "assignment first",
+        "load first",
+        "assignment second"
+      ]
+    ]
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "run function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "local",
+    "intraprocedural",
+    "multi-hop"
+  ]
+}

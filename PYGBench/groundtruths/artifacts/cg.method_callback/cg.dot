@@ -1,0 +1,11 @@
+digraph "cg.method_callback.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "First.work";
+  "Second.work";
+  "invoke@First.work";
+  "invoke@Second.work";
+  "invoke@First.work" -> "First.work";
+  "invoke@Second.work" -> "Second.work";
+  // forbidden: "invoke@First.work" -> "Second.work"
+}

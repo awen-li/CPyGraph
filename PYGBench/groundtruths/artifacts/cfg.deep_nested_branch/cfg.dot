@@ -1,0 +1,65 @@
+digraph "cfg.deep_nested_branch.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first condition";
+  "first condition true outcome";
+  "run entry";
+  "second condition";
+  "second condition false outcome";
+  "second condition true outcome";
+  "third condition";
+  "third condition false outcome";
+  "true return";
+  "run entry" -> "first condition";
+  "first condition" -> "first condition true outcome";
+  "first condition true outcome" -> "second condition";
+  "second condition" -> "second condition true outcome";
+  "second condition true outcome" -> "third condition";
+  "third condition" -> "true return";
+  "second condition" -> "second condition false outcome";
+  "third condition" -> "third condition false outcome";
+  // forbidden: "true return" -> "third condition"
+  // forbidden: "third condition" -> "second condition true outcome"
+  // forbidden: "second condition true outcome" -> "second condition"
+  // forbidden: "second condition" -> "first condition true outcome"
+  // forbidden: "first condition true outcome" -> "first condition"
+  // forbidden: "first condition" -> "run entry"
+  // required path: "run entry" -> "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition" -> "true return"
+  // required path: "first condition" -> "first condition true outcome" -> "second condition"
+  // required path: "first condition" -> "first condition true outcome" -> "second condition" -> "second condition false outcome"
+  // required path: "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome"
+  // required path: "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition"
+  // required path: "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition" -> "third condition false outcome"
+  // required path: "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition" -> "true return"
+  // required path: "first condition true outcome" -> "second condition" -> "second condition false outcome"
+  // required path: "first condition true outcome" -> "second condition" -> "second condition true outcome"
+  // required path: "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition"
+  // required path: "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition" -> "third condition false outcome"
+  // required path: "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition" -> "true return"
+  // required path: "run entry" -> "first condition" -> "first condition true outcome"
+  // required path: "run entry" -> "first condition" -> "first condition true outcome" -> "second condition"
+  // required path: "run entry" -> "first condition" -> "first condition true outcome" -> "second condition" -> "second condition false outcome"
+  // required path: "run entry" -> "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome"
+  // required path: "run entry" -> "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition"
+  // required path: "run entry" -> "first condition" -> "first condition true outcome" -> "second condition" -> "second condition true outcome" -> "third condition" -> "third condition false outcome"
+  // required path: "second condition" -> "second condition true outcome" -> "third condition"
+  // required path: "second condition" -> "second condition true outcome" -> "third condition" -> "third condition false outcome"
+  // required path: "second condition" -> "second condition true outcome" -> "third condition" -> "true return"
+  // required path: "second condition true outcome" -> "third condition" -> "third condition false outcome"
+  // required path: "second condition true outcome" -> "third condition" -> "true return"
+  // forbidden path: "true return" -> "third condition" -> "second condition true outcome" -> "second condition" -> "first condition true outcome" -> "first condition" -> "run entry"
+  // forbidden path: "first condition true outcome" -> "first condition" -> "run entry"
+  // forbidden path: "second condition" -> "first condition true outcome" -> "first condition"
+  // forbidden path: "second condition" -> "first condition true outcome" -> "first condition" -> "run entry"
+  // forbidden path: "second condition true outcome" -> "second condition" -> "first condition true outcome"
+  // forbidden path: "second condition true outcome" -> "second condition" -> "first condition true outcome" -> "first condition"
+  // forbidden path: "second condition true outcome" -> "second condition" -> "first condition true outcome" -> "first condition" -> "run entry"
+  // forbidden path: "third condition" -> "second condition true outcome" -> "second condition"
+  // forbidden path: "third condition" -> "second condition true outcome" -> "second condition" -> "first condition true outcome"
+  // forbidden path: "third condition" -> "second condition true outcome" -> "second condition" -> "first condition true outcome" -> "first condition"
+  // forbidden path: "third condition" -> "second condition true outcome" -> "second condition" -> "first condition true outcome" -> "first condition" -> "run entry"
+  // forbidden path: "true return" -> "third condition" -> "second condition true outcome"
+  // forbidden path: "true return" -> "third condition" -> "second condition true outcome" -> "second condition"
+  // forbidden path: "true return" -> "third condition" -> "second condition true outcome" -> "second condition" -> "first condition true outcome"
+  // forbidden path: "true return" -> "third condition" -> "second condition true outcome" -> "second condition" -> "first condition true outcome" -> "first condition"
+}

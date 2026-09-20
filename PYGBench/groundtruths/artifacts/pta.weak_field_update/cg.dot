@@ -1,0 +1,6 @@
+digraph "pta.weak_field_update.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "update";
+  // forbidden: "update" -> "update"
+}

@@ -1,0 +1,9 @@
+digraph "protocol.formatting.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__format__";
+  "Value.__repr__";
+  "run";
+  "run" -> "Value.__format__";
+  // forbidden: "run" -> "Value.__repr__"
+}

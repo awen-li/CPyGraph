@@ -1,0 +1,6 @@
+digraph "pta.branch_merge.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose";
+  // forbidden: "choose" -> "choose"
+}

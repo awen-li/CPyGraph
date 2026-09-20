@@ -1,0 +1,6 @@
+digraph "python.class_body_scope.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "method";
+  // forbidden: "method" -> "method"
+}

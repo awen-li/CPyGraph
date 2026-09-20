@@ -1,0 +1,12 @@
+digraph "cfg.async_for_else.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "async exhaustion";
+  "async next";
+  "break";
+  "else";
+  "loop body";
+  "async next" -> "loop body";
+  "async exhaustion" -> "else";
+  // forbidden: "break" -> "else"
+}

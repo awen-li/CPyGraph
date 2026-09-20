@@ -1,0 +1,6 @@
+digraph "cfg.short_circuit.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "both";
+  // forbidden: "both" -> "both"
+}

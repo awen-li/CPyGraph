@@ -1,0 +1,13 @@
+{
+  "case": "python.custom_setattr",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "run function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

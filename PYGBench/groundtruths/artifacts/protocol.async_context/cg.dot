@@ -1,0 +1,11 @@
+digraph "protocol.async_context.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Resource.__aenter__";
+  "Resource.__aexit__";
+  "Resource.__enter__";
+  "run";
+  "run" -> "Resource.__aenter__";
+  "run" -> "Resource.__aexit__";
+  // forbidden: "run" -> "Resource.__enter__"
+}

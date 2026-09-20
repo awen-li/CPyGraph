@@ -1,0 +1,21 @@
+digraph "cfg.try_else_finally.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "else";
+  "else and except";
+  "except";
+  "finally";
+  "return";
+  "return bypassing finally";
+  "try body";
+  "try failure";
+  "try success";
+  "try success" -> "else";
+  "try failure" -> "except";
+  "else and except" -> "finally";
+  // forbidden: "try body" -> "return bypassing finally"
+  // required path: "try failure" -> "except" -> "finally" -> "return"
+  // required path: "except" -> "finally" -> "return"
+  // required path: "try failure" -> "except" -> "finally"
+  // forbidden path: "try failure" -> "else" -> "finally" -> "return"
+}

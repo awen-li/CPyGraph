@@ -1,0 +1,40 @@
+digraph "ddg.deep_local_chain.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "assignment first";
+  "assignment second";
+  "load first";
+  "load input";
+  "parameter input";
+  "return second";
+  "parameter input" -> "load input";
+  "load input" -> "assignment first";
+  "assignment first" -> "load first";
+  "load first" -> "assignment second";
+  "assignment second" -> "return second";
+  // forbidden: "return second" -> "assignment second"
+  // forbidden: "assignment second" -> "load first"
+  // forbidden: "load first" -> "assignment first"
+  // forbidden: "assignment first" -> "load input"
+  // forbidden: "load input" -> "parameter input"
+  // required path: "parameter input" -> "load input" -> "assignment first" -> "load first" -> "assignment second" -> "return second"
+  // required path: "assignment first" -> "load first" -> "assignment second"
+  // required path: "assignment first" -> "load first" -> "assignment second" -> "return second"
+  // required path: "load first" -> "assignment second" -> "return second"
+  // required path: "load input" -> "assignment first" -> "load first"
+  // required path: "load input" -> "assignment first" -> "load first" -> "assignment second"
+  // required path: "load input" -> "assignment first" -> "load first" -> "assignment second" -> "return second"
+  // required path: "parameter input" -> "load input" -> "assignment first"
+  // required path: "parameter input" -> "load input" -> "assignment first" -> "load first"
+  // required path: "parameter input" -> "load input" -> "assignment first" -> "load first" -> "assignment second"
+  // forbidden path: "return second" -> "assignment second" -> "load first" -> "assignment first" -> "load input" -> "parameter input"
+  // forbidden path: "assignment first" -> "load input" -> "parameter input"
+  // forbidden path: "assignment second" -> "load first" -> "assignment first"
+  // forbidden path: "assignment second" -> "load first" -> "assignment first" -> "load input"
+  // forbidden path: "assignment second" -> "load first" -> "assignment first" -> "load input" -> "parameter input"
+  // forbidden path: "load first" -> "assignment first" -> "load input"
+  // forbidden path: "load first" -> "assignment first" -> "load input" -> "parameter input"
+  // forbidden path: "return second" -> "assignment second" -> "load first"
+  // forbidden path: "return second" -> "assignment second" -> "load first" -> "assignment first"
+  // forbidden path: "return second" -> "assignment second" -> "load first" -> "assignment first" -> "load input"
+}

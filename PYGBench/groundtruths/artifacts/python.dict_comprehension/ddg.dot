@@ -1,0 +1,10 @@
+digraph "python.dict_comprehension.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "dict values";
+  "each dict value";
+  "values container object";
+  "values elements";
+  "values elements" -> "dict values";
+  // forbidden: "values container object" -> "each dict value"
+}

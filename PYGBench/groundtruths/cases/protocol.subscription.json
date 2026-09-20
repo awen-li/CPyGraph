@@ -1,0 +1,140 @@
+{
+  "case": "protocol.subscription",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run entry",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "run",
+        "target": "Store.unused"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "Store.__getitem__",
+      "Store.__setitem__",
+      "Store.unused",
+      "run"
+    ],
+    "required_edges": [
+      {
+        "source": "run",
+        "target": "Store.__setitem__"
+      },
+      {
+        "source": "run",
+        "target": "Store.__getitem__"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run load element",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run load element",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "run function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "hidden-call",
+    "subscription"
+  ]
+}

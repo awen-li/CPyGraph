@@ -1,0 +1,13 @@
+digraph "cfg.short_circuit.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "evaluate right";
+  "left false";
+  "left true";
+  "return";
+  "left false" -> "return";
+  "left true" -> "evaluate right";
+  // forbidden: "left false" -> "evaluate right"
+  // required path: "left true" -> "evaluate right" -> "return"
+  // forbidden path: "left false" -> "evaluate right" -> "return"
+}

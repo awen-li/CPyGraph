@@ -1,0 +1,11 @@
+digraph "protocol.comparison.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__eq__";
+  "Value.__gt__";
+  "Value.__lt__";
+  "run";
+  "run" -> "Value.__lt__";
+  "run" -> "Value.__eq__";
+  // forbidden: "run" -> "Value.__gt__"
+}

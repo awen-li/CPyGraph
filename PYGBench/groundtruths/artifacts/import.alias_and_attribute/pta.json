@@ -1,0 +1,13 @@
+{
+  "case": "import.alias_and_attribute",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "local_decoy parameter value"
+      ],
+      "subject": "local_decoy value"
+    }
+  ],
+  "schema_version": 1
+}

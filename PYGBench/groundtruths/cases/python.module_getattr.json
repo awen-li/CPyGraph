@@ -1,0 +1,136 @@
+{
+  "case": "python.module_getattr",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run entry",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "run_existing existing attribute",
+        "target": "__getattr__"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "__getattr__",
+      "run missing attribute",
+      "run_existing existing attribute"
+    ],
+    "required_edges": [
+      {
+        "source": "run missing attribute",
+        "target": "__getattr__"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run load attribute missing",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run load attribute missing",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run",
+    "run_existing"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "__getattr__ parameter name"
+      ],
+      "subject": "__getattr__ name"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "module",
+    "dynamic-attribute"
+  ]
+}

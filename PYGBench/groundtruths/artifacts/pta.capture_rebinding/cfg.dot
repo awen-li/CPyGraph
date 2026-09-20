@@ -1,0 +1,7 @@
+digraph "pta.capture_rebinding.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "bind entry";
+  "bind return";
+  "bind entry" -> "bind return";
+}

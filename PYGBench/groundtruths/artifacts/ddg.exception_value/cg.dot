@@ -1,0 +1,6 @@
+digraph "ddg.exception_value.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "capture";
+  // forbidden: "capture" -> "capture"
+}

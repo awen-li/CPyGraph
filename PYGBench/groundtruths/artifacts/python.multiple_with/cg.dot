@@ -1,0 +1,16 @@
+digraph "python.multiple_with.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Left.__enter__";
+  "Left.__exit__";
+  "Right.__enter__";
+  "Right.__exit__";
+  "run";
+  "run cleanup";
+  "unused";
+  "run" -> "Left.__enter__";
+  "run" -> "Right.__enter__";
+  "run cleanup" -> "Left.__exit__";
+  "run cleanup" -> "Right.__exit__";
+  // forbidden: "run" -> "unused"
+}

@@ -1,0 +1,12 @@
+digraph "import.cross_module_ddg.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decoy return";
+  "run parameter";
+  "sink.consume parameter";
+  "transform parameter";
+  "transform return";
+  "run parameter" -> "transform parameter";
+  "transform return" -> "sink.consume parameter";
+  // forbidden: "decoy return" -> "sink.consume parameter"
+}

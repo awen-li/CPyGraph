@@ -1,0 +1,6 @@
+digraph "pta.branch_merge.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

@@ -1,0 +1,9 @@
+digraph "protocol.containment.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Collection.__contains__";
+  "Collection.__iter__";
+  "run";
+  "run" -> "Collection.__contains__";
+  // forbidden: "run" -> "Collection.__iter__"
+}

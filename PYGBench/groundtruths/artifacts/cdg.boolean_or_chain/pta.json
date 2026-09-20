@@ -1,0 +1,13 @@
+{
+  "case": "cdg.boolean_or_chain",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "any_enabled function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

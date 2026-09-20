@@ -1,0 +1,12 @@
+digraph "ddg.argument_return.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "identity function object";
+  "identity parameter";
+  "identity return";
+  "run parameter";
+  "run return";
+  "run parameter" -> "identity parameter";
+  "identity return" -> "run return";
+  // forbidden: "identity function object" -> "run return"
+}

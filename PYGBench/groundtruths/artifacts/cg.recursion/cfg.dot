@@ -1,0 +1,7 @@
+digraph "cg.recursion.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "factorial entry";
+  "factorial return";
+  "factorial entry" -> "factorial return";
+}

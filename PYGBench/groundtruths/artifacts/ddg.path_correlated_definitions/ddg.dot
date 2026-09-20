@@ -1,0 +1,12 @@
+digraph "ddg.path_correlated_definitions.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "false assignment";
+  "false return";
+  "true assignment";
+  "true return";
+  "true assignment" -> "true return";
+  "false assignment" -> "false return";
+  // forbidden: "true assignment" -> "false return"
+  // forbidden: "false assignment" -> "true return"
+}

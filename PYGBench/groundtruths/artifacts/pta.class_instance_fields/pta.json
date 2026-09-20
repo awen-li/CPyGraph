@@ -1,0 +1,22 @@
+{
+  "case": "pta.class_instance_fields",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "instance_value"
+      ],
+      "points_to": [
+        "class_value"
+      ],
+      "subject": "Item.shared"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "instance_value"
+      ],
+      "subject": "item.shared"
+    }
+  ],
+  "schema_version": 1
+}

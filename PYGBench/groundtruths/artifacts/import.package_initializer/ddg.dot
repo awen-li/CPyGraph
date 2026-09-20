@@ -1,0 +1,7 @@
+digraph "import.package_initializer.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "initialize constant";
+  "initialize return";
+  "initialize constant" -> "initialize return";
+}

@@ -1,0 +1,19 @@
+digraph "ddg.local_def_use.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "assignment value";
+  "load input";
+  "load value";
+  "parameter input";
+  "return value";
+  "unrelated constant";
+  "assignment value" -> "return value";
+  // forbidden: "parameter input" -> "unrelated constant"
+  // required path: "parameter input" -> "load input" -> "assignment value" -> "load value" -> "return value"
+  // required path: "assignment value" -> "load value" -> "return value"
+  // required path: "load input" -> "assignment value" -> "load value"
+  // required path: "load input" -> "assignment value" -> "load value" -> "return value"
+  // required path: "parameter input" -> "load input" -> "assignment value"
+  // required path: "parameter input" -> "load input" -> "assignment value" -> "load value"
+  // forbidden path: "unrelated constant" -> "assignment value" -> "load value" -> "return value"
+}

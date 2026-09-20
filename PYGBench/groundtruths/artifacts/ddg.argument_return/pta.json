@@ -1,0 +1,13 @@
+{
+  "case": "ddg.argument_return",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter value"
+      ],
+      "subject": "run value"
+    }
+  ],
+  "schema_version": 1
+}

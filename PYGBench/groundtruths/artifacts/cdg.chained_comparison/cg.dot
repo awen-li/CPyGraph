@@ -1,0 +1,6 @@
+digraph "cdg.chained_comparison.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "within";
+  // forbidden: "within" -> "within"
+}

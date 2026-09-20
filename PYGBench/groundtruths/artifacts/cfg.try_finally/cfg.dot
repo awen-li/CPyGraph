@@ -1,0 +1,12 @@
+digraph "cfg.try_finally.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "exceptional try exit";
+  "finally";
+  "function exit bypassing finally";
+  "normal try exit";
+  "try body";
+  "normal try exit" -> "finally";
+  "exceptional try exit" -> "finally";
+  // forbidden: "try body" -> "function exit bypassing finally"
+}

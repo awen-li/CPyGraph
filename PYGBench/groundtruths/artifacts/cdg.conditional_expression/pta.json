@@ -1,0 +1,13 @@
+{
+  "case": "cdg.conditional_expression",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "choose parameter flag"
+      ],
+      "subject": "choose flag"
+    }
+  ],
+  "schema_version": 1
+}

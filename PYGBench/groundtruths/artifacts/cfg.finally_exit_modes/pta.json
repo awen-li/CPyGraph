@@ -1,0 +1,13 @@
+{
+  "case": "cfg.finally_exit_modes",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter mode"
+      ],
+      "subject": "run mode"
+    }
+  ],
+  "schema_version": 1
+}

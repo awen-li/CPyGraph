@@ -1,0 +1,7 @@
+digraph "pta.path_type_narrowing.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "WithPayload.__init__";
+  "run";
+  // forbidden: "run" -> "WithPayload.__init__"
+}

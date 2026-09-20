@@ -1,0 +1,13 @@
+{
+  "case": "cg.method_callback",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "invoke parameter callback"
+      ],
+      "subject": "invoke callback"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,7 @@
+digraph "pta.context_factory.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first call";
+  "first return";
+  "first call" -> "first return";
+}

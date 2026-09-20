@@ -1,0 +1,13 @@
+{
+  "case": "python.keyword_only",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter first"
+      ],
+      "subject": "run first"
+    }
+  ],
+  "schema_version": 1
+}

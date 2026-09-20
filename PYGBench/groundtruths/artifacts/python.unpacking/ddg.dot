@@ -1,0 +1,11 @@
+digraph "python.unpacking.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left";
+  "pair[0]";
+  "pair[1]";
+  "right";
+  "pair[0]" -> "left";
+  "pair[1]" -> "right";
+  // forbidden: "pair[0]" -> "right"
+}

@@ -1,0 +1,7 @@
+digraph "cfg.exception_handler.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "guarded_divide operation";
+  "guarded_divide return";
+  "guarded_divide operation" -> "guarded_divide return";
+}

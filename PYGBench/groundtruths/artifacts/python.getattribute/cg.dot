@@ -1,0 +1,9 @@
+digraph "python.getattribute.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Dynamic.__getattr__";
+  "Dynamic.__getattribute__";
+  "run attribute read";
+  "run attribute read" -> "Dynamic.__getattribute__";
+  // forbidden: "run attribute read" -> "Dynamic.__getattr__"
+}

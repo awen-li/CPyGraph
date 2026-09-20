@@ -1,0 +1,20 @@
+{
+  "case": "pta.field_through_argument",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "write parameter value"
+      ],
+      "subject": "read parameter box.payload"
+    },
+    {
+      "must_not_point_to": [
+        "Box instance"
+      ],
+      "points_to": [],
+      "subject": "read return"
+    }
+  ],
+  "schema_version": 1
+}

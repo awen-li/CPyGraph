@@ -1,0 +1,7 @@
+digraph "python.class_body_scope.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "method entry";
+  "method return";
+  "method entry" -> "method return";
+}

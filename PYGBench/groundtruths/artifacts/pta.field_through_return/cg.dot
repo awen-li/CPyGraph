@@ -1,0 +1,8 @@
+digraph "pta.field_through_return.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "create";
+  "run";
+  "run" -> "create";
+  // forbidden: "create" -> "run"
+}

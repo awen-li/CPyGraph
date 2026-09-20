@@ -1,0 +1,6 @@
+digraph "cdg.branch_join.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "compute";
+  // forbidden: "compute" -> "compute"
+}

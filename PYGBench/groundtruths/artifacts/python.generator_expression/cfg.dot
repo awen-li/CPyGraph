@@ -1,0 +1,7 @@
+digraph "python.generator_expression.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "genexpr yield";
+  "resume";
+  "genexpr yield" -> "resume";
+}

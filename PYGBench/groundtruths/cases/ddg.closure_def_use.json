@@ -1,0 +1,134 @@
+{
+  "case": "ddg.closure_def_use",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "outer entry",
+      "outer return"
+    ],
+    "required_edges": [
+      {
+        "source": "outer entry",
+        "target": "outer return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "outer",
+        "target": "outer"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "outer"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "inner function object",
+        "target": "inner return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "inner function object",
+      "inner return",
+      "outer parameter"
+    ],
+    "required_edges": [
+      {
+        "source": "outer parameter",
+        "target": "inner return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "outer"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "outer function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "closure",
+    "cell"
+  ]
+}

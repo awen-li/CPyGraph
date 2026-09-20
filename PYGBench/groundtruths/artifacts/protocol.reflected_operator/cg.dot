@@ -1,0 +1,9 @@
+digraph "protocol.reflected_operator.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Right.__add__";
+  "Right.__radd__";
+  "run";
+  "run" -> "Right.__radd__";
+  // forbidden: "run" -> "Right.__add__"
+}

@@ -1,0 +1,11 @@
+digraph "cg.constructor_context.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Left.__init__";
+  "Right.__init__";
+  "create@left";
+  "create@right";
+  "create@left" -> "Left.__init__";
+  "create@right" -> "Right.__init__";
+  // forbidden: "create@left" -> "Right.__init__"
+}

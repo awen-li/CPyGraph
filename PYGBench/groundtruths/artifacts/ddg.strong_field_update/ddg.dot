@@ -1,0 +1,9 @@
+digraph "ddg.strong_field_update.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "original";
+  "replacement";
+  "return box.payload";
+  "replacement" -> "return box.payload";
+  // forbidden: "original" -> "return box.payload"
+}

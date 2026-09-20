@@ -1,0 +1,168 @@
+{
+  "case": "cdg.exception_outcomes",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "normal",
+        "source": "parse protected call",
+        "target": "exception dispatch entry"
+      },
+      {
+        "outcome": "exception",
+        "source": "parse protected call",
+        "target": "parse value assignment"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "ValueError handler check",
+      "ValueError handler return",
+      "exception dispatch entry",
+      "parse normal return",
+      "parse protected call",
+      "parse value assignment"
+    ],
+    "required_edges": [
+      {
+        "outcome": "normal",
+        "source": "parse protected call",
+        "target": "parse value assignment"
+      },
+      {
+        "outcome": "exception",
+        "source": "parse protected call",
+        "target": "exception dispatch entry"
+      },
+      {
+        "outcome": "normal",
+        "source": "parse value assignment",
+        "target": "parse normal return"
+      },
+      {
+        "outcome": "true",
+        "source": "ValueError handler check",
+        "target": "ValueError handler return"
+      }
+    ],
+    "required_paths": [
+      [
+        "parse protected call",
+        "parse value assignment",
+        "parse normal return"
+      ]
+    ]
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "parse entry",
+      "parse return"
+    ],
+    "required_edges": [
+      {
+        "source": "parse entry",
+        "target": "parse return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "parse",
+        "target": "parse"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "parse"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "parse constant",
+      "parse return"
+    ],
+    "required_edges": [
+      {
+        "source": "parse constant",
+        "target": "parse return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "parse"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "parse function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "exception",
+    "handler",
+    "branch-outcome"
+  ]
+}

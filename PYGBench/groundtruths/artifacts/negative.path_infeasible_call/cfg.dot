@@ -1,0 +1,7 @@
+digraph "negative.path_infeasible_call.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run entry";
+  "run return";
+  "run entry" -> "run return";
+}

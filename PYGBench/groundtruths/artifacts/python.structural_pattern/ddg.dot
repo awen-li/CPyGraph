@@ -1,0 +1,7 @@
+digraph "python.structural_pattern.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "coordinate return";
+  "unmatched object";
+  // forbidden: "unmatched object" -> "coordinate return"
+}

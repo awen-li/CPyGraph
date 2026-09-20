@@ -1,0 +1,12 @@
+digraph "import.cross_module_callback.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "callbacks.decoy";
+  "callbacks.target";
+  "dispatcher.invoke";
+  "run";
+  "run" -> "dispatcher.invoke";
+  "dispatcher.invoke" -> "callbacks.target";
+  // forbidden: "dispatcher.invoke" -> "callbacks.decoy"
+  // required path: "run" -> "dispatcher.invoke" -> "callbacks.target"
+}

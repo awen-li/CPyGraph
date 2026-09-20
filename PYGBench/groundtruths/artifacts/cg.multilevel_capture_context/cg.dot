@@ -1,0 +1,12 @@
+digraph "cg.multilevel_capture_context.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "leaf@left_entry";
+  "leaf@right_entry";
+  "left";
+  "right";
+  "leaf@left_entry" -> "left";
+  "leaf@right_entry" -> "right";
+  // forbidden: "leaf@left_entry" -> "right"
+  // forbidden: "leaf@right_entry" -> "left"
+}

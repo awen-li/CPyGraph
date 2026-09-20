@@ -1,0 +1,12 @@
+digraph "import.cross_module_chain.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "leaf.decoy";
+  "leaf.target";
+  "middle.forward";
+  "run";
+  "run" -> "middle.forward";
+  "middle.forward" -> "leaf.target";
+  // forbidden: "run" -> "leaf.decoy"
+  // required path: "run" -> "middle.forward" -> "leaf.target"
+}

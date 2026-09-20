@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "suite": "PYGBench",
+  "case_roots": ["benchmarks"],
+  "categories": ["cfg", "cdg", "pta", "cg", "ddg", "protocol", "import", "negative", "python"],
+  "minimum_cases_per_category": 5,
+  "dimension_taxonomy": {
+    "sensitivity": {
+      "default": "baseline",
+      "tags": ["flow-sensitive", "context-sensitive", "path-sensitive"]
+    },
+    "scope": {
+      "default": "intraprocedural",
+      "tags": ["local", "intraprocedural", "interprocedural", "module", "package", "cross-module", "nested-code", "two-call-site"]
+    },
+    "dispatch": {
+      "default": "not-applicable",
+      "tags": ["direct-call", "indirect-call", "hidden-call", "higher-order", "callable", "callable-object", "bound-method", "method", "method-binding", "receiver", "constructor", "factory"]
+    },
+    "control": {
+      "default": "straight-line",
+      "tags": ["async", "generator", "exception", "loop", "branch", "suspension", "cleanup", "handler", "infeasible-path", "control-flow"]
+    },
+    "oracle_role": {
+      "default": "positive-negative-pair",
+      "tags": ["negative", "precision", "unreachable", "unresolved-group"]
+    }
+  }
+}

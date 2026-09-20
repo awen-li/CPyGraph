@@ -1,0 +1,12 @@
+digraph "import.alias_and_attribute.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "call_imports first alias site";
+  "call_imports second module attribute site";
+  "helper.imported";
+  "local_decoy";
+  "call_imports first alias site" -> "helper.imported";
+  "call_imports second module attribute site" -> "helper.imported";
+  // forbidden: "call_imports first alias site" -> "local_decoy"
+  // forbidden: "call_imports second module attribute site" -> "local_decoy"
+}

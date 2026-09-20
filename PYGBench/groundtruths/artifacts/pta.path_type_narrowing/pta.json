@@ -1,0 +1,15 @@
+{
+  "case": "pta.path_type_narrowing",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "WithoutPayload instance"
+      ],
+      "points_to": [
+        "WithPayload payload"
+      ],
+      "subject": "isinstance true value.payload"
+    }
+  ],
+  "schema_version": 1
+}

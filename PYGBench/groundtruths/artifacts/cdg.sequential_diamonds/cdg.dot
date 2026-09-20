@@ -1,0 +1,16 @@
+digraph "cdg.sequential_diamonds.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first assignment";
+  "first condition";
+  "fourth assignment";
+  "second assignment";
+  "second condition";
+  "third assignment";
+  "first condition" -> "first assignment" [label="true"];
+  "first condition" -> "second assignment" [label="false"];
+  "second condition" -> "third assignment" [label="true"];
+  "second condition" -> "fourth assignment" [label="false"];
+  // forbidden: "first condition" -> "third assignment" [true]
+  // forbidden: "second condition" -> "second assignment" [false]
+}

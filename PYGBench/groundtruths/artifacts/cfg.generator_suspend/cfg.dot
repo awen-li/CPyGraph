@@ -1,0 +1,12 @@
+digraph "cfg.generator_suspend.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "generator exit only";
+  "loop header";
+  "resume";
+  "yield";
+  "yield" -> "resume";
+  "resume" -> "loop header";
+  // forbidden: "yield" -> "generator exit only"
+  // required path: "yield" -> "resume" -> "loop header"
+}

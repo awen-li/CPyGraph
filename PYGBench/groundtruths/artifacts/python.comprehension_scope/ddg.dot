@@ -1,0 +1,10 @@
+digraph "python.comprehension_scope.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "listcomp iteration";
+  "listcomp target value";
+  "outer unrelated";
+  "run values";
+  "run values" -> "listcomp iteration";
+  // forbidden: "listcomp target value" -> "outer unrelated"
+}

@@ -1,0 +1,22 @@
+{
+  "case": "pta.context_factory",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Beta instance"
+      ],
+      "points_to": [
+        "Alpha instance"
+      ],
+      "subject": "first caller result"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "Beta instance"
+      ],
+      "subject": "second caller result"
+    }
+  ],
+  "schema_version": 1
+}

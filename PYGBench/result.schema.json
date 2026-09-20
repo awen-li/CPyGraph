@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical PYGBench analyzer result",
+  "type": "object",
+  "required": ["schema_version", "case", "points_to_sets", "cg", "cfg", "cdg", "ddg"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "case": {"type": "string", "minLength": 1},
+    "points_to_sets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["subject", "points_to"],
+        "properties": {
+          "subject": {"type": "string", "minLength": 1},
+          "points_to": {"$ref": "#/$defs/stringSet"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "cg": {"$ref": "#/$defs/graph"},
+    "cfg": {"$ref": "#/$defs/graph"},
+    "cdg": {"$ref": "#/$defs/graph"},
+    "ddg": {"$ref": "#/$defs/graph"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "stringSet": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "edge": {
+      "type": "object",
+      "required": ["source", "target"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "target": {"type": "string", "minLength": 1},
+        "outcome": {
+          "enum": ["normal", "true", "false", "exception", "resume"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "path": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "graph": {
+      "type": "object",
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": {"$ref": "#/$defs/stringSet"},
+        "edges": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/edge"}
+        },
+        "paths": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/path"}
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,7 @@
+digraph "cfg.async_suspend.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "load operation";
+  "load return";
+  "load operation" -> "load return";
+}

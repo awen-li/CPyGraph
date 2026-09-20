@@ -1,0 +1,10 @@
+digraph "python.structural_pattern.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Point pattern failure";
+  "Point pattern success";
+  "coordinate return";
+  "default return";
+  "Point pattern success" -> "coordinate return";
+  "Point pattern failure" -> "default return";
+}

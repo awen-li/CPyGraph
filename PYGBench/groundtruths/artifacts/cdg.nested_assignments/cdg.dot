@@ -1,0 +1,18 @@
+digraph "cdg.nested_assignments.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first assignment";
+  "first condition";
+  "second assignment";
+  "second condition";
+  "third assignment";
+  "first condition" -> "second condition" [label="true"];
+  "first condition" -> "third assignment" [label="false"];
+  "second condition" -> "first assignment" [label="true"];
+  "second condition" -> "second assignment" [label="false"];
+  // forbidden: "first condition" -> "second condition" [false]
+  // forbidden: "second condition" -> "third assignment" [true]
+  // required path: "first condition" -> "second condition" -> "first assignment"
+  // required path: "first condition" -> "second condition" -> "second assignment"
+  // forbidden path: "first condition" -> "second condition" -> "third assignment"
+}

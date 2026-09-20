@@ -1,0 +1,6 @@
+digraph "cfg.generator_suspend.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "generate";
+  // forbidden: "generate" -> "generate"
+}

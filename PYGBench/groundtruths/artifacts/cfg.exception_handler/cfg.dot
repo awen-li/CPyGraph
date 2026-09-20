@@ -1,0 +1,11 @@
+digraph "cfg.exception_handler.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "ZeroDivisionError handler";
+  "division";
+  "handler";
+  "normal return";
+  "division" -> "ZeroDivisionError handler";
+  "division" -> "normal return";
+  // forbidden: "handler" -> "normal return"
+}

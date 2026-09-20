@@ -1,0 +1,6 @@
+digraph "ddg.branch_merge.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "merge";
+  // forbidden: "merge" -> "merge"
+}

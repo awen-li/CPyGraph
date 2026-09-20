@@ -1,0 +1,6 @@
+digraph "cfg.exception_handler.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "guarded_divide";
+  // forbidden: "guarded_divide" -> "guarded_divide"
+}

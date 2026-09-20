@@ -1,0 +1,7 @@
+digraph "python.annotations.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "identity entry";
+  "identity return";
+  "identity entry" -> "identity return";
+}

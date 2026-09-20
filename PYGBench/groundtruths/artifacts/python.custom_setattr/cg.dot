@@ -1,0 +1,10 @@
+digraph "python.custom_setattr.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Item.__setattr__";
+  "Item.unused";
+  "run";
+  "run assignment";
+  "run assignment" -> "Item.__setattr__";
+  // forbidden: "run" -> "Item.unused"
+}

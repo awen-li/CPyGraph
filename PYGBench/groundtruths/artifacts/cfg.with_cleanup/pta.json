@@ -1,0 +1,13 @@
+{
+  "case": "cfg.with_cleanup",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "managed parameter action"
+      ],
+      "subject": "managed action"
+    }
+  ],
+  "schema_version": 1
+}

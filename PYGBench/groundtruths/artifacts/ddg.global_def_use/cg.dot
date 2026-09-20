@@ -1,0 +1,7 @@
+digraph "ddg.global_def_use.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "read";
+  "write";
+  // forbidden: "write" -> "read"
+}

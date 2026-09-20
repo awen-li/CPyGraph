@@ -1,0 +1,7 @@
+digraph "cg.higher_order.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decrement entry";
+  "decrement return";
+  "decrement entry" -> "decrement return";
+}

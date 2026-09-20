@@ -1,0 +1,13 @@
+{
+  "case": "cfg.branch",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "choose parameter left"
+      ],
+      "subject": "choose left"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,140 @@
+{
+  "case": "cfg.try_finally",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "try body",
+        "target": "function exit bypassing finally"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "exceptional try exit",
+      "finally",
+      "function exit bypassing finally",
+      "normal try exit",
+      "try body"
+    ],
+    "required_edges": [
+      {
+        "source": "normal try exit",
+        "target": "finally"
+      },
+      {
+        "source": "exceptional try exit",
+        "target": "finally"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "guarded",
+        "target": "guarded"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "guarded"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "guarded call",
+      "guarded return"
+    ],
+    "required_edges": [
+      {
+        "source": "guarded call",
+        "target": "guarded return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "guarded"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "guarded parameter action"
+      ],
+      "subject": "guarded action"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "exception-flow",
+    "cleanup"
+  ]
+}

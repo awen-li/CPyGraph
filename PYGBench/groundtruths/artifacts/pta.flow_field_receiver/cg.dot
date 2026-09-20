@@ -1,0 +1,6 @@
+digraph "pta.flow_field_receiver.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  // forbidden: "run" -> "run"
+}

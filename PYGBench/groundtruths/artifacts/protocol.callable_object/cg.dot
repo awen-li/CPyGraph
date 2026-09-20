@@ -1,0 +1,9 @@
+digraph "protocol.callable_object.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Handler.__call__";
+  "Handler.unused";
+  "run";
+  "run" -> "Handler.__call__";
+  // forbidden: "run" -> "Handler.unused"
+}

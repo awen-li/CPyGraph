@@ -1,0 +1,147 @@
+{
+  "case": "protocol.combined_dispatch",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "exercise_protocols entry",
+      "exercise_protocols return"
+    ],
+    "required_edges": [
+      {
+        "source": "exercise_protocols entry",
+        "target": "exercise_protocols return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "exercise_protocols",
+        "target": "unrelated user function"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "Protocols.__add__",
+      "Protocols.__enter__",
+      "Protocols.__exit__",
+      "exercise_protocols",
+      "unrelated user function"
+    ],
+    "required_edges": [
+      {
+        "source": "exercise_protocols",
+        "target": "Protocols.__enter__"
+      },
+      {
+        "source": "exercise_protocols",
+        "target": "Protocols.__exit__"
+      },
+      {
+        "source": "exercise_protocols",
+        "target": "Protocols.__add__"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "exercise_protocols constant",
+      "exercise_protocols return"
+    ],
+    "required_edges": [
+      {
+        "source": "exercise_protocols constant",
+        "target": "exercise_protocols return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "exercise_protocols"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "exercise_protocols function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "context",
+    "iterator",
+    "operator",
+    "subscription"
+  ]
+}

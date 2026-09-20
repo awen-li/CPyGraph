@@ -1,0 +1,13 @@
+{
+  "case": "import.dynamic_import",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter name"
+      ],
+      "subject": "run name"
+    }
+  ],
+  "schema_version": 1
+}

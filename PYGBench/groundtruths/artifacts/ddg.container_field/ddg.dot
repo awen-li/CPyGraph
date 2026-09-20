@@ -1,0 +1,13 @@
+digraph "ddg.container_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "box allocation";
+  "box.items element";
+  "return";
+  "return payload";
+  "value";
+  "value" -> "box.items element";
+  "box.items element" -> "return";
+  // forbidden: "box allocation" -> "return payload"
+  // required path: "value" -> "box.items element" -> "return"
+}

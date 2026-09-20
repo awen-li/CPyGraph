@@ -1,0 +1,9 @@
+digraph "negative.shadowed_name.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "local target";
+  "module target";
+  "run";
+  "run" -> "local target";
+  // forbidden: "run" -> "module target"
+}

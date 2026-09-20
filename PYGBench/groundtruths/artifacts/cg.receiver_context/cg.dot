@@ -1,0 +1,11 @@
+digraph "cg.receiver_context.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "First.handle";
+  "Second.handle";
+  "dispatch@First receiver";
+  "dispatch@Second receiver";
+  "dispatch@First receiver" -> "First.handle";
+  "dispatch@Second receiver" -> "Second.handle";
+  // forbidden: "dispatch@First receiver" -> "Second.handle"
+}

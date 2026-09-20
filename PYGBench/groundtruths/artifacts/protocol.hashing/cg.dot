@@ -1,0 +1,9 @@
+digraph "protocol.hashing.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__eq__";
+  "Value.__hash__";
+  "run";
+  "run" -> "Value.__hash__";
+  // forbidden: "run" -> "Value.__eq__"
+}

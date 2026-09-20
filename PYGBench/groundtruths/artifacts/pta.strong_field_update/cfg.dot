@@ -1,0 +1,7 @@
+digraph "pta.strong_field_update.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "replace entry";
+  "replace return";
+  "replace entry" -> "replace return";
+}

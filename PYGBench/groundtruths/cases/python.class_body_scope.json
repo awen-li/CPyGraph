@@ -1,0 +1,145 @@
+{
+  "case": "python.class_body_scope",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "method entry",
+      "method return"
+    ],
+    "required_edges": [
+      {
+        "source": "method entry",
+        "target": "method return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "method",
+        "target": "method"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "method"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "Example.method self",
+        "target": "Example.value definition"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "Example.method return",
+      "Example.method self",
+      "Example.value",
+      "Example.value definition",
+      "module seed"
+    ],
+    "required_edges": [
+      {
+        "source": "module seed",
+        "target": "Example.value"
+      },
+      {
+        "source": "Example.value",
+        "target": "Example.method return"
+      }
+    ],
+    "required_paths": [
+      [
+        "module seed",
+        "Example.value",
+        "Example.method return"
+      ]
+    ]
+  },
+  "entry_points": [
+    "<module>"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "module function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "class-body",
+    "lexical-scope"
+  ]
+}

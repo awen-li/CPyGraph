@@ -1,0 +1,6 @@
+digraph "cfg.deep_nested_branch.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  // forbidden: "run" -> "run"
+}

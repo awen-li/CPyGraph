@@ -1,0 +1,11 @@
+digraph "cg.lambda_target.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decoy";
+  "lambda@make";
+  "make";
+  "run";
+  "run" -> "lambda@make";
+  "run" -> "make";
+  // forbidden: "run" -> "decoy"
+}

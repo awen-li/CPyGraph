@@ -1,0 +1,12 @@
+digraph "cfg.nested_handlers.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "KeyError raise";
+  "inner handler";
+  "other exception";
+  "outer handler";
+  "outer handler directly";
+  "KeyError raise" -> "inner handler";
+  "other exception" -> "outer handler";
+  // forbidden: "KeyError raise" -> "outer handler directly"
+}

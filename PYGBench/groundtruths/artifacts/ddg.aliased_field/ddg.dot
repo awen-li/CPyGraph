@@ -1,0 +1,12 @@
+digraph "ddg.aliased_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Box allocation";
+  "alias.payload store";
+  "box.payload return";
+  "value";
+  "value" -> "alias.payload store";
+  "alias.payload store" -> "box.payload return";
+  // forbidden: "Box allocation" -> "box.payload return"
+  // required path: "value" -> "alias.payload store" -> "box.payload return"
+}

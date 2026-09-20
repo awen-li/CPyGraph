@@ -1,0 +1,7 @@
+digraph "cfg.context_suppression.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "__enter__";
+  "run";
+  // forbidden: "run" -> "__enter__"
+}

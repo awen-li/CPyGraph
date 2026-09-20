@@ -1,0 +1,7 @@
+digraph "python.exception_chaining.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "RuntimeError cause";
+  "ValueError instance";
+  "ValueError instance" -> "RuntimeError cause";
+}

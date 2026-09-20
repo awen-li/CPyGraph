@@ -1,0 +1,23 @@
+digraph "cdg.boolean_and_chain.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "false return";
+  "first condition";
+  "second condition";
+  "third condition";
+  "true return";
+  "first condition" -> "second condition" [label="true"];
+  "first condition" -> "false return" [label="false"];
+  "second condition" -> "third condition" [label="true"];
+  "second condition" -> "false return" [label="false"];
+  "third condition" -> "true return" [label="true"];
+  "third condition" -> "false return" [label="false"];
+  // forbidden: "first condition" -> "second condition" [false]
+  // forbidden: "third condition" -> "false return" [true]
+  // required path: "first condition" -> "second condition" -> "false return"
+  // required path: "first condition" -> "second condition" -> "third condition"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "false return"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "true return"
+  // required path: "second condition" -> "third condition" -> "false return"
+  // required path: "second condition" -> "third condition" -> "true return"
+}

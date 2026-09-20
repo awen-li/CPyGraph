@@ -1,0 +1,144 @@
+{
+  "case": "cdg.branch_join",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "false",
+        "source": "compute condition",
+        "target": "compute second assignment"
+      },
+      {
+        "outcome": "true",
+        "source": "compute condition",
+        "target": "compute return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "compute condition",
+      "compute return",
+      "compute second assignment"
+    ],
+    "required_edges": [
+      {
+        "outcome": "true",
+        "source": "compute condition",
+        "target": "compute second assignment"
+      }
+    ],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "compute entry",
+      "compute return"
+    ],
+    "required_edges": [
+      {
+        "source": "compute entry",
+        "target": "compute return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "compute",
+        "target": "compute"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "compute"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "compute return",
+      "compute value"
+    ],
+    "required_edges": [
+      {
+        "source": "compute value",
+        "target": "compute return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "compute"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "compute function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "branch",
+    "postdominator",
+    "branch-outcome"
+  ]
+}

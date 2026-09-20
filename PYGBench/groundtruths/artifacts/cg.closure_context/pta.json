@@ -1,0 +1,13 @@
+{
+  "case": "cg.closure_context",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "bind function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

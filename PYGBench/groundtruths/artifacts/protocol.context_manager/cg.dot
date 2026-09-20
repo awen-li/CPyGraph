@@ -1,0 +1,11 @@
+digraph "protocol.context_manager.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Resource.__enter__";
+  "Resource.__exit__";
+  "Resource.close";
+  "run";
+  "run" -> "Resource.__enter__";
+  "run" -> "Resource.__exit__";
+  // forbidden: "run" -> "Resource.close"
+}

@@ -1,0 +1,9 @@
+digraph "import.star_import.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "provider.exported";
+  "provider.hidden";
+  "run";
+  "run" -> "provider.exported";
+  // forbidden: "run" -> "provider.hidden"
+}

@@ -1,0 +1,12 @@
+digraph "python.assignment_expression.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "condition and return";
+  "source function object";
+  "source return";
+  "value";
+  "source return" -> "value";
+  "value" -> "condition and return";
+  // forbidden: "source function object" -> "value"
+  // required path: "source return" -> "value" -> "condition and return"
+}

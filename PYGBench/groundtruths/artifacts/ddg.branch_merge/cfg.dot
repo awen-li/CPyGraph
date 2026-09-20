@@ -1,0 +1,7 @@
+digraph "ddg.branch_merge.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "merge entry";
+  "merge return";
+  "merge entry" -> "merge return";
+}

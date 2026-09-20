@@ -1,0 +1,7 @@
+digraph "pta.global_flow.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "read_global";
+  "write_global";
+  // forbidden: "write_global" -> "read_global"
+}

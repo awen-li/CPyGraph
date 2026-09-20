@@ -1,0 +1,7 @@
+digraph "pta.context_factory.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first entry";
+  "first return";
+  "first entry" -> "first return";
+}

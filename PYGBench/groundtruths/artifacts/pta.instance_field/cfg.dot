@@ -1,0 +1,7 @@
+digraph "pta.instance_field.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "round_trip entry";
+  "round_trip return";
+  "round_trip entry" -> "round_trip return";
+}

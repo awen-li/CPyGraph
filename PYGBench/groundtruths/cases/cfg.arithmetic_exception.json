@@ -1,0 +1,140 @@
+{
+  "case": "cfg.arithmetic_exception",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "ZeroDivisionError handler",
+        "target": "normal division return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "ZeroDivisionError handler",
+      "normal division return",
+      "normal return",
+      "protected division"
+    ],
+    "required_edges": [
+      {
+        "source": "protected division",
+        "target": "ZeroDivisionError handler"
+      },
+      {
+        "source": "protected division",
+        "target": "normal return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "run",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "run"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run operation",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run operation",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter left"
+      ],
+      "subject": "run left"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "exception-flow",
+    "exception",
+    "operator"
+  ]
+}

@@ -1,0 +1,16 @@
+digraph "cdg.chained_comparison.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "false return";
+  "first condition";
+  "second condition";
+  "true return";
+  "first condition" -> "second condition" [label="true"];
+  "second condition" -> "true return" [label="true"];
+  "second condition" -> "false return" [label="false"];
+  // forbidden: "first condition" -> "second condition" [false]
+  // forbidden: "first condition" -> "false return" [false]
+  // forbidden: "true return" -> "second condition"
+  // required path: "first condition" -> "second condition" -> "false return"
+  // required path: "first condition" -> "second condition" -> "true return"
+}

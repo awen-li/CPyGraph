@@ -1,0 +1,7 @@
+digraph "cdg.nested_conditions.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "select constant";
+  "select return";
+  "select constant" -> "select return";
+}

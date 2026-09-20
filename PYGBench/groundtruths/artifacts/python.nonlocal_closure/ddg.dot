@@ -1,0 +1,7 @@
+digraph "python.nonlocal_closure.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "increment nonlocal update";
+  "later increment read";
+  "increment nonlocal update" -> "later increment read";
+}

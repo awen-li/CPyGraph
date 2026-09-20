@@ -1,0 +1,11 @@
+digraph "ddg.object_field_separation.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first";
+  "left.payload return";
+  "right.payload return";
+  "second";
+  "first" -> "left.payload return";
+  "second" -> "right.payload return";
+  // forbidden: "second" -> "left.payload return"
+}

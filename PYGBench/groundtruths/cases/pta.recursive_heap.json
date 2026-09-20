@@ -1,0 +1,137 @@
+{
+  "case": "pta.recursive_heap",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "cycle entry",
+      "cycle return"
+    ],
+    "required_edges": [
+      {
+        "source": "cycle entry",
+        "target": "cycle return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "cycle",
+        "target": "cycle"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "cycle"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "cycle load attribute next",
+      "cycle return"
+    ],
+    "required_edges": [
+      {
+        "source": "cycle load attribute next",
+        "target": "cycle return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "cycle"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "first"
+      ],
+      "points_to": [
+        "second"
+      ],
+      "subject": "first.next"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "first"
+      ],
+      "subject": "second.next"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "field-modeling",
+    "recursive-heap"
+  ]
+}

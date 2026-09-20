@@ -1,0 +1,6 @@
+digraph "python.unpacking.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "swap";
+  // forbidden: "swap" -> "swap"
+}

@@ -1,0 +1,9 @@
+digraph "python.chained_comparison.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__gt__";
+  "Value.__lt__ at both comparisons";
+  "run";
+  "run" -> "Value.__lt__ at both comparisons";
+  // forbidden: "run" -> "Value.__gt__"
+}

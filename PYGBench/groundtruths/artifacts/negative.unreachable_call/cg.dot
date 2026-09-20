@@ -1,0 +1,9 @@
+digraph "negative.unreachable_call.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "dead";
+  "live";
+  "run";
+  "run" -> "live";
+  // forbidden: "run" -> "dead"
+}

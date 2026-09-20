@@ -1,0 +1,15 @@
+{
+  "case": "pta.closure_capture",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "inner function"
+      ],
+      "points_to": [
+        "outer parameter value"
+      ],
+      "subject": "inner return"
+    }
+  ],
+  "schema_version": 1
+}

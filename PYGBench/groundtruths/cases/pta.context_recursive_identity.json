@@ -1,0 +1,147 @@
+{
+  "case": "pta.context_recursive_identity",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "left entry",
+      "left return"
+    ],
+    "required_edges": [
+      {
+        "source": "left entry",
+        "target": "left return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "carry",
+        "target": "left"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "carry",
+      "left"
+    ],
+    "required_edges": [
+      {
+        "source": "carry",
+        "target": "carry"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "left call",
+      "left return"
+    ],
+    "required_edges": [
+      {
+        "source": "left call",
+        "target": "left return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "left",
+    "right"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Right instance"
+      ],
+      "points_to": [
+        "Left instance"
+      ],
+      "subject": "left result"
+    },
+    {
+      "must_not_point_to": [
+        "Left instance"
+      ],
+      "points_to": [
+        "Right instance"
+      ],
+      "subject": "right result"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "context-sensitive",
+    "recursion",
+    "interprocedural"
+  ]
+}

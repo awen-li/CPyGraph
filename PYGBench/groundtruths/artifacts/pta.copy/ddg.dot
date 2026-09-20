@@ -1,0 +1,7 @@
+digraph "pta.copy.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "copy alias";
+  "copy return";
+  "copy alias" -> "copy return";
+}

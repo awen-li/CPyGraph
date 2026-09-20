@@ -1,0 +1,6 @@
+digraph "cdg.exception_outcomes.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "parse";
+  // forbidden: "parse" -> "parse"
+}

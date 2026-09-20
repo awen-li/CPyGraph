@@ -1,0 +1,7 @@
+digraph "pta.context_identity.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "from_left entry";
+  "from_left return";
+  "from_left entry" -> "from_left return";
+}

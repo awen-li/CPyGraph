@@ -1,0 +1,157 @@
+{
+  "case": "python.multiple_with",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "left exit",
+        "target": "right exit"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "left exit",
+      "right exit"
+    ],
+    "required_edges": [
+      {
+        "source": "right exit",
+        "target": "left exit"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "run",
+        "target": "unused"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "Left.__enter__",
+      "Left.__exit__",
+      "Right.__enter__",
+      "Right.__exit__",
+      "run",
+      "run cleanup",
+      "unused"
+    ],
+    "required_edges": [
+      {
+        "source": "run",
+        "target": "Left.__enter__"
+      },
+      {
+        "source": "run",
+        "target": "Right.__enter__"
+      },
+      {
+        "source": "run cleanup",
+        "target": "Left.__exit__"
+      },
+      {
+        "source": "run cleanup",
+        "target": "Right.__exit__"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run operation",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run operation",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "run function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "context-manager",
+    "cleanup",
+    "nesting"
+  ]
+}

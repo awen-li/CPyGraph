@@ -1,0 +1,7 @@
+digraph "cdg.boolean_or_chain.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "any_enabled constant";
+  "any_enabled return";
+  "any_enabled constant" -> "any_enabled return";
+}

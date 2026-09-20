@@ -1,0 +1,11 @@
+digraph "python.keyword_only.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run option";
+  "run value";
+  "target option";
+  "target value";
+  "run value" -> "target value";
+  "run option" -> "target option";
+  // forbidden: "run value" -> "target option"
+}

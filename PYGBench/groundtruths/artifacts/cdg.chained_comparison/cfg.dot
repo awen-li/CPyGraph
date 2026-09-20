@@ -1,0 +1,7 @@
+digraph "cdg.chained_comparison.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "within entry";
+  "within return";
+  "within entry" -> "within return";
+}

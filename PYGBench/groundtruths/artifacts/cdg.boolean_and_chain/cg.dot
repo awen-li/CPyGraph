@@ -1,0 +1,6 @@
+digraph "cdg.boolean_and_chain.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "all_enabled";
+  // forbidden: "all_enabled" -> "all_enabled"
+}

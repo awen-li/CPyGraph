@@ -1,0 +1,11 @@
+digraph "cg.super_dispatch.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Base.work";
+  "Child.work";
+  "run";
+  "Child.work" -> "Base.work";
+  "run" -> "Child.work";
+  // forbidden: "Child.work" -> "Child.work"
+  // required path: "run" -> "Child.work" -> "Base.work"
+}

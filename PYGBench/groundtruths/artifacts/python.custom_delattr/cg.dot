@@ -1,0 +1,9 @@
+digraph "python.custom_delattr.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Item.__delattr__";
+  "Item.unused";
+  "run deletion";
+  "run deletion" -> "Item.__delattr__";
+  // forbidden: "run deletion" -> "Item.unused"
+}

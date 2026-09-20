@@ -1,0 +1,140 @@
+{
+  "case": "cfg.with_cleanup",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "with body",
+        "target": "function exit bypassing cleanup"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "context cleanup",
+      "function exit bypassing cleanup",
+      "with body",
+      "with exceptional exit",
+      "with normal exit"
+    ],
+    "required_edges": [
+      {
+        "source": "with normal exit",
+        "target": "context cleanup"
+      },
+      {
+        "source": "with exceptional exit",
+        "target": "context cleanup"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "managed",
+        "target": "managed"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "managed"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "managed call",
+      "managed return"
+    ],
+    "required_edges": [
+      {
+        "source": "managed call",
+        "target": "managed return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "managed"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "managed parameter action"
+      ],
+      "subject": "managed action"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "exception-flow",
+    "context-manager"
+  ]
+}

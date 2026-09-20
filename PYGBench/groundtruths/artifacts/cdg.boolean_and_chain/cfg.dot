@@ -1,0 +1,7 @@
+digraph "cdg.boolean_and_chain.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "all_enabled entry";
+  "all_enabled return";
+  "all_enabled entry" -> "all_enabled return";
+}

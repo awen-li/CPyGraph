@@ -1,0 +1,15 @@
+{
+  "case": "pta.argument_return",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "identity function"
+      ],
+      "points_to": [
+        "allocated Token"
+      ],
+      "subject": "run result"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,7 @@
+digraph "python.slicing.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run load element";
+  "run return";
+  "run load element" -> "run return";
+}

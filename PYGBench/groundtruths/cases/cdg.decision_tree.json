@@ -1,0 +1,331 @@
+{
+  "case": "cdg.decision_tree",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "false",
+        "source": "first condition",
+        "target": "second condition"
+      },
+      {
+        "outcome": "true",
+        "source": "first condition",
+        "target": "fifth condition"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "eighth return",
+      "fifth condition",
+      "fifth return",
+      "first condition",
+      "first return",
+      "fourth condition",
+      "fourth return",
+      "second condition",
+      "second return",
+      "seventh condition",
+      "seventh return",
+      "sixth condition",
+      "sixth return",
+      "third condition",
+      "third return"
+    ],
+    "required_edges": [
+      {
+        "outcome": "true",
+        "source": "first condition",
+        "target": "second condition"
+      },
+      {
+        "outcome": "false",
+        "source": "first condition",
+        "target": "fifth condition"
+      },
+      {
+        "outcome": "true",
+        "source": "second condition",
+        "target": "third condition"
+      },
+      {
+        "outcome": "false",
+        "source": "second condition",
+        "target": "fourth condition"
+      },
+      {
+        "outcome": "true",
+        "source": "third condition",
+        "target": "first return"
+      },
+      {
+        "outcome": "false",
+        "source": "third condition",
+        "target": "second return"
+      },
+      {
+        "outcome": "true",
+        "source": "fourth condition",
+        "target": "third return"
+      },
+      {
+        "outcome": "false",
+        "source": "fourth condition",
+        "target": "fourth return"
+      },
+      {
+        "outcome": "true",
+        "source": "fifth condition",
+        "target": "sixth condition"
+      },
+      {
+        "outcome": "false",
+        "source": "fifth condition",
+        "target": "seventh condition"
+      },
+      {
+        "outcome": "true",
+        "source": "sixth condition",
+        "target": "fifth return"
+      },
+      {
+        "outcome": "false",
+        "source": "sixth condition",
+        "target": "sixth return"
+      },
+      {
+        "outcome": "true",
+        "source": "seventh condition",
+        "target": "seventh return"
+      },
+      {
+        "outcome": "false",
+        "source": "seventh condition",
+        "target": "eighth return"
+      }
+    ],
+    "required_paths": [
+      [
+        "fifth condition",
+        "seventh condition",
+        "eighth return"
+      ],
+      [
+        "fifth condition",
+        "seventh condition",
+        "seventh return"
+      ],
+      [
+        "fifth condition",
+        "sixth condition",
+        "fifth return"
+      ],
+      [
+        "fifth condition",
+        "sixth condition",
+        "sixth return"
+      ],
+      [
+        "first condition",
+        "fifth condition",
+        "seventh condition"
+      ],
+      [
+        "first condition",
+        "fifth condition",
+        "seventh condition",
+        "eighth return"
+      ],
+      [
+        "first condition",
+        "fifth condition",
+        "seventh condition",
+        "seventh return"
+      ],
+      [
+        "first condition",
+        "fifth condition",
+        "sixth condition"
+      ],
+      [
+        "first condition",
+        "fifth condition",
+        "sixth condition",
+        "fifth return"
+      ],
+      [
+        "first condition",
+        "fifth condition",
+        "sixth condition",
+        "sixth return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "fourth condition"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "fourth condition",
+        "fourth return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "fourth condition",
+        "third return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "first return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "second return"
+      ],
+      [
+        "second condition",
+        "fourth condition",
+        "fourth return"
+      ],
+      [
+        "second condition",
+        "fourth condition",
+        "third return"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "first return"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "second return"
+      ]
+    ]
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "classify entry",
+      "classify return"
+    ],
+    "required_edges": [
+      {
+        "source": "classify entry",
+        "target": "classify return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "classify",
+        "target": "classify"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "classify"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "classify constant",
+      "classify return"
+    ],
+    "required_edges": [
+      {
+        "source": "classify constant",
+        "target": "classify return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "classify"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "classify function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "branch",
+    "nested-control",
+    "branch-outcome",
+    "multi-hop"
+  ]
+}

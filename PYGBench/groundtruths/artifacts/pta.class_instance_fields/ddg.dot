@@ -1,0 +1,7 @@
+digraph "pta.class_instance_fields.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "separate operation";
+  "separate return";
+  "separate operation" -> "separate return";
+}

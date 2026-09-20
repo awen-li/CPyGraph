@@ -1,0 +1,142 @@
+{
+  "case": "cg.constructor_context",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "left entry",
+      "left return"
+    ],
+    "required_edges": [
+      {
+        "source": "left entry",
+        "target": "left return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "create@left",
+        "target": "Right.__init__"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "Left.__init__",
+      "Right.__init__",
+      "create@left",
+      "create@right"
+    ],
+    "required_edges": [
+      {
+        "source": "create@left",
+        "target": "Left.__init__"
+      },
+      {
+        "source": "create@right",
+        "target": "Right.__init__"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "left call",
+      "left return"
+    ],
+    "required_edges": [
+      {
+        "source": "left call",
+        "target": "left return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "left",
+    "right"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "create parameter constructor"
+      ],
+      "subject": "create constructor"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "context-sensitive",
+    "constructor",
+    "higher-order"
+  ]
+}

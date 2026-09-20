@@ -1,0 +1,7 @@
+digraph "cdg.branch_join.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "compute return";
+  "compute value";
+  "compute value" -> "compute return";
+}

@@ -1,0 +1,7 @@
+digraph "cg.multilevel_capture_context.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left_entry call";
+  "left_entry return";
+  "left_entry call" -> "left_entry return";
+}

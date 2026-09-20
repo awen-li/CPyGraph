@@ -1,0 +1,7 @@
+digraph "cg.two_level_context.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left_entry entry";
+  "left_entry return";
+  "left_entry entry" -> "left_entry return";
+}

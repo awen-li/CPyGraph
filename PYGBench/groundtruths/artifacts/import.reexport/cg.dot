@@ -1,0 +1,9 @@
+digraph "import.reexport.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "api.decoy";
+  "api.target";
+  "run";
+  "run" -> "api.target";
+  // forbidden: "run" -> "api.decoy"
+}

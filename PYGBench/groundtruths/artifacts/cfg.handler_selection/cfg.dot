@@ -1,0 +1,14 @@
+digraph "cfg.handler_selection.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Exception handler";
+  "TypeError exception";
+  "TypeError handler";
+  "ValueError exception";
+  "ValueError handler";
+  "other exception";
+  "ValueError exception" -> "ValueError handler";
+  "TypeError exception" -> "TypeError handler";
+  "other exception" -> "Exception handler";
+  // forbidden: "ValueError exception" -> "TypeError handler"
+}

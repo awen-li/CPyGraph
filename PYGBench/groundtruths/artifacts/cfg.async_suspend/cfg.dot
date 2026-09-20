@@ -1,0 +1,12 @@
+digraph "cfg.async_suspend.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "await";
+  "resume";
+  "return";
+  "return without resume";
+  "suspend";
+  "await" -> "suspend";
+  "resume" -> "return";
+  // forbidden: "await" -> "return without resume"
+}

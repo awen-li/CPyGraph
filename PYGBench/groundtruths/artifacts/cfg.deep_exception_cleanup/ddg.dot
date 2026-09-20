@@ -1,0 +1,7 @@
+digraph "cfg.deep_exception_cleanup.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run return";
+  "run value";
+  "run value" -> "run return";
+}

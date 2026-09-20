@@ -1,0 +1,9 @@
+digraph "pta.context_receiver_value.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Holder.__init__";
+  "extract";
+  "read";
+  "extract" -> "read";
+  // forbidden: "extract" -> "Holder.__init__"
+}

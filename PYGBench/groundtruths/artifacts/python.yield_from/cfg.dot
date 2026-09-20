@@ -1,0 +1,7 @@
+digraph "python.yield_from.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "delegate yield-from";
+  "suspend and resume";
+  "delegate yield-from" -> "suspend and resume";
+}

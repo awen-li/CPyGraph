@@ -1,0 +1,8 @@
+digraph "python.keyword_only.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  "target";
+  "run" -> "target";
+  // forbidden: "target" -> "run"
+}

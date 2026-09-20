@@ -1,0 +1,17 @@
+digraph "cdg.exception_outcomes.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "ValueError handler check";
+  "ValueError handler return";
+  "exception dispatch entry";
+  "parse normal return";
+  "parse protected call";
+  "parse value assignment";
+  "parse protected call" -> "parse value assignment" [label="normal"];
+  "parse protected call" -> "exception dispatch entry" [label="exception"];
+  "parse value assignment" -> "parse normal return" [label="normal"];
+  "ValueError handler check" -> "ValueError handler return" [label="true"];
+  // forbidden: "parse protected call" -> "exception dispatch entry" [normal]
+  // forbidden: "parse protected call" -> "parse value assignment" [exception]
+  // required path: "parse protected call" -> "parse value assignment" -> "parse normal return"
+}

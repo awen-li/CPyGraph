@@ -1,0 +1,13 @@
+digraph "ddg.loop_carried.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "next total update";
+  "return total";
+  "returned total directly";
+  "total initialization";
+  "total update";
+  "values container";
+  "total update" -> "next total update";
+  "total initialization" -> "return total";
+  // forbidden: "values container" -> "returned total directly"
+}

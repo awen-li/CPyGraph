@@ -1,0 +1,20 @@
+{
+  "case": "python.slots",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "constructor value"
+      ],
+      "points_to": [],
+      "subject": "item.missing"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "constructor value"
+      ],
+      "subject": "item.value"
+    }
+  ],
+  "schema_version": 1
+}

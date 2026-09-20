@@ -1,0 +1,206 @@
+{
+  "case": "cdg.boolean_and_chain",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "false",
+        "source": "first condition",
+        "target": "second condition"
+      },
+      {
+        "outcome": "true",
+        "source": "third condition",
+        "target": "false return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "false return",
+      "first condition",
+      "second condition",
+      "third condition",
+      "true return"
+    ],
+    "required_edges": [
+      {
+        "outcome": "true",
+        "source": "first condition",
+        "target": "second condition"
+      },
+      {
+        "outcome": "false",
+        "source": "first condition",
+        "target": "false return"
+      },
+      {
+        "outcome": "true",
+        "source": "second condition",
+        "target": "third condition"
+      },
+      {
+        "outcome": "false",
+        "source": "second condition",
+        "target": "false return"
+      },
+      {
+        "outcome": "true",
+        "source": "third condition",
+        "target": "true return"
+      },
+      {
+        "outcome": "false",
+        "source": "third condition",
+        "target": "false return"
+      }
+    ],
+    "required_paths": [
+      [
+        "first condition",
+        "second condition",
+        "false return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "false return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "true return"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "false return"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "true return"
+      ]
+    ]
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "all_enabled entry",
+      "all_enabled return"
+    ],
+    "required_edges": [
+      {
+        "source": "all_enabled entry",
+        "target": "all_enabled return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "all_enabled",
+        "target": "all_enabled"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "all_enabled"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "all_enabled constant",
+      "all_enabled return"
+    ],
+    "required_edges": [
+      {
+        "source": "all_enabled constant",
+        "target": "all_enabled return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "all_enabled"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "all_enabled function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "branch",
+    "boolean",
+    "short-circuit",
+    "branch-outcome",
+    "multi-hop"
+  ]
+}

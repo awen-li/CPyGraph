@@ -1,0 +1,7 @@
+digraph "python.yield_from.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "delegate";
+  "unrelated";
+  // forbidden: "delegate" -> "unrelated"
+}

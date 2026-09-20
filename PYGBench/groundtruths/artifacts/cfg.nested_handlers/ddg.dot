@@ -1,0 +1,7 @@
+digraph "cfg.nested_handlers.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "nested load element";
+  "nested return";
+  "nested load element" -> "nested return";
+}

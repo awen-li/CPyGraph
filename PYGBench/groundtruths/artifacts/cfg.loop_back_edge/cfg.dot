@@ -1,0 +1,11 @@
+digraph "cfg.loop_back_edge.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "condition";
+  "loop exit";
+  "while body";
+  "while body" -> "condition";
+  "condition" -> "loop exit";
+  // forbidden: "loop exit" -> "while body"
+  // required path: "while body" -> "condition" -> "loop exit"
+}

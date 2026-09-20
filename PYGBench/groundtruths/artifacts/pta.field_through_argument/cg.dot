@@ -1,0 +1,8 @@
+digraph "pta.field_through_argument.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "read";
+  "run";
+  "run" -> "read";
+  // forbidden: "read" -> "run"
+}

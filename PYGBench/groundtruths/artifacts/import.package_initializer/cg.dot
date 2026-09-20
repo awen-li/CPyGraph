@@ -1,0 +1,9 @@
+digraph "import.package_initializer.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decoy";
+  "initialized";
+  "run";
+  "run" -> "initialized";
+  // forbidden: "run" -> "decoy"
+}

@@ -1,0 +1,7 @@
+digraph "pta.same_object_fields.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "store operation";
+  "store return";
+  "store operation" -> "store return";
+}

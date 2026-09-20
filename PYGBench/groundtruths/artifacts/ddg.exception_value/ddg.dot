@@ -1,0 +1,12 @@
+digraph "ddg.exception_value.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "handler exception";
+  "normal return value";
+  "raised ValueError";
+  "return";
+  "raised ValueError" -> "handler exception";
+  "handler exception" -> "return";
+  // forbidden: "normal return value" -> "handler exception"
+  // required path: "raised ValueError" -> "handler exception" -> "return"
+}

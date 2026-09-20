@@ -1,0 +1,15 @@
+{
+  "case": "pta.global_flow",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "module object"
+      ],
+      "points_to": [
+        "write_global parameter"
+      ],
+      "subject": "read_global return"
+    }
+  ],
+  "schema_version": 1
+}

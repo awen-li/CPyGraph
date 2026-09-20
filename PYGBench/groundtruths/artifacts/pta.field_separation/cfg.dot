@@ -1,0 +1,7 @@
+digraph "pta.field_separation.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "separate entry";
+  "separate return";
+  "separate entry" -> "separate return";
+}

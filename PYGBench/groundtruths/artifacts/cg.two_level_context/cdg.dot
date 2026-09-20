@@ -1,0 +1,6 @@
+digraph "cg.two_level_context.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

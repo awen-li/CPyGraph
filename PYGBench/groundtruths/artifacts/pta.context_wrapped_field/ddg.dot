@@ -1,0 +1,7 @@
+digraph "pta.context_wrapped_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left load attribute payload";
+  "left return";
+  "left load attribute payload" -> "left return";
+}

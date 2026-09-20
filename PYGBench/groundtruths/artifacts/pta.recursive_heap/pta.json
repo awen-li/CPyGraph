@@ -1,0 +1,22 @@
+{
+  "case": "pta.recursive_heap",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "first"
+      ],
+      "points_to": [
+        "second"
+      ],
+      "subject": "first.next"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "first"
+      ],
+      "subject": "second.next"
+    }
+  ],
+  "schema_version": 1
+}

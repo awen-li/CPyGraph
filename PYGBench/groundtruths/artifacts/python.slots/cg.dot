@@ -1,0 +1,9 @@
+digraph "python.slots.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Item.__init__";
+  "__init__";
+  "run";
+  "run" -> "Item.__init__";
+  // forbidden: "run" -> "__init__"
+}

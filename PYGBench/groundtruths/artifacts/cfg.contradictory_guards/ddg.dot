@@ -1,0 +1,7 @@
+digraph "cfg.contradictory_guards.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run constant";
+  "run return";
+  "run constant" -> "run return";
+}

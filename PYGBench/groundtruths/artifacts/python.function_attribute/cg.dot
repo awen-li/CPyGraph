@@ -1,0 +1,7 @@
+digraph "python.function_attribute.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decoy";
+  "run";
+  // forbidden: "run" -> "decoy"
+}

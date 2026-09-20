@@ -1,0 +1,11 @@
+digraph "python.positional_only.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "combine left";
+  "combine right";
+  "run first";
+  "run second";
+  "run first" -> "combine left";
+  "run second" -> "combine right";
+  // forbidden: "run second" -> "combine left"
+}

@@ -1,0 +1,13 @@
+{
+  "case": "python.call_unpacking",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter positional"
+      ],
+      "subject": "run positional"
+    }
+  ],
+  "schema_version": 1
+}

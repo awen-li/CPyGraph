@@ -1,0 +1,7 @@
+digraph "import.dynamic_import.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "local decoy";
+  "run";
+  // forbidden: "run" -> "local decoy"
+}

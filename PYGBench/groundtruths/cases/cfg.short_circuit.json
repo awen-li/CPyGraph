@@ -1,0 +1,151 @@
+{
+  "case": "cfg.short_circuit",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "left false",
+        "target": "evaluate right"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "left false",
+        "evaluate right",
+        "return"
+      ]
+    ],
+    "nodes": [
+      "evaluate right",
+      "left false",
+      "left true",
+      "return"
+    ],
+    "required_edges": [
+      {
+        "source": "left false",
+        "target": "return"
+      },
+      {
+        "source": "left true",
+        "target": "evaluate right"
+      }
+    ],
+    "required_paths": [
+      [
+        "left true",
+        "evaluate right",
+        "return"
+      ]
+    ]
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "both",
+        "target": "both"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "both"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "both operation",
+      "both return"
+    ],
+    "required_edges": [
+      {
+        "source": "both operation",
+        "target": "both return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "both"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "both parameter left"
+      ],
+      "subject": "both left"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "flow-sensitive",
+    "boolean"
+  ]
+}

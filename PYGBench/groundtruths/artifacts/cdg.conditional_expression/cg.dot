@@ -1,0 +1,6 @@
+digraph "cdg.conditional_expression.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose";
+  // forbidden: "choose" -> "choose"
+}

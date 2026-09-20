@@ -1,0 +1,10 @@
+digraph "cfg.contradictory_guards.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "entry";
+  "first guard true";
+  "first guard true and second guard false";
+  "second guard true return";
+  "entry" -> "first guard true and second guard false";
+  // forbidden: "first guard true" -> "second guard true return"
+}

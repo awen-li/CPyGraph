@@ -1,0 +1,147 @@
+{
+  "case": "python.call_unpacking",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run entry",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "target",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "run",
+      "target"
+    ],
+    "required_edges": [
+      {
+        "source": "run",
+        "target": "target"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "keywords keys",
+        "target": "target data values"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "keywords keys",
+      "keywords values",
+      "positional elements",
+      "target data values",
+      "target keyword parameters",
+      "target positional parameters"
+    ],
+    "required_edges": [
+      {
+        "source": "positional elements",
+        "target": "target positional parameters"
+      },
+      {
+        "source": "keywords values",
+        "target": "target keyword parameters"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter positional"
+      ],
+      "subject": "run positional"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "argument-binding",
+    "unpacking"
+  ]
+}

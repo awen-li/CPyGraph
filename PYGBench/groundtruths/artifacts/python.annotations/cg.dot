@@ -1,0 +1,7 @@
+digraph "python.annotations.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Marker";
+  "identity";
+  // forbidden: "identity" -> "Marker"
+}

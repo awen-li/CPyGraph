@@ -1,0 +1,13 @@
+digraph "protocol.combined_dispatch.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Protocols.__add__";
+  "Protocols.__enter__";
+  "Protocols.__exit__";
+  "exercise_protocols";
+  "unrelated user function";
+  "exercise_protocols" -> "Protocols.__enter__";
+  "exercise_protocols" -> "Protocols.__exit__";
+  "exercise_protocols" -> "Protocols.__add__";
+  // forbidden: "exercise_protocols" -> "unrelated user function"
+}

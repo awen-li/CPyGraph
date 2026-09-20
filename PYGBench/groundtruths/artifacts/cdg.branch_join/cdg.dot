@@ -1,0 +1,10 @@
+digraph "cdg.branch_join.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "compute condition";
+  "compute return";
+  "compute second assignment";
+  "compute condition" -> "compute second assignment" [label="true"];
+  // forbidden: "compute condition" -> "compute second assignment" [false]
+  // forbidden: "compute condition" -> "compute return" [true]
+}

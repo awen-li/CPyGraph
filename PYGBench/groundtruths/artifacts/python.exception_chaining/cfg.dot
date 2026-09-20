@@ -1,0 +1,9 @@
+digraph "python.exception_chaining.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "RuntimeError raise";
+  "ValueError handler";
+  "normal return";
+  "ValueError handler" -> "RuntimeError raise";
+  // forbidden: "ValueError handler" -> "normal return"
+}

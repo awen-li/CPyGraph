@@ -1,0 +1,13 @@
+{
+  "case": "cdg.nested_conditions",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "select function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

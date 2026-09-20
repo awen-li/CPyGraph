@@ -1,0 +1,12 @@
+digraph "python.default_arguments.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decoy";
+  "identity";
+  "run first";
+  "target";
+  "target with default callback";
+  "run first" -> "target with default callback";
+  "target" -> "identity";
+  // forbidden: "target" -> "decoy"
+}

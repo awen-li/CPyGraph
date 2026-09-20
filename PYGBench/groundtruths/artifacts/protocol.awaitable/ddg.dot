@@ -1,0 +1,7 @@
+digraph "protocol.awaitable.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run operation";
+  "run return";
+  "run operation" -> "run return";
+}

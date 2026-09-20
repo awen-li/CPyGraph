@@ -1,0 +1,179 @@
+{
+  "case": "ddg.local_def_use",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "local entry",
+      "local return"
+    ],
+    "required_edges": [
+      {
+        "source": "local entry",
+        "target": "local return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "local",
+        "target": "local"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "local"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "parameter input",
+        "target": "unrelated constant"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "unrelated constant",
+        "assignment value",
+        "load value",
+        "return value"
+      ]
+    ],
+    "nodes": [
+      "assignment value",
+      "load input",
+      "load value",
+      "parameter input",
+      "return value",
+      "unrelated constant"
+    ],
+    "required_edges": [
+      {
+        "source": "assignment value",
+        "target": "return value"
+      }
+    ],
+    "required_paths": [
+      [
+        "parameter input",
+        "load input",
+        "assignment value",
+        "load value",
+        "return value"
+      ],
+      [
+        "assignment value",
+        "load value",
+        "return value"
+      ],
+      [
+        "load input",
+        "assignment value",
+        "load value"
+      ],
+      [
+        "load input",
+        "assignment value",
+        "load value",
+        "return value"
+      ],
+      [
+        "parameter input",
+        "load input",
+        "assignment value"
+      ],
+      [
+        "parameter input",
+        "load input",
+        "assignment value",
+        "load value"
+      ]
+    ]
+  },
+  "entry_points": [
+    "<module>",
+    "local"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "local function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "local",
+    "intraprocedural"
+  ]
+}

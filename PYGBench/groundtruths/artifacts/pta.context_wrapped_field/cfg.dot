@@ -1,0 +1,7 @@
+digraph "pta.context_wrapped_field.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left entry";
+  "left return";
+  "left entry" -> "left return";
+}

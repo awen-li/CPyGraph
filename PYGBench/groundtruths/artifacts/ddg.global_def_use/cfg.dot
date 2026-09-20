@@ -1,0 +1,7 @@
+digraph "ddg.global_def_use.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "write entry";
+  "write return";
+  "write entry" -> "write return";
+}

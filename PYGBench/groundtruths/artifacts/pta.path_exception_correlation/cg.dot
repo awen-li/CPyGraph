@@ -1,0 +1,6 @@
+digraph "pta.path_exception_correlation.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose";
+  // forbidden: "choose" -> "choose"
+}

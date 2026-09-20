@@ -1,0 +1,11 @@
+digraph "protocol.arithmetic.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Number.__add__";
+  "Number.__mul__";
+  "Number.__sub__";
+  "run";
+  "run" -> "Number.__add__";
+  "run" -> "Number.__mul__";
+  // forbidden: "run" -> "Number.__sub__"
+}

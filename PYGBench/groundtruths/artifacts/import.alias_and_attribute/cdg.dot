@@ -1,0 +1,6 @@
+digraph "import.alias_and_attribute.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

@@ -1,0 +1,149 @@
+{
+  "case": "cdg.if_else_returns",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "true",
+        "source": "choose condition",
+        "target": "choose false return"
+      },
+      {
+        "outcome": "false",
+        "source": "choose condition",
+        "target": "choose true return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose condition",
+      "choose false return",
+      "choose true return"
+    ],
+    "required_edges": [
+      {
+        "outcome": "true",
+        "source": "choose condition",
+        "target": "choose true return"
+      },
+      {
+        "outcome": "false",
+        "source": "choose condition",
+        "target": "choose false return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose entry",
+      "choose return"
+    ],
+    "required_edges": [
+      {
+        "source": "choose entry",
+        "target": "choose return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "choose",
+        "target": "choose"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose constant",
+      "choose return"
+    ],
+    "required_edges": [
+      {
+        "source": "choose constant",
+        "target": "choose return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "choose"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "choose function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "branch",
+    "postdominator",
+    "branch-outcome"
+  ]
+}

@@ -1,0 +1,7 @@
+digraph "python.structural_pattern.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Point.__init__";
+  "extract";
+  // forbidden: "extract" -> "Point.__init__"
+}

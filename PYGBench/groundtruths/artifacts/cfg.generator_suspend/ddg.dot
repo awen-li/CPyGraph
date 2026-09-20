@@ -1,0 +1,7 @@
+digraph "cfg.generator_suspend.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "generate constant";
+  "generate return";
+  "generate constant" -> "generate return";
+}

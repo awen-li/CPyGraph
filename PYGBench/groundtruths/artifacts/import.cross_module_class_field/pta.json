@@ -1,0 +1,15 @@
+{
+  "case": "import.cross_module_class_field",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Item instance"
+      ],
+      "points_to": [
+        "run value"
+      ],
+      "subject": "reader.read Item.shared"
+    }
+  ],
+  "schema_version": 1
+}

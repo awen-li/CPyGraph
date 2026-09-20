@@ -1,0 +1,7 @@
+digraph "cdg.loop_control.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "count entry";
+  "count return";
+  "count entry" -> "count return";
+}

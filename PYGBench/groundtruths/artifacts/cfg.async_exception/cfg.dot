@@ -1,0 +1,11 @@
+digraph "cfg.async_exception.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "RuntimeError handler";
+  "await exceptional resume";
+  "await normal resume";
+  "normal return";
+  "await exceptional resume" -> "RuntimeError handler";
+  "await normal resume" -> "normal return";
+  // forbidden: "await exceptional resume" -> "normal return"
+}

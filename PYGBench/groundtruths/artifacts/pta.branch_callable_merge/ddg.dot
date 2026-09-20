@@ -1,0 +1,7 @@
+digraph "pta.branch_callable_merge.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose_and_call call";
+  "choose_and_call return";
+  "choose_and_call call" -> "choose_and_call return";
+}

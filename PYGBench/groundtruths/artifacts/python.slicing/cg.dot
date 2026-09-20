@@ -1,0 +1,9 @@
+digraph "python.slicing.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Sequence.__getitem__ with slice";
+  "Sequence.__setitem__";
+  "run";
+  "run" -> "Sequence.__getitem__ with slice";
+  // forbidden: "run" -> "Sequence.__setitem__"
+}

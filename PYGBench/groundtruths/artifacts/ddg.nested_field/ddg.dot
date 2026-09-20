@@ -1,0 +1,13 @@
+digraph "ddg.nested_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "outer allocation";
+  "outer.inner.payload store";
+  "payload return";
+  "return";
+  "value";
+  "value" -> "outer.inner.payload store";
+  "outer.inner.payload store" -> "return";
+  // forbidden: "outer allocation" -> "payload return"
+  // required path: "value" -> "outer.inner.payload store" -> "return"
+}

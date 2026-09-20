@@ -1,0 +1,7 @@
+digraph "python.positional_only.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run entry";
+  "run return";
+  "run entry" -> "run return";
+}

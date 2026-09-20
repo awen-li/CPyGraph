@@ -1,0 +1,7 @@
+digraph "cdg.chained_comparison.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "within constant";
+  "within return";
+  "within constant" -> "within return";
+}

@@ -1,0 +1,9 @@
+digraph "pta.context_wrapped_field.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left";
+  "right";
+  "wrap";
+  "left" -> "wrap";
+  // forbidden: "left" -> "right"
+}

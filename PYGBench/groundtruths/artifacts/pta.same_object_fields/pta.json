@@ -1,0 +1,24 @@
+{
+  "case": "pta.same_object_fields",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "second"
+      ],
+      "points_to": [
+        "first"
+      ],
+      "subject": "box.left"
+    },
+    {
+      "must_not_point_to": [
+        "first"
+      ],
+      "points_to": [
+        "second"
+      ],
+      "subject": "box.right"
+    }
+  ],
+  "schema_version": 1
+}

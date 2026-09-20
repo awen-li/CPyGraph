@@ -1,0 +1,15 @@
+{
+  "case": "pta.field_in_container",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "items container"
+      ],
+      "points_to": [
+        "value"
+      ],
+      "subject": "items[0].payload"
+    }
+  ],
+  "schema_version": 1
+}

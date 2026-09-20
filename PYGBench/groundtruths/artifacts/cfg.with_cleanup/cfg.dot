@@ -1,0 +1,12 @@
+digraph "cfg.with_cleanup.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "context cleanup";
+  "function exit bypassing cleanup";
+  "with body";
+  "with exceptional exit";
+  "with normal exit";
+  "with normal exit" -> "context cleanup";
+  "with exceptional exit" -> "context cleanup";
+  // forbidden: "with body" -> "function exit bypassing cleanup"
+}

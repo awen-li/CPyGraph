@@ -1,0 +1,38 @@
+digraph "cfg.deep_exception_cleanup.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "ValueError handler";
+  "finally cleanup";
+  "normal continuation";
+  "normal return";
+  "protected action call";
+  "run entry";
+  "run entry" -> "protected action call";
+  "protected action call" -> "ValueError handler";
+  "ValueError handler" -> "finally cleanup";
+  "finally cleanup" -> "normal return";
+  "protected action call" -> "normal continuation";
+  "normal continuation" -> "finally cleanup";
+  // forbidden: "normal return" -> "finally cleanup"
+  // forbidden: "finally cleanup" -> "ValueError handler"
+  // forbidden: "ValueError handler" -> "protected action call"
+  // forbidden: "protected action call" -> "run entry"
+  // required path: "run entry" -> "protected action call" -> "ValueError handler" -> "finally cleanup" -> "normal return"
+  // required path: "ValueError handler" -> "finally cleanup" -> "normal return"
+  // required path: "normal continuation" -> "finally cleanup" -> "normal return"
+  // required path: "protected action call" -> "ValueError handler" -> "finally cleanup"
+  // required path: "protected action call" -> "ValueError handler" -> "finally cleanup" -> "normal return"
+  // required path: "protected action call" -> "normal continuation" -> "finally cleanup"
+  // required path: "protected action call" -> "normal continuation" -> "finally cleanup" -> "normal return"
+  // required path: "run entry" -> "protected action call" -> "ValueError handler"
+  // required path: "run entry" -> "protected action call" -> "ValueError handler" -> "finally cleanup"
+  // required path: "run entry" -> "protected action call" -> "normal continuation"
+  // required path: "run entry" -> "protected action call" -> "normal continuation" -> "finally cleanup"
+  // required path: "run entry" -> "protected action call" -> "normal continuation" -> "finally cleanup" -> "normal return"
+  // forbidden path: "normal return" -> "finally cleanup" -> "ValueError handler" -> "protected action call" -> "run entry"
+  // forbidden path: "ValueError handler" -> "protected action call" -> "run entry"
+  // forbidden path: "finally cleanup" -> "ValueError handler" -> "protected action call"
+  // forbidden path: "finally cleanup" -> "ValueError handler" -> "protected action call" -> "run entry"
+  // forbidden path: "normal return" -> "finally cleanup" -> "ValueError handler"
+  // forbidden path: "normal return" -> "finally cleanup" -> "ValueError handler" -> "protected action call"
+}

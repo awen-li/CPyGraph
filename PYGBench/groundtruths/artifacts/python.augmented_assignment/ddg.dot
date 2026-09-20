@@ -1,0 +1,7 @@
+digraph "python.augmented_assignment.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run return";
+  "run value";
+  "run value" -> "run return";
+}

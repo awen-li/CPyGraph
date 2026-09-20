@@ -1,0 +1,40 @@
+digraph "ddg.deep_interprocedural_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "read field load";
+  "read return";
+  "run return";
+  "run value";
+  "write field store";
+  "write value";
+  "run value" -> "write value";
+  "write value" -> "write field store";
+  "write field store" -> "read field load";
+  "read field load" -> "read return";
+  "read return" -> "run return";
+  // forbidden: "run return" -> "read return"
+  // forbidden: "read return" -> "read field load"
+  // forbidden: "read field load" -> "write field store"
+  // forbidden: "write field store" -> "write value"
+  // forbidden: "write value" -> "run value"
+  // required path: "run value" -> "write value" -> "write field store" -> "read field load" -> "read return" -> "run return"
+  // required path: "read field load" -> "read return" -> "run return"
+  // required path: "run value" -> "write value" -> "write field store"
+  // required path: "run value" -> "write value" -> "write field store" -> "read field load"
+  // required path: "run value" -> "write value" -> "write field store" -> "read field load" -> "read return"
+  // required path: "write field store" -> "read field load" -> "read return"
+  // required path: "write field store" -> "read field load" -> "read return" -> "run return"
+  // required path: "write value" -> "write field store" -> "read field load"
+  // required path: "write value" -> "write field store" -> "read field load" -> "read return"
+  // required path: "write value" -> "write field store" -> "read field load" -> "read return" -> "run return"
+  // forbidden path: "run return" -> "read return" -> "read field load" -> "write field store" -> "write value" -> "run value"
+  // forbidden path: "read field load" -> "write field store" -> "write value"
+  // forbidden path: "read field load" -> "write field store" -> "write value" -> "run value"
+  // forbidden path: "read return" -> "read field load" -> "write field store"
+  // forbidden path: "read return" -> "read field load" -> "write field store" -> "write value"
+  // forbidden path: "read return" -> "read field load" -> "write field store" -> "write value" -> "run value"
+  // forbidden path: "run return" -> "read return" -> "read field load"
+  // forbidden path: "run return" -> "read return" -> "read field load" -> "write field store"
+  // forbidden path: "run return" -> "read return" -> "read field load" -> "write field store" -> "write value"
+  // forbidden path: "write field store" -> "write value" -> "run value"
+}

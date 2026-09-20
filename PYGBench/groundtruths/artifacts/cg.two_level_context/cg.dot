@@ -1,0 +1,11 @@
+digraph "cg.two_level_context.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "invoke@left_entry";
+  "invoke@right_entry";
+  "left";
+  "right";
+  "invoke@left_entry" -> "left";
+  "invoke@right_entry" -> "right";
+  // forbidden: "invoke@left_entry" -> "right"
+}

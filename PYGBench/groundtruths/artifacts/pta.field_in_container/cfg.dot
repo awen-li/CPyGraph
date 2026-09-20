@@ -1,0 +1,7 @@
+digraph "pta.field_in_container.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "store entry";
+  "store return";
+  "store entry" -> "store return";
+}

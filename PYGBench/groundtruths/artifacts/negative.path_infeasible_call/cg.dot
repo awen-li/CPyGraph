@@ -1,0 +1,10 @@
+digraph "negative.path_infeasible_call.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "contradictory branch";
+  "dead";
+  "feasible branch";
+  "live";
+  "feasible branch" -> "live";
+  // forbidden: "contradictory branch" -> "dead"
+}

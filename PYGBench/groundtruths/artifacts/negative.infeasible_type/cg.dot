@@ -1,0 +1,9 @@
+digraph "negative.infeasible_type.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Left.handle";
+  "Right.handle";
+  "run";
+  "run" -> "Left.handle";
+  // forbidden: "run" -> "Right.handle"
+}

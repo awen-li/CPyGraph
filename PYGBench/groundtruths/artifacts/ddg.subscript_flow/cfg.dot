@@ -1,0 +1,7 @@
+digraph "ddg.subscript_flow.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "round_trip entry";
+  "round_trip return";
+  "round_trip entry" -> "round_trip return";
+}

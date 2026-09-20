@@ -1,0 +1,8 @@
+digraph "pta.argument_return.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "identity";
+  "run";
+  "run" -> "identity";
+  // forbidden: "identity" -> "run"
+}

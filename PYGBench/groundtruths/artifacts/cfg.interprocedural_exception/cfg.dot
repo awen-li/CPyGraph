@@ -1,0 +1,9 @@
+digraph "cfg.interprocedural_exception.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "callee raise";
+  "caller handler";
+  "caller normal continuation";
+  "callee raise" -> "caller handler";
+  // forbidden: "callee raise" -> "caller normal continuation"
+}

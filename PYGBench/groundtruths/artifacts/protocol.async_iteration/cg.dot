@@ -1,0 +1,11 @@
+digraph "protocol.async_iteration.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Stream.__aiter__";
+  "Stream.__anext__";
+  "Stream.__iter__";
+  "run";
+  "run" -> "Stream.__aiter__";
+  "run" -> "Stream.__anext__";
+  // forbidden: "run" -> "Stream.__iter__"
+}

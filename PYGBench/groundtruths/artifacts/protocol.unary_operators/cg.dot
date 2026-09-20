@@ -1,0 +1,11 @@
+digraph "protocol.unary_operators.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__invert__";
+  "Value.__neg__";
+  "Value.__pos__";
+  "run";
+  "run" -> "Value.__neg__";
+  "run" -> "Value.__invert__";
+  // forbidden: "run" -> "Value.__pos__"
+}

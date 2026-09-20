@@ -1,0 +1,6 @@
+digraph "ddg.deep_interprocedural_field.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

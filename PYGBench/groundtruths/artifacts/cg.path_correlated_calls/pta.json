@@ -1,0 +1,13 @@
+{
+  "case": "cg.path_correlated_calls",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "left function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

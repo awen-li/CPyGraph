@@ -1,0 +1,7 @@
+digraph "cfg.interprocedural_exception.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "callee";
+  "caller";
+  "caller" -> "callee";
+}

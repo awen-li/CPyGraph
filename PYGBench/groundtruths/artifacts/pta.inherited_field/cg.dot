@@ -1,0 +1,6 @@
+digraph "pta.inherited_field.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "read";
+  // forbidden: "read" -> "read"
+}

@@ -1,0 +1,8 @@
+digraph "python.multiple_with.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left exit";
+  "right exit";
+  "right exit" -> "left exit";
+  // forbidden: "left exit" -> "right exit"
+}

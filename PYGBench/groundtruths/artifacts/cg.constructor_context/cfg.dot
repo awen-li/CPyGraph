@@ -1,0 +1,7 @@
+digraph "cg.constructor_context.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left entry";
+  "left return";
+  "left entry" -> "left return";
+}

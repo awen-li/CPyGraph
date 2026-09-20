@@ -1,0 +1,11 @@
+digraph "cfg.attribute_exception.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "AttributeError handler";
+  "normal attribute return";
+  "normal return";
+  "protected attribute load";
+  "protected attribute load" -> "AttributeError handler";
+  "protected attribute load" -> "normal return";
+  // forbidden: "AttributeError handler" -> "normal attribute return"
+}

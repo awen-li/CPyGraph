@@ -1,0 +1,12 @@
+digraph "cfg.generator_exception.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "finally";
+  "function exit bypassing finally";
+  "generator close";
+  "next yield";
+  "yield resume";
+  "yield resume" -> "next yield";
+  "generator close" -> "finally";
+  // forbidden: "generator close" -> "function exit bypassing finally"
+}

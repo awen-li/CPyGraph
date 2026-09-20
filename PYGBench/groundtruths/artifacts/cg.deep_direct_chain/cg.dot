@@ -1,0 +1,40 @@
+digraph "cg.deep_direct_chain.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "leaf";
+  "run";
+  "stage_four";
+  "stage_one";
+  "stage_three";
+  "stage_two";
+  "run" -> "stage_one";
+  "stage_one" -> "stage_two";
+  "stage_two" -> "stage_three";
+  "stage_three" -> "stage_four";
+  "stage_four" -> "leaf";
+  // forbidden: "leaf" -> "stage_four"
+  // forbidden: "stage_four" -> "stage_three"
+  // forbidden: "stage_three" -> "stage_two"
+  // forbidden: "stage_two" -> "stage_one"
+  // forbidden: "stage_one" -> "run"
+  // required path: "run" -> "stage_one" -> "stage_two" -> "stage_three" -> "stage_four" -> "leaf"
+  // required path: "run" -> "stage_one" -> "stage_two"
+  // required path: "run" -> "stage_one" -> "stage_two" -> "stage_three"
+  // required path: "run" -> "stage_one" -> "stage_two" -> "stage_three" -> "stage_four"
+  // required path: "stage_one" -> "stage_two" -> "stage_three"
+  // required path: "stage_one" -> "stage_two" -> "stage_three" -> "stage_four"
+  // required path: "stage_one" -> "stage_two" -> "stage_three" -> "stage_four" -> "leaf"
+  // required path: "stage_three" -> "stage_four" -> "leaf"
+  // required path: "stage_two" -> "stage_three" -> "stage_four"
+  // required path: "stage_two" -> "stage_three" -> "stage_four" -> "leaf"
+  // forbidden path: "leaf" -> "stage_four" -> "stage_three" -> "stage_two" -> "stage_one" -> "run"
+  // forbidden path: "leaf" -> "stage_four" -> "stage_three"
+  // forbidden path: "leaf" -> "stage_four" -> "stage_three" -> "stage_two"
+  // forbidden path: "leaf" -> "stage_four" -> "stage_three" -> "stage_two" -> "stage_one"
+  // forbidden path: "stage_four" -> "stage_three" -> "stage_two"
+  // forbidden path: "stage_four" -> "stage_three" -> "stage_two" -> "stage_one"
+  // forbidden path: "stage_four" -> "stage_three" -> "stage_two" -> "stage_one" -> "run"
+  // forbidden path: "stage_three" -> "stage_two" -> "stage_one"
+  // forbidden path: "stage_three" -> "stage_two" -> "stage_one" -> "run"
+  // forbidden path: "stage_two" -> "stage_one" -> "run"
+}

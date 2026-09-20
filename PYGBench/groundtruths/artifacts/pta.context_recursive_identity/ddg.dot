@@ -1,0 +1,7 @@
+digraph "pta.context_recursive_identity.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left call";
+  "left return";
+  "left call" -> "left return";
+}

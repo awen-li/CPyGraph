@@ -1,0 +1,7 @@
+digraph "pta.same_object_fields.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "store entry";
+  "store return";
+  "store entry" -> "store return";
+}

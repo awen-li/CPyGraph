@@ -1,0 +1,6 @@
+digraph "cfg.async_suspend.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

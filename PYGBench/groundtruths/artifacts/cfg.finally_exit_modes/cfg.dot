@@ -1,0 +1,14 @@
+digraph "cfg.finally_exit_modes.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "any protected exit";
+  "finally cleanup";
+  "function exit bypassing cleanup";
+  "try exception";
+  "try fallthrough";
+  "try return";
+  "try return" -> "finally cleanup";
+  "try exception" -> "finally cleanup";
+  "try fallthrough" -> "finally cleanup";
+  // forbidden: "any protected exit" -> "function exit bypassing cleanup"
+}

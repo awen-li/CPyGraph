@@ -1,0 +1,7 @@
+digraph "pta.copy.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "copy entry";
+  "copy return";
+  "copy entry" -> "copy return";
+}

@@ -1,0 +1,6 @@
+digraph "pta.field_in_container.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "store";
+  // forbidden: "store" -> "store"
+}

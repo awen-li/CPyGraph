@@ -1,0 +1,7 @@
+digraph "python.nonlocal_closure.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "make_counter entry";
+  "make_counter return";
+  "make_counter entry" -> "make_counter return";
+}

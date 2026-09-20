@@ -1,0 +1,11 @@
+digraph "python.variadic_arguments.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "first and second";
+  "keyword mapping";
+  "named";
+  "positional tuple";
+  "first and second" -> "positional tuple";
+  "named" -> "keyword mapping";
+  // forbidden: "named" -> "positional tuple"
+}

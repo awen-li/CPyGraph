@@ -1,0 +1,40 @@
+digraph "cg.deep_callback_chain.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "apply";
+  "callback";
+  "dispatch";
+  "invoke";
+  "leaf";
+  "run";
+  "run" -> "dispatch";
+  "dispatch" -> "apply";
+  "apply" -> "invoke";
+  "invoke" -> "callback";
+  "callback" -> "leaf";
+  // forbidden: "leaf" -> "callback"
+  // forbidden: "callback" -> "invoke"
+  // forbidden: "invoke" -> "apply"
+  // forbidden: "apply" -> "dispatch"
+  // forbidden: "dispatch" -> "run"
+  // required path: "run" -> "dispatch" -> "apply" -> "invoke" -> "callback" -> "leaf"
+  // required path: "apply" -> "invoke" -> "callback"
+  // required path: "apply" -> "invoke" -> "callback" -> "leaf"
+  // required path: "dispatch" -> "apply" -> "invoke"
+  // required path: "dispatch" -> "apply" -> "invoke" -> "callback"
+  // required path: "dispatch" -> "apply" -> "invoke" -> "callback" -> "leaf"
+  // required path: "invoke" -> "callback" -> "leaf"
+  // required path: "run" -> "dispatch" -> "apply"
+  // required path: "run" -> "dispatch" -> "apply" -> "invoke"
+  // required path: "run" -> "dispatch" -> "apply" -> "invoke" -> "callback"
+  // forbidden path: "leaf" -> "callback" -> "invoke" -> "apply" -> "dispatch" -> "run"
+  // forbidden path: "apply" -> "dispatch" -> "run"
+  // forbidden path: "callback" -> "invoke" -> "apply"
+  // forbidden path: "callback" -> "invoke" -> "apply" -> "dispatch"
+  // forbidden path: "callback" -> "invoke" -> "apply" -> "dispatch" -> "run"
+  // forbidden path: "invoke" -> "apply" -> "dispatch"
+  // forbidden path: "invoke" -> "apply" -> "dispatch" -> "run"
+  // forbidden path: "leaf" -> "callback" -> "invoke"
+  // forbidden path: "leaf" -> "callback" -> "invoke" -> "apply"
+  // forbidden path: "leaf" -> "callback" -> "invoke" -> "apply" -> "dispatch"
+}

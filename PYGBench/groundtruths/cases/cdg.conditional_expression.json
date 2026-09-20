@@ -1,0 +1,154 @@
+{
+  "case": "cdg.conditional_expression",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "false",
+        "source": "choose condition",
+        "target": "choose first call"
+      },
+      {
+        "outcome": "true",
+        "source": "choose condition",
+        "target": "choose second call"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose condition",
+      "choose first call",
+      "choose second call"
+    ],
+    "required_edges": [
+      {
+        "outcome": "true",
+        "source": "choose condition",
+        "target": "choose first call"
+      },
+      {
+        "outcome": "false",
+        "source": "choose condition",
+        "target": "choose second call"
+      }
+    ],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose entry",
+      "choose return"
+    ],
+    "required_edges": [
+      {
+        "source": "choose entry",
+        "target": "choose return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "choose",
+        "target": "choose"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "choose return",
+        "target": "choose call"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose call",
+      "choose return"
+    ],
+    "required_edges": [
+      {
+        "source": "choose call",
+        "target": "choose return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "choose"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "choose parameter flag"
+      ],
+      "subject": "choose flag"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "branch",
+    "conditional-expression",
+    "branch-outcome"
+  ]
+}

@@ -1,0 +1,11 @@
+digraph "cfg.arithmetic_exception.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "ZeroDivisionError handler";
+  "normal division return";
+  "normal return";
+  "protected division";
+  "protected division" -> "ZeroDivisionError handler";
+  "protected division" -> "normal return";
+  // forbidden: "ZeroDivisionError handler" -> "normal division return"
+}

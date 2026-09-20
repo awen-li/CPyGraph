@@ -1,0 +1,12 @@
+digraph "cfg.context_suppression.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Manager.__exit__";
+  "Manager.__exit__ true";
+  "after with";
+  "after with bypassing Manager.__exit__";
+  "with body exception";
+  "with body exception" -> "Manager.__exit__";
+  "Manager.__exit__ true" -> "after with";
+  // forbidden: "with body exception" -> "after with bypassing Manager.__exit__"
+}

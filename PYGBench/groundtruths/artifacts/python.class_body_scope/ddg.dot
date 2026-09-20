@@ -1,0 +1,13 @@
+digraph "python.class_body_scope.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Example.method return";
+  "Example.method self";
+  "Example.value";
+  "Example.value definition";
+  "module seed";
+  "module seed" -> "Example.value";
+  "Example.value" -> "Example.method return";
+  // forbidden: "Example.method self" -> "Example.value definition"
+  // required path: "module seed" -> "Example.value" -> "Example.method return"
+}

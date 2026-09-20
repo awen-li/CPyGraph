@@ -1,0 +1,7 @@
+digraph "pta.strong_field_update.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "replace load attribute payload";
+  "replace return";
+  "replace load attribute payload" -> "replace return";
+}

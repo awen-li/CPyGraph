@@ -1,0 +1,7 @@
+digraph "python.comprehension_scope.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "listcomp";
+  "run";
+  "run" -> "listcomp";
+}

@@ -1,0 +1,6 @@
+digraph "pta.container_flow.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "store";
+  // forbidden: "store" -> "store"
+}

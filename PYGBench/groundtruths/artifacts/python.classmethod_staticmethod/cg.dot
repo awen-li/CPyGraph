@@ -1,0 +1,11 @@
+digraph "python.classmethod_staticmethod.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Factory.create";
+  "Factory.normalize";
+  "Factory.unused";
+  "run";
+  "run" -> "Factory.create";
+  "run" -> "Factory.normalize";
+  // forbidden: "run" -> "Factory.unused"
+}

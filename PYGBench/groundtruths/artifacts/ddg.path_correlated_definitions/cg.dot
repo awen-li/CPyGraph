@@ -1,0 +1,6 @@
+digraph "ddg.path_correlated_definitions.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  // forbidden: "run" -> "run"
+}

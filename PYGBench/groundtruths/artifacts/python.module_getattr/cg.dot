@@ -1,0 +1,9 @@
+digraph "python.module_getattr.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "__getattr__";
+  "run missing attribute";
+  "run_existing existing attribute";
+  "run missing attribute" -> "__getattr__";
+  // forbidden: "run_existing existing attribute" -> "__getattr__"
+}

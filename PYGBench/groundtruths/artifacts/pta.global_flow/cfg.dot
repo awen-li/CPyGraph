@@ -1,0 +1,7 @@
+digraph "pta.global_flow.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "write_global entry";
+  "write_global return";
+  "write_global entry" -> "write_global return";
+}

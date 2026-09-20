@@ -1,0 +1,7 @@
+digraph "python.annotations.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "identity return";
+  "value";
+  "value" -> "identity return";
+}

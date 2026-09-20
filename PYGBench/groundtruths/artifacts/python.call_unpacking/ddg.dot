@@ -1,0 +1,13 @@
+digraph "python.call_unpacking.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "keywords keys";
+  "keywords values";
+  "positional elements";
+  "target data values";
+  "target keyword parameters";
+  "target positional parameters";
+  "positional elements" -> "target positional parameters";
+  "keywords values" -> "target keyword parameters";
+  // forbidden: "keywords keys" -> "target data values"
+}

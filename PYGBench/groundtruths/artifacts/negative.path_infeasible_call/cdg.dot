@@ -1,0 +1,6 @@
+digraph "negative.path_infeasible_call.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

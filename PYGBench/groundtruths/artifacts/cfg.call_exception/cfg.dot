@@ -1,0 +1,10 @@
+digraph "cfg.call_exception.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "RuntimeError handler";
+  "normal continuation";
+  "protected action call";
+  "protected action call" -> "RuntimeError handler";
+  "protected action call" -> "normal continuation";
+  // forbidden: "RuntimeError handler" -> "normal continuation"
+}

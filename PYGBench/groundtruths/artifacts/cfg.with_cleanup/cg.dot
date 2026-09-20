@@ -1,0 +1,6 @@
+digraph "cfg.with_cleanup.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "managed";
+  // forbidden: "managed" -> "managed"
+}

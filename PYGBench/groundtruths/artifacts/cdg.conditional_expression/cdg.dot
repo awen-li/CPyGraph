@@ -1,0 +1,11 @@
+digraph "cdg.conditional_expression.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose condition";
+  "choose first call";
+  "choose second call";
+  "choose condition" -> "choose first call" [label="true"];
+  "choose condition" -> "choose second call" [label="false"];
+  // forbidden: "choose condition" -> "choose first call" [false]
+  // forbidden: "choose condition" -> "choose second call" [true]
+}

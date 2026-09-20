@@ -1,0 +1,274 @@
+{
+  "case": "cfg.deep_exception_cleanup",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "normal return",
+        "target": "finally cleanup"
+      },
+      {
+        "source": "finally cleanup",
+        "target": "ValueError handler"
+      },
+      {
+        "source": "ValueError handler",
+        "target": "protected action call"
+      },
+      {
+        "source": "protected action call",
+        "target": "run entry"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "normal return",
+        "finally cleanup",
+        "ValueError handler",
+        "protected action call",
+        "run entry"
+      ],
+      [
+        "ValueError handler",
+        "protected action call",
+        "run entry"
+      ],
+      [
+        "finally cleanup",
+        "ValueError handler",
+        "protected action call"
+      ],
+      [
+        "finally cleanup",
+        "ValueError handler",
+        "protected action call",
+        "run entry"
+      ],
+      [
+        "normal return",
+        "finally cleanup",
+        "ValueError handler"
+      ],
+      [
+        "normal return",
+        "finally cleanup",
+        "ValueError handler",
+        "protected action call"
+      ]
+    ],
+    "nodes": [
+      "ValueError handler",
+      "finally cleanup",
+      "normal continuation",
+      "normal return",
+      "protected action call",
+      "run entry"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "protected action call"
+      },
+      {
+        "source": "protected action call",
+        "target": "ValueError handler"
+      },
+      {
+        "source": "ValueError handler",
+        "target": "finally cleanup"
+      },
+      {
+        "source": "finally cleanup",
+        "target": "normal return"
+      },
+      {
+        "source": "protected action call",
+        "target": "normal continuation"
+      },
+      {
+        "source": "normal continuation",
+        "target": "finally cleanup"
+      }
+    ],
+    "required_paths": [
+      [
+        "run entry",
+        "protected action call",
+        "ValueError handler",
+        "finally cleanup",
+        "normal return"
+      ],
+      [
+        "ValueError handler",
+        "finally cleanup",
+        "normal return"
+      ],
+      [
+        "normal continuation",
+        "finally cleanup",
+        "normal return"
+      ],
+      [
+        "protected action call",
+        "ValueError handler",
+        "finally cleanup"
+      ],
+      [
+        "protected action call",
+        "ValueError handler",
+        "finally cleanup",
+        "normal return"
+      ],
+      [
+        "protected action call",
+        "normal continuation",
+        "finally cleanup"
+      ],
+      [
+        "protected action call",
+        "normal continuation",
+        "finally cleanup",
+        "normal return"
+      ],
+      [
+        "run entry",
+        "protected action call",
+        "ValueError handler"
+      ],
+      [
+        "run entry",
+        "protected action call",
+        "ValueError handler",
+        "finally cleanup"
+      ],
+      [
+        "run entry",
+        "protected action call",
+        "normal continuation"
+      ],
+      [
+        "run entry",
+        "protected action call",
+        "normal continuation",
+        "finally cleanup"
+      ],
+      [
+        "run entry",
+        "protected action call",
+        "normal continuation",
+        "finally cleanup",
+        "normal return"
+      ]
+    ]
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "run",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "run"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run return",
+      "run value"
+    ],
+    "required_edges": [
+      {
+        "source": "run value",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "run function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "exception-flow",
+    "cleanup",
+    "multi-hop"
+  ]
+}

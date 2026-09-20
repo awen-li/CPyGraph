@@ -1,0 +1,20 @@
+{
+  "case": "python.function_attribute",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "value"
+      ],
+      "points_to": [],
+      "subject": "decoy.payload"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "value"
+      ],
+      "subject": "target.payload"
+    }
+  ],
+  "schema_version": 1
+}

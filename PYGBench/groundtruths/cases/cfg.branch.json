@@ -1,0 +1,139 @@
+{
+  "case": "cfg.branch",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "choose true-return",
+        "target": "false-return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose entry",
+      "choose true-return",
+      "false-return",
+      "true-return"
+    ],
+    "required_edges": [
+      {
+        "source": "choose entry",
+        "target": "true-return"
+      },
+      {
+        "source": "choose entry",
+        "target": "false-return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "choose",
+        "target": "choose"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "choose left",
+      "choose return"
+    ],
+    "required_edges": [
+      {
+        "source": "choose left",
+        "target": "choose return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "choose"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "choose parameter left"
+      ],
+      "subject": "choose left"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "flow-sensitive",
+    "branch"
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "case": "cfg.deep_nested_branch",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "true return",
+        "target": "third condition"
+      },
+      {
+        "source": "third condition",
+        "target": "second condition true outcome"
+      },
+      {
+        "source": "second condition true outcome",
+        "target": "second condition"
+      },
+      {
+        "source": "second condition",
+        "target": "first condition true outcome"
+      },
+      {
+        "source": "first condition true outcome",
+        "target": "first condition"
+      },
+      {
+        "source": "first condition",
+        "target": "run entry"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "true return",
+        "third condition",
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome",
+        "first condition",
+        "run entry"
+      ],
+      [
+        "first condition true outcome",
+        "first condition",
+        "run entry"
+      ],
+      [
+        "second condition",
+        "first condition true outcome",
+        "first condition"
+      ],
+      [
+        "second condition",
+        "first condition true outcome",
+        "first condition",
+        "run entry"
+      ],
+      [
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome"
+      ],
+      [
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome",
+        "first condition"
+      ],
+      [
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome",
+        "first condition",
+        "run entry"
+      ],
+      [
+        "third condition",
+        "second condition true outcome",
+        "second condition"
+      ],
+      [
+        "third condition",
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome"
+      ],
+      [
+        "third condition",
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome",
+        "first condition"
+      ],
+      [
+        "third condition",
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome",
+        "first condition",
+        "run entry"
+      ],
+      [
+        "true return",
+        "third condition",
+        "second condition true outcome"
+      ],
+      [
+        "true return",
+        "third condition",
+        "second condition true outcome",
+        "second condition"
+      ],
+      [
+        "true return",
+        "third condition",
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome"
+      ],
+      [
+        "true return",
+        "third condition",
+        "second condition true outcome",
+        "second condition",
+        "first condition true outcome",
+        "first condition"
+      ]
+    ],
+    "nodes": [
+      "first condition",
+      "first condition true outcome",
+      "run entry",
+      "second condition",
+      "second condition false outcome",
+      "second condition true outcome",
+      "third condition",
+      "third condition false outcome",
+      "true return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "first condition"
+      },
+      {
+        "source": "first condition",
+        "target": "first condition true outcome"
+      },
+      {
+        "source": "first condition true outcome",
+        "target": "second condition"
+      },
+      {
+        "source": "second condition",
+        "target": "second condition true outcome"
+      },
+      {
+        "source": "second condition true outcome",
+        "target": "third condition"
+      },
+      {
+        "source": "third condition",
+        "target": "true return"
+      },
+      {
+        "source": "second condition",
+        "target": "second condition false outcome"
+      },
+      {
+        "source": "third condition",
+        "target": "third condition false outcome"
+      }
+    ],
+    "required_paths": [
+      [
+        "run entry",
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "true return"
+      ],
+      [
+        "first condition",
+        "first condition true outcome",
+        "second condition"
+      ],
+      [
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition false outcome"
+      ],
+      [
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome"
+      ],
+      [
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition"
+      ],
+      [
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "third condition false outcome"
+      ],
+      [
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "true return"
+      ],
+      [
+        "first condition true outcome",
+        "second condition",
+        "second condition false outcome"
+      ],
+      [
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome"
+      ],
+      [
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition"
+      ],
+      [
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "third condition false outcome"
+      ],
+      [
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "true return"
+      ],
+      [
+        "run entry",
+        "first condition",
+        "first condition true outcome"
+      ],
+      [
+        "run entry",
+        "first condition",
+        "first condition true outcome",
+        "second condition"
+      ],
+      [
+        "run entry",
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition false outcome"
+      ],
+      [
+        "run entry",
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome"
+      ],
+      [
+        "run entry",
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition"
+      ],
+      [
+        "run entry",
+        "first condition",
+        "first condition true outcome",
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "third condition false outcome"
+      ],
+      [
+        "second condition",
+        "second condition true outcome",
+        "third condition"
+      ],
+      [
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "third condition false outcome"
+      ],
+      [
+        "second condition",
+        "second condition true outcome",
+        "third condition",
+        "true return"
+      ],
+      [
+        "second condition true outcome",
+        "third condition",
+        "third condition false outcome"
+      ],
+      [
+        "second condition true outcome",
+        "third condition",
+        "true return"
+      ]
+    ]
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "run",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "run"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run constant",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run constant",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "run function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "flow-sensitive",
+    "branch",
+    "multi-hop"
+  ]
+}

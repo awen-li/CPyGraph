@@ -1,0 +1,16 @@
+{
+  "case": "pta.branch_callable_merge",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "choose_and_call"
+      ],
+      "points_to": [
+        "decrement",
+        "increment"
+      ],
+      "subject": "choose_and_call target"
+    }
+  ],
+  "schema_version": 1
+}

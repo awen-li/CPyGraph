@@ -1,0 +1,13 @@
+{
+  "case": "cg.recursion",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "factorial parameter value"
+      ],
+      "subject": "factorial value"
+    }
+  ],
+  "schema_version": 1
+}

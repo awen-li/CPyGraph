@@ -1,0 +1,7 @@
+digraph "cdg.if_else_returns.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose constant";
+  "choose return";
+  "choose constant" -> "choose return";
+}

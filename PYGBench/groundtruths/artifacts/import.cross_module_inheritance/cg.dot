@@ -1,0 +1,12 @@
+digraph "import.cross_module_inheritance.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "base.Base.work";
+  "base.Base.work directly";
+  "child.Child.work";
+  "run";
+  "run" -> "child.Child.work";
+  "child.Child.work" -> "base.Base.work";
+  // forbidden: "run" -> "base.Base.work directly"
+  // required path: "run" -> "child.Child.work" -> "base.Base.work"
+}

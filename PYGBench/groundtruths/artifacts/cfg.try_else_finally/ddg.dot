@@ -1,0 +1,7 @@
+digraph "cfg.try_else_finally.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run return";
+  "run value";
+  "run value" -> "run return";
+}

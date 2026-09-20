@@ -1,0 +1,13 @@
+{
+  "case": "cg.direct",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "caller function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

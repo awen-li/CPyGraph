@@ -1,0 +1,6 @@
+digraph "cdg.sequential_diamonds.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "combine";
+  // forbidden: "combine" -> "combine"
+}

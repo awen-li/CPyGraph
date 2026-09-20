@@ -1,0 +1,10 @@
+digraph "cfg.subscript_exception.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "IndexError handler";
+  "KeyError handler";
+  "protected subscript";
+  "protected subscript" -> "KeyError handler";
+  "protected subscript" -> "IndexError handler";
+  // forbidden: "KeyError handler" -> "IndexError handler"
+}

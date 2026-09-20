@@ -1,0 +1,8 @@
+digraph "python.call_unpacking.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  "target";
+  "run" -> "target";
+  // forbidden: "target" -> "run"
+}

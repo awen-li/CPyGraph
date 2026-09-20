@@ -1,0 +1,7 @@
+digraph "ddg.exception_value.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "capture entry";
+  "capture return";
+  "capture entry" -> "capture return";
+}

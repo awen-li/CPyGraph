@@ -1,0 +1,7 @@
+digraph "python.fstring.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  "unrelated";
+  // forbidden: "run" -> "unrelated"
+}

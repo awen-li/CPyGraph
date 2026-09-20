@@ -1,0 +1,6 @@
+digraph "cg.mutual_recursion.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

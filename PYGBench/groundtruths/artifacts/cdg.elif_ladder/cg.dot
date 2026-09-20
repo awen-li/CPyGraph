@@ -1,0 +1,6 @@
+digraph "cdg.elif_ladder.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "priority";
+  // forbidden: "priority" -> "priority"
+}

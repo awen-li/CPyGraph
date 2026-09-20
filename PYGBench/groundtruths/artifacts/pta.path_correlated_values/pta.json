@@ -1,0 +1,24 @@
+{
+  "case": "pta.path_correlated_values",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "left"
+      ],
+      "points_to": [
+        "right"
+      ],
+      "subject": "false return"
+    },
+    {
+      "must_not_point_to": [
+        "right"
+      ],
+      "points_to": [
+        "left"
+      ],
+      "subject": "true return"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,15 @@
+{
+  "case": "pta.container_flow",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "list object"
+      ],
+      "points_to": [
+        "parameter value"
+      ],
+      "subject": "items[0]"
+    }
+  ],
+  "schema_version": 1
+}

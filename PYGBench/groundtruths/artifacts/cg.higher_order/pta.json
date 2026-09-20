@@ -1,0 +1,13 @@
+{
+  "case": "cg.higher_order",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "decrement parameter value"
+      ],
+      "subject": "decrement value"
+    }
+  ],
+  "schema_version": 1
+}

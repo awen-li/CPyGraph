@@ -1,0 +1,162 @@
+{
+  "case": "cdg.sequential_diamonds",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "true",
+        "source": "first condition",
+        "target": "third assignment"
+      },
+      {
+        "outcome": "false",
+        "source": "second condition",
+        "target": "second assignment"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "first assignment",
+      "first condition",
+      "fourth assignment",
+      "second assignment",
+      "second condition",
+      "third assignment"
+    ],
+    "required_edges": [
+      {
+        "outcome": "true",
+        "source": "first condition",
+        "target": "first assignment"
+      },
+      {
+        "outcome": "false",
+        "source": "first condition",
+        "target": "second assignment"
+      },
+      {
+        "outcome": "true",
+        "source": "second condition",
+        "target": "third assignment"
+      },
+      {
+        "outcome": "false",
+        "source": "second condition",
+        "target": "fourth assignment"
+      }
+    ],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "combine entry",
+      "combine return"
+    ],
+    "required_edges": [
+      {
+        "source": "combine entry",
+        "target": "combine return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "combine",
+        "target": "combine"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "combine"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "combine operation",
+      "combine return"
+    ],
+    "required_edges": [
+      {
+        "source": "combine operation",
+        "target": "combine return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "combine"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "combine function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "branch",
+    "branch-outcome",
+    "postdominator"
+  ]
+}

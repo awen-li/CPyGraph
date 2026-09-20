@@ -1,0 +1,13 @@
+{
+  "case": "python.generator_expression",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter values"
+      ],
+      "subject": "run values"
+    }
+  ],
+  "schema_version": 1
+}

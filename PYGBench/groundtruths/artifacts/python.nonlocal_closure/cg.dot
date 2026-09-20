@@ -1,0 +1,6 @@
+digraph "python.nonlocal_closure.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "make_counter";
+  // forbidden: "make_counter" -> "make_counter"
+}

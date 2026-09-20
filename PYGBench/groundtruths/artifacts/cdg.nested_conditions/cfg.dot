@@ -1,0 +1,7 @@
+digraph "cdg.nested_conditions.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "select entry";
+  "select return";
+  "select entry" -> "select return";
+}

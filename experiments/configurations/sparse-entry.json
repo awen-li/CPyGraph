@@ -1,0 +1,16 @@
+{
+  "attributes": [
+    "flow",
+    "context",
+    "path"
+  ],
+  "maximum_path_variants": 16,
+  "policy": "selective-entry",
+  "schema_version": 1,
+  "selection": {
+    "exclude": [
+      "<module>"
+    ],
+    "source": "PYGBench case.entry_points"
+  }
+}

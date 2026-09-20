@@ -1,0 +1,12 @@
+digraph "cfg.break_continue.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "break";
+  "continue";
+  "loop exit";
+  "loop header";
+  "loop latch";
+  "continue" -> "loop header";
+  "break" -> "loop exit";
+  // forbidden: "break" -> "loop latch"
+}

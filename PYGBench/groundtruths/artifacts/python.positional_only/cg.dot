@@ -1,0 +1,8 @@
+digraph "python.positional_only.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "combine";
+  "run";
+  "run" -> "combine";
+  // forbidden: "combine" -> "run"
+}

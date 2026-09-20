@@ -1,0 +1,13 @@
+{
+  "case": "ddg.interprocedural_field",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "read parameter box"
+      ],
+      "subject": "read box"
+    }
+  ],
+  "schema_version": 1
+}

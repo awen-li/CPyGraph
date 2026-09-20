@@ -1,0 +1,9 @@
+digraph "negative.overwritten_callable.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "original";
+  "replacement";
+  "run";
+  "run" -> "replacement";
+  // forbidden: "run" -> "original"
+}

@@ -1,0 +1,6 @@
+digraph "ddg.closure_def_use.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

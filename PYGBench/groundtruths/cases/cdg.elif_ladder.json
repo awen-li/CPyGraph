@@ -1,0 +1,254 @@
+{
+  "case": "cdg.elif_ladder",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "outcome": "false",
+        "source": "first condition",
+        "target": "first return"
+      },
+      {
+        "outcome": "true",
+        "source": "fourth condition",
+        "target": "fifth return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "fifth return",
+      "first condition",
+      "first return",
+      "fourth condition",
+      "fourth return",
+      "second condition",
+      "second return",
+      "third condition",
+      "third return"
+    ],
+    "required_edges": [
+      {
+        "outcome": "true",
+        "source": "first condition",
+        "target": "first return"
+      },
+      {
+        "outcome": "false",
+        "source": "first condition",
+        "target": "second condition"
+      },
+      {
+        "outcome": "true",
+        "source": "second condition",
+        "target": "second return"
+      },
+      {
+        "outcome": "false",
+        "source": "second condition",
+        "target": "third condition"
+      },
+      {
+        "outcome": "true",
+        "source": "third condition",
+        "target": "third return"
+      },
+      {
+        "outcome": "false",
+        "source": "third condition",
+        "target": "fourth condition"
+      },
+      {
+        "outcome": "true",
+        "source": "fourth condition",
+        "target": "fourth return"
+      },
+      {
+        "outcome": "false",
+        "source": "fourth condition",
+        "target": "fifth return"
+      }
+    ],
+    "required_paths": [
+      [
+        "first condition",
+        "second condition",
+        "second return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "fourth condition"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "fourth condition",
+        "fifth return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "fourth condition",
+        "fourth return"
+      ],
+      [
+        "first condition",
+        "second condition",
+        "third condition",
+        "third return"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "fourth condition"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "fourth condition",
+        "fifth return"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "fourth condition",
+        "fourth return"
+      ],
+      [
+        "second condition",
+        "third condition",
+        "third return"
+      ],
+      [
+        "third condition",
+        "fourth condition",
+        "fifth return"
+      ],
+      [
+        "third condition",
+        "fourth condition",
+        "fourth return"
+      ]
+    ]
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "priority entry",
+      "priority return"
+    ],
+    "required_edges": [
+      {
+        "source": "priority entry",
+        "target": "priority return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "priority",
+        "target": "priority"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "priority"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "priority constant",
+      "priority return"
+    ],
+    "required_edges": [
+      {
+        "source": "priority constant",
+        "target": "priority return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "priority"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "priority function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "control-dependence",
+    "branch",
+    "branch-outcome",
+    "multi-hop"
+  ]
+}

@@ -1,0 +1,10 @@
+digraph "cg.branch_targets.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "caller";
+  "left";
+  "right";
+  "caller" -> "left";
+  "caller" -> "right";
+  // forbidden: "caller" -> "caller"
+}

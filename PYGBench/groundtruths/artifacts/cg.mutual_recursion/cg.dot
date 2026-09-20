@@ -1,0 +1,10 @@
+digraph "cg.mutual_recursion.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decoy";
+  "is_even";
+  "is_odd";
+  "is_even" -> "is_odd";
+  "is_odd" -> "is_even";
+  // forbidden: "is_even" -> "decoy"
+}

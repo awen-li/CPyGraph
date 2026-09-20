@@ -1,0 +1,13 @@
+{
+  "case": "ddg.subscript_flow",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "round_trip parameter key"
+      ],
+      "subject": "round_trip key"
+    }
+  ],
+  "schema_version": 1
+}

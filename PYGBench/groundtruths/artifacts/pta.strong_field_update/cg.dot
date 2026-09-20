@@ -1,0 +1,6 @@
+digraph "pta.strong_field_update.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "replace";
+  // forbidden: "replace" -> "replace"
+}

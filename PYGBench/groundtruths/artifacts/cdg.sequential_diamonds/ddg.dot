@@ -1,0 +1,7 @@
+digraph "cdg.sequential_diamonds.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "combine operation";
+  "combine return";
+  "combine operation" -> "combine return";
+}

@@ -1,0 +1,13 @@
+digraph "python.property.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Item.unused";
+  "Item.value.getter";
+  "Item.value.setter";
+  "run";
+  "run read";
+  "run write";
+  "run write" -> "Item.value.setter";
+  "run read" -> "Item.value.getter";
+  // forbidden: "run" -> "Item.unused"
+}

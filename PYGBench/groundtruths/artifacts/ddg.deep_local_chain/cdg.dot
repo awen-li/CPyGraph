@@ -1,0 +1,6 @@
+digraph "ddg.deep_local_chain.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

@@ -1,0 +1,143 @@
+{
+  "case": "cfg.async_for_else",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "break",
+        "target": "else"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "async exhaustion",
+      "async next",
+      "break",
+      "else",
+      "loop body"
+    ],
+    "required_edges": [
+      {
+        "source": "async next",
+        "target": "loop body"
+      },
+      {
+        "source": "async exhaustion",
+        "target": "else"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "find",
+        "target": "find"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "find"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "find constant",
+      "find return"
+    ],
+    "required_edges": [
+      {
+        "source": "find constant",
+        "target": "find return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "find"
+  ],
+  "limitations": [
+    "async-requires-dedicated-model"
+  ],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "find function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "async",
+    "loop",
+    "suspension"
+  ]
+}

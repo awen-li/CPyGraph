@@ -1,0 +1,6 @@
+digraph "cfg.loop_back_edge.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "count";
+  // forbidden: "count" -> "count"
+}

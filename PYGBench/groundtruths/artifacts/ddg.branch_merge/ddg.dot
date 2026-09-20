@@ -1,0 +1,12 @@
+digraph "ddg.branch_merge.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "flag";
+  "left assignment";
+  "return result";
+  "returned data value";
+  "right assignment";
+  "left assignment" -> "return result";
+  "right assignment" -> "return result";
+  // forbidden: "flag" -> "returned data value"
+}

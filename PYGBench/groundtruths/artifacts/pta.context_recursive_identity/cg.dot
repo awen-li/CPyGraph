@@ -1,0 +1,8 @@
+digraph "pta.context_recursive_identity.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "carry";
+  "left";
+  "carry" -> "carry";
+  // forbidden: "carry" -> "left"
+}

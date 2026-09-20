@@ -1,0 +1,7 @@
+digraph "ddg.loop_carried.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "total entry";
+  "total return";
+  "total entry" -> "total return";
+}

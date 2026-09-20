@@ -1,0 +1,7 @@
+digraph "cfg.branch.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose left";
+  "choose return";
+  "choose left" -> "choose return";
+}

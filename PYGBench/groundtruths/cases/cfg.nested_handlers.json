@@ -1,0 +1,140 @@
+{
+  "case": "cfg.nested_handlers",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [
+      {
+        "source": "KeyError raise",
+        "target": "outer handler directly"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "KeyError raise",
+      "inner handler",
+      "other exception",
+      "outer handler",
+      "outer handler directly"
+    ],
+    "required_edges": [
+      {
+        "source": "KeyError raise",
+        "target": "inner handler"
+      },
+      {
+        "source": "other exception",
+        "target": "outer handler"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "nested",
+        "target": "nested"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "nested"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "nested load element",
+      "nested return"
+    ],
+    "required_edges": [
+      {
+        "source": "nested load element",
+        "target": "nested return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "nested"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "nested parameter mapping"
+      ],
+      "subject": "nested mapping"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "exception-flow",
+    "nested"
+  ]
+}

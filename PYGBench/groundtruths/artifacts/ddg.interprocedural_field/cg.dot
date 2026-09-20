@@ -1,0 +1,8 @@
+digraph "ddg.interprocedural_field.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "read";
+  "run";
+  "run" -> "read";
+  // forbidden: "read" -> "run"
+}

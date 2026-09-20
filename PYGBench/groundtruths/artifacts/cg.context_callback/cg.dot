@@ -1,0 +1,12 @@
+digraph "cg.context_callback.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "invoke@run_left";
+  "invoke@run_right";
+  "left";
+  "right";
+  "invoke@run_left" -> "left";
+  "invoke@run_right" -> "right";
+  // forbidden: "invoke@run_left" -> "right"
+  // forbidden: "invoke@run_right" -> "left"
+}

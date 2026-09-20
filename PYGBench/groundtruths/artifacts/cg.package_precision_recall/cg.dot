@@ -1,0 +1,14 @@
+digraph "cg.package_precision_recall.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "branch_left";
+  "branch_right";
+  "choose_and_call";
+  "run";
+  "selected";
+  "unreachable_decoy";
+  "run" -> "selected";
+  "choose_and_call" -> "branch_left";
+  "choose_and_call" -> "branch_right";
+  // forbidden: "run" -> "unreachable_decoy"
+}

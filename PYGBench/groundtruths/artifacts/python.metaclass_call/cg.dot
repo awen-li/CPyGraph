@@ -1,0 +1,13 @@
+digraph "python.metaclass_call.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Item.__init__";
+  "Item.unused";
+  "Meta.__call__";
+  "run";
+  "run" -> "Meta.__call__";
+  "Meta.__call__" -> "Item.__init__";
+  // forbidden: "run" -> "Item.unused"
+  // forbidden: "Meta.__call__" -> "Item.unused"
+  // required path: "run" -> "Meta.__call__" -> "Item.__init__"
+}

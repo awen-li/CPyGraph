@@ -1,0 +1,15 @@
+{
+  "case": "pta.capture_rebinding",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "initial parameter value"
+      ],
+      "points_to": [
+        "replacement parameter value"
+      ],
+      "subject": "invoke return"
+    }
+  ],
+  "schema_version": 1
+}

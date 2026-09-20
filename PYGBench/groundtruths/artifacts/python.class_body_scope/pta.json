@@ -1,0 +1,13 @@
+{
+  "case": "python.class_body_scope",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "module function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

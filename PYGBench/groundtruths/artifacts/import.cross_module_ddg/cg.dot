@@ -1,0 +1,7 @@
+digraph "import.cross_module_ddg.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decoy";
+  "run";
+  // forbidden: "run" -> "decoy"
+}

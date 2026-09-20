@@ -1,0 +1,14 @@
+digraph "cfg.loop_finally.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "break";
+  "continue";
+  "continue or break";
+  "finally cleanup";
+  "loop body exception";
+  "loop target bypassing cleanup";
+  "continue" -> "finally cleanup";
+  "break" -> "finally cleanup";
+  "loop body exception" -> "finally cleanup";
+  // forbidden: "continue or break" -> "loop target bypassing cleanup"
+}

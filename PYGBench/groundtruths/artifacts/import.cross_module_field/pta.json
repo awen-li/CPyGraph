@@ -1,0 +1,15 @@
+{
+  "case": "import.cross_module_field",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Box instance"
+      ],
+      "points_to": [
+        "writer.write value"
+      ],
+      "subject": "reader.read box.payload"
+    }
+  ],
+  "schema_version": 1
+}

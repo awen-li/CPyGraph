@@ -1,0 +1,7 @@
+digraph "pta.recursive_heap.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "cycle entry";
+  "cycle return";
+  "cycle entry" -> "cycle return";
+}

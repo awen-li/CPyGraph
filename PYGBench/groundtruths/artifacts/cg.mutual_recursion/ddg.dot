@@ -1,0 +1,7 @@
+digraph "cg.mutual_recursion.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "is_even constant";
+  "is_even return";
+  "is_even constant" -> "is_even return";
+}

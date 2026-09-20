@@ -1,0 +1,6 @@
+digraph "ddg.sibling_capture_flow.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "outer";
+  // forbidden: "outer" -> "outer"
+}

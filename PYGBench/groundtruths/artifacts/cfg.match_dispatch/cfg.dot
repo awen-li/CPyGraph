@@ -1,0 +1,12 @@
+digraph "cfg.match_dispatch.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "default arm";
+  "match";
+  "sequence arm";
+  "zero arm";
+  "match" -> "zero arm";
+  "match" -> "sequence arm";
+  "match" -> "default arm";
+  // forbidden: "zero arm" -> "sequence arm"
+}

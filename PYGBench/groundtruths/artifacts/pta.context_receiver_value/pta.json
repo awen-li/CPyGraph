@@ -1,0 +1,24 @@
+{
+  "case": "pta.context_receiver_value",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Right instance"
+      ],
+      "points_to": [
+        "Left instance"
+      ],
+      "subject": "left result"
+    },
+    {
+      "must_not_point_to": [
+        "Left instance"
+      ],
+      "points_to": [
+        "Right instance"
+      ],
+      "subject": "right result"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,9 @@
+digraph "protocol.truthiness.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Flag.__bool__";
+  "Flag.__len__";
+  "run";
+  "run" -> "Flag.__bool__";
+  // forbidden: "run" -> "Flag.__len__"
+}

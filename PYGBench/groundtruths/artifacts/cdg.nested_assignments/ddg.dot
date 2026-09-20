@@ -1,0 +1,7 @@
+digraph "cdg.nested_assignments.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose return";
+  "choose value";
+  "choose value" -> "choose return";
+}

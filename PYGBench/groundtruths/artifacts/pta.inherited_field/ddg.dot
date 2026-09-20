@@ -1,0 +1,7 @@
+digraph "pta.inherited_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "read operation";
+  "read return";
+  "read operation" -> "read return";
+}

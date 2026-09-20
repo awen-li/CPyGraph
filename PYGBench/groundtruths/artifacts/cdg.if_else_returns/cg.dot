@@ -1,0 +1,6 @@
+digraph "cdg.if_else_returns.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose";
+  // forbidden: "choose" -> "choose"
+}

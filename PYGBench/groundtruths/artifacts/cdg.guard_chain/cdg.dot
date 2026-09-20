@@ -1,0 +1,47 @@
+digraph "cdg.guard_chain.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "fifth condition";
+  "fifth return";
+  "first condition";
+  "first return";
+  "fourth condition";
+  "fourth return";
+  "second condition";
+  "second return";
+  "sixth return";
+  "third condition";
+  "third return";
+  "first condition" -> "first return" [label="true"];
+  "first condition" -> "second condition" [label="false"];
+  "second condition" -> "second return" [label="true"];
+  "second condition" -> "third condition" [label="false"];
+  "third condition" -> "third return" [label="true"];
+  "third condition" -> "fourth condition" [label="false"];
+  "fourth condition" -> "fourth return" [label="true"];
+  "fourth condition" -> "fifth condition" [label="false"];
+  "fifth condition" -> "fifth return" [label="true"];
+  "fifth condition" -> "sixth return" [label="false"];
+  // forbidden: "first condition" -> "first return" [false]
+  // forbidden: "fifth condition" -> "sixth return" [true]
+  // required path: "first condition" -> "second condition" -> "second return"
+  // required path: "first condition" -> "second condition" -> "third condition"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition" -> "fifth condition"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition" -> "fifth condition" -> "fifth return"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition" -> "fifth condition" -> "sixth return"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition" -> "fourth return"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "third return"
+  // required path: "fourth condition" -> "fifth condition" -> "fifth return"
+  // required path: "fourth condition" -> "fifth condition" -> "sixth return"
+  // required path: "second condition" -> "third condition" -> "fourth condition"
+  // required path: "second condition" -> "third condition" -> "fourth condition" -> "fifth condition"
+  // required path: "second condition" -> "third condition" -> "fourth condition" -> "fifth condition" -> "fifth return"
+  // required path: "second condition" -> "third condition" -> "fourth condition" -> "fifth condition" -> "sixth return"
+  // required path: "second condition" -> "third condition" -> "fourth condition" -> "fourth return"
+  // required path: "second condition" -> "third condition" -> "third return"
+  // required path: "third condition" -> "fourth condition" -> "fifth condition"
+  // required path: "third condition" -> "fourth condition" -> "fifth condition" -> "fifth return"
+  // required path: "third condition" -> "fourth condition" -> "fifth condition" -> "sixth return"
+  // required path: "third condition" -> "fourth condition" -> "fourth return"
+}

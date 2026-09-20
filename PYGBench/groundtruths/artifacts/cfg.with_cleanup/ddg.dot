@@ -1,0 +1,7 @@
+digraph "cfg.with_cleanup.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "managed call";
+  "managed return";
+  "managed call" -> "managed return";
+}

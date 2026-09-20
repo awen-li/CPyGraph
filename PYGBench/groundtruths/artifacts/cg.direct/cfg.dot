@@ -1,0 +1,7 @@
+digraph "cg.direct.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "caller entry";
+  "caller return";
+  "caller entry" -> "caller return";
+}

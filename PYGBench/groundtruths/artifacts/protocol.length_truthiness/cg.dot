@@ -1,0 +1,9 @@
+digraph "protocol.length_truthiness.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Collection.__len__";
+  "Collection.unused";
+  "run";
+  "run" -> "Collection.__len__";
+  // forbidden: "run" -> "Collection.unused"
+}

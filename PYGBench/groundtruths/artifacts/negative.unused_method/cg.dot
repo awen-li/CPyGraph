@@ -1,0 +1,9 @@
+digraph "negative.unused_method.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Active.work";
+  "Inactive.work";
+  "run";
+  "run" -> "Active.work";
+  // forbidden: "run" -> "Inactive.work"
+}

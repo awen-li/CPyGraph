@@ -1,0 +1,135 @@
+{
+  "case": "python.structural_pattern",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "Point pattern failure",
+      "Point pattern success",
+      "coordinate return",
+      "default return"
+    ],
+    "required_edges": [
+      {
+        "source": "Point pattern success",
+        "target": "coordinate return"
+      },
+      {
+        "source": "Point pattern failure",
+        "target": "default return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "extract",
+        "target": "Point.__init__"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "Point.__init__",
+      "extract"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "unmatched object",
+        "target": "coordinate return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "coordinate return",
+      "unmatched object"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "extract"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "extract function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "pattern-matching",
+    "class"
+  ]
+}

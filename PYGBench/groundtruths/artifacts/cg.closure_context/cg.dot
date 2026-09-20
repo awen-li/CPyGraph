@@ -1,0 +1,12 @@
+digraph "cg.closure_context.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "left";
+  "left closure";
+  "right";
+  "right closure";
+  "left closure" -> "left";
+  "right closure" -> "right";
+  // forbidden: "left closure" -> "right"
+  // forbidden: "right closure" -> "left"
+}

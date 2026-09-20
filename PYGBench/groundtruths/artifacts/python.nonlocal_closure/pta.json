@@ -1,0 +1,15 @@
+{
+  "case": "python.nonlocal_closure",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "make_counter"
+      ],
+      "points_to": [
+        "increment closure"
+      ],
+      "subject": "make_counter return"
+    }
+  ],
+  "schema_version": 1
+}

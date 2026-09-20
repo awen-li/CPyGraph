@@ -1,0 +1,7 @@
+digraph "python.set_comprehension.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  "setcomp";
+  "run" -> "setcomp";
+}

@@ -1,0 +1,7 @@
+digraph "protocol.context_manager.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run resource";
+  "run return";
+  "run resource" -> "run return";
+}

@@ -1,0 +1,142 @@
+{
+  "case": "pta.inherited_field",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "read entry",
+      "read return"
+    ],
+    "required_edges": [
+      {
+        "source": "read entry",
+        "target": "read return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "read",
+        "target": "read"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "read"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "read operation",
+      "read return"
+    ],
+    "required_edges": [
+      {
+        "source": "read operation",
+        "target": "read return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "read"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "child.own value"
+      ],
+      "points_to": [],
+      "subject": "Base.payload"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "Base.payload value"
+      ],
+      "subject": "Child.payload"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "instance value"
+      ],
+      "subject": "child.own"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "field-modeling",
+    "inheritance"
+  ]
+}

@@ -1,0 +1,35 @@
+digraph "cdg.elif_ladder.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "fifth return";
+  "first condition";
+  "first return";
+  "fourth condition";
+  "fourth return";
+  "second condition";
+  "second return";
+  "third condition";
+  "third return";
+  "first condition" -> "first return" [label="true"];
+  "first condition" -> "second condition" [label="false"];
+  "second condition" -> "second return" [label="true"];
+  "second condition" -> "third condition" [label="false"];
+  "third condition" -> "third return" [label="true"];
+  "third condition" -> "fourth condition" [label="false"];
+  "fourth condition" -> "fourth return" [label="true"];
+  "fourth condition" -> "fifth return" [label="false"];
+  // forbidden: "first condition" -> "first return" [false]
+  // forbidden: "fourth condition" -> "fifth return" [true]
+  // required path: "first condition" -> "second condition" -> "second return"
+  // required path: "first condition" -> "second condition" -> "third condition"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition" -> "fifth return"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "fourth condition" -> "fourth return"
+  // required path: "first condition" -> "second condition" -> "third condition" -> "third return"
+  // required path: "second condition" -> "third condition" -> "fourth condition"
+  // required path: "second condition" -> "third condition" -> "fourth condition" -> "fifth return"
+  // required path: "second condition" -> "third condition" -> "fourth condition" -> "fourth return"
+  // required path: "second condition" -> "third condition" -> "third return"
+  // required path: "third condition" -> "fourth condition" -> "fifth return"
+  // required path: "third condition" -> "fourth condition" -> "fourth return"
+}

@@ -1,0 +1,13 @@
+{
+  "case": "cfg.async_suspend",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "load parameter source"
+      ],
+      "subject": "load source"
+    }
+  ],
+  "schema_version": 1
+}

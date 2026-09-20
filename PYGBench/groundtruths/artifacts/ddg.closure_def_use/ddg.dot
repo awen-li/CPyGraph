@@ -1,0 +1,9 @@
+digraph "ddg.closure_def_use.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "inner function object";
+  "inner return";
+  "outer parameter";
+  "outer parameter" -> "inner return";
+  // forbidden: "inner function object" -> "inner return"
+}

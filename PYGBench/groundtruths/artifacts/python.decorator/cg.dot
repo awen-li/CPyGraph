@@ -1,0 +1,15 @@
+digraph "python.decorator.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "decorate";
+  "module";
+  "run";
+  "target";
+  "target directly";
+  "wrapper";
+  "module" -> "decorate";
+  "run" -> "wrapper";
+  "wrapper" -> "target";
+  // forbidden: "run" -> "target directly"
+  // required path: "run" -> "wrapper" -> "target"
+}

@@ -1,0 +1,13 @@
+{
+  "case": "cfg.short_circuit",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "both parameter left"
+      ],
+      "subject": "both left"
+    }
+  ],
+  "schema_version": 1
+}

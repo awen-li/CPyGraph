@@ -1,0 +1,293 @@
+{
+  "case": "cg.deep_direct_chain",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run entry",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "leaf",
+        "target": "stage_four"
+      },
+      {
+        "source": "stage_four",
+        "target": "stage_three"
+      },
+      {
+        "source": "stage_three",
+        "target": "stage_two"
+      },
+      {
+        "source": "stage_two",
+        "target": "stage_one"
+      },
+      {
+        "source": "stage_one",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "leaf",
+        "stage_four",
+        "stage_three",
+        "stage_two",
+        "stage_one",
+        "run"
+      ],
+      [
+        "leaf",
+        "stage_four",
+        "stage_three"
+      ],
+      [
+        "leaf",
+        "stage_four",
+        "stage_three",
+        "stage_two"
+      ],
+      [
+        "leaf",
+        "stage_four",
+        "stage_three",
+        "stage_two",
+        "stage_one"
+      ],
+      [
+        "stage_four",
+        "stage_three",
+        "stage_two"
+      ],
+      [
+        "stage_four",
+        "stage_three",
+        "stage_two",
+        "stage_one"
+      ],
+      [
+        "stage_four",
+        "stage_three",
+        "stage_two",
+        "stage_one",
+        "run"
+      ],
+      [
+        "stage_three",
+        "stage_two",
+        "stage_one"
+      ],
+      [
+        "stage_three",
+        "stage_two",
+        "stage_one",
+        "run"
+      ],
+      [
+        "stage_two",
+        "stage_one",
+        "run"
+      ]
+    ],
+    "nodes": [
+      "leaf",
+      "run",
+      "stage_four",
+      "stage_one",
+      "stage_three",
+      "stage_two"
+    ],
+    "required_edges": [
+      {
+        "source": "run",
+        "target": "stage_one"
+      },
+      {
+        "source": "stage_one",
+        "target": "stage_two"
+      },
+      {
+        "source": "stage_two",
+        "target": "stage_three"
+      },
+      {
+        "source": "stage_three",
+        "target": "stage_four"
+      },
+      {
+        "source": "stage_four",
+        "target": "leaf"
+      }
+    ],
+    "required_paths": [
+      [
+        "run",
+        "stage_one",
+        "stage_two",
+        "stage_three",
+        "stage_four",
+        "leaf"
+      ],
+      [
+        "run",
+        "stage_one",
+        "stage_two"
+      ],
+      [
+        "run",
+        "stage_one",
+        "stage_two",
+        "stage_three"
+      ],
+      [
+        "run",
+        "stage_one",
+        "stage_two",
+        "stage_three",
+        "stage_four"
+      ],
+      [
+        "stage_one",
+        "stage_two",
+        "stage_three"
+      ],
+      [
+        "stage_one",
+        "stage_two",
+        "stage_three",
+        "stage_four"
+      ],
+      [
+        "stage_one",
+        "stage_two",
+        "stage_three",
+        "stage_four",
+        "leaf"
+      ],
+      [
+        "stage_three",
+        "stage_four",
+        "leaf"
+      ],
+      [
+        "stage_two",
+        "stage_three",
+        "stage_four"
+      ],
+      [
+        "stage_two",
+        "stage_three",
+        "stage_four",
+        "leaf"
+      ]
+    ]
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run call",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run call",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter value"
+      ],
+      "subject": "run value"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "direct-call",
+    "interprocedural",
+    "multi-hop"
+  ]
+}

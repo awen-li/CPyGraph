@@ -1,0 +1,9 @@
+digraph "import.module_alias.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "provider.decoy";
+  "provider.target";
+  "run";
+  "run" -> "provider.target";
+  // forbidden: "run" -> "provider.decoy"
+}

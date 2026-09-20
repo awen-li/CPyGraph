@@ -1,0 +1,8 @@
+digraph "cdg.conditional_expression.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose call";
+  "choose return";
+  "choose call" -> "choose return";
+  // forbidden: "choose return" -> "choose call"
+}

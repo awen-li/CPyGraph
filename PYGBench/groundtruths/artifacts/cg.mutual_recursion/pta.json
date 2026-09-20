@@ -1,0 +1,13 @@
+{
+  "case": "cg.mutual_recursion",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "is_even parameter value"
+      ],
+      "subject": "is_even value"
+    }
+  ],
+  "schema_version": 1
+}

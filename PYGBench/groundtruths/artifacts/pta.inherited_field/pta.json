@@ -1,0 +1,27 @@
+{
+  "case": "pta.inherited_field",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "child.own value"
+      ],
+      "points_to": [],
+      "subject": "Base.payload"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "Base.payload value"
+      ],
+      "subject": "Child.payload"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "instance value"
+      ],
+      "subject": "child.own"
+    }
+  ],
+  "schema_version": 1
+}

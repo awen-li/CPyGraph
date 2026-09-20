@@ -1,0 +1,7 @@
+digraph "python.unpacking.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "swap entry";
+  "swap return";
+  "swap entry" -> "swap return";
+}

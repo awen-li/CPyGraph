@@ -1,0 +1,146 @@
+{
+  "case": "ddg.subscript_flow",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "round_trip entry",
+      "round_trip return"
+    ],
+    "required_edges": [
+      {
+        "source": "round_trip entry",
+        "target": "round_trip return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "round_trip",
+        "target": "round_trip"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "round_trip"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "key",
+        "target": "returned payload"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "items key store",
+      "key",
+      "parameter value",
+      "return subscription",
+      "returned payload"
+    ],
+    "required_edges": [
+      {
+        "source": "parameter value",
+        "target": "items key store"
+      },
+      {
+        "source": "items key store",
+        "target": "return subscription"
+      }
+    ],
+    "required_paths": [
+      [
+        "parameter value",
+        "items key store",
+        "return subscription"
+      ]
+    ]
+  },
+  "entry_points": [
+    "<module>",
+    "round_trip"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "round_trip parameter key"
+      ],
+      "subject": "round_trip key"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "heap",
+    "subscription"
+  ]
+}

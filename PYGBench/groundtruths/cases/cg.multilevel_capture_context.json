@@ -1,0 +1,148 @@
+{
+  "case": "cg.multilevel_capture_context",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "left_entry entry",
+      "left_entry return"
+    ],
+    "required_edges": [
+      {
+        "source": "left_entry entry",
+        "target": "left_entry return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "leaf@left_entry",
+        "target": "right"
+      },
+      {
+        "source": "leaf@right_entry",
+        "target": "left"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "leaf@left_entry",
+      "leaf@right_entry",
+      "left",
+      "right"
+    ],
+    "required_edges": [
+      {
+        "source": "leaf@left_entry",
+        "target": "left"
+      },
+      {
+        "source": "leaf@right_entry",
+        "target": "right"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "left_entry call",
+      "left_entry return"
+    ],
+    "required_edges": [
+      {
+        "source": "left_entry call",
+        "target": "left_entry return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "left_entry",
+    "right_entry"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "bind function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "context-sensitive",
+    "closure",
+    "nested-code",
+    "interprocedural",
+    "two-call-site"
+  ]
+}

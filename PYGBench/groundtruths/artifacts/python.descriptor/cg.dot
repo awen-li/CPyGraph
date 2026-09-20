@@ -1,0 +1,13 @@
+digraph "python.descriptor.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Descriptor.__get__";
+  "Descriptor.__set__";
+  "Descriptor.unused";
+  "run";
+  "run read";
+  "run write";
+  "run read" -> "Descriptor.__get__";
+  "run write" -> "Descriptor.__set__";
+  // forbidden: "run" -> "Descriptor.unused"
+}

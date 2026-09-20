@@ -1,0 +1,24 @@
+{
+  "case": "pta.flow_field_receiver",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Right instance"
+      ],
+      "points_to": [
+        "Left instance"
+      ],
+      "subject": "first_box.payload"
+    },
+    {
+      "must_not_point_to": [
+        "Left instance"
+      ],
+      "points_to": [
+        "Right instance"
+      ],
+      "subject": "second_box.payload"
+    }
+  ],
+  "schema_version": 1
+}

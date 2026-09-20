@@ -1,0 +1,6 @@
+digraph "import.cross_module_chain.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "module entry";
+  // forbidden: "module entry" -> "module entry"
+}

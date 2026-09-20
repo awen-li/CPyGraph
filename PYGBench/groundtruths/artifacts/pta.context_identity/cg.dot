@@ -1,0 +1,9 @@
+digraph "pta.context_identity.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "from_left";
+  "from_right";
+  "identity";
+  "from_left" -> "identity";
+  // forbidden: "from_left" -> "from_right"
+}

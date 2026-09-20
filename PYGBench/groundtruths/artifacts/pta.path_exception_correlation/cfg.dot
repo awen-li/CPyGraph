@@ -1,0 +1,7 @@
+digraph "pta.path_exception_correlation.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose entry";
+  "choose return";
+  "choose entry" -> "choose return";
+}

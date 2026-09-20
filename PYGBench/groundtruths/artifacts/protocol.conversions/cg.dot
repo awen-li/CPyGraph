@@ -1,0 +1,13 @@
+digraph "protocol.conversions.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__float__";
+  "Value.__int__";
+  "Value.__str__";
+  "Value.unused";
+  "run";
+  "run" -> "Value.__str__";
+  "run" -> "Value.__int__";
+  "run" -> "Value.__float__";
+  // forbidden: "run" -> "Value.unused"
+}

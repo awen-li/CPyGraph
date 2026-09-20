@@ -1,0 +1,7 @@
+digraph "import.cross_module_alias_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run load attribute payload";
+  "run return";
+  "run load attribute payload" -> "run return";
+}

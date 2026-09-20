@@ -1,0 +1,24 @@
+{
+  "case": "pta.flow_sequential_rebinding",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Left instance"
+      ],
+      "points_to": [
+        "Right instance"
+      ],
+      "subject": "after"
+    },
+    {
+      "must_not_point_to": [
+        "Right instance"
+      ],
+      "points_to": [
+        "Left instance"
+      ],
+      "subject": "before"
+    }
+  ],
+  "schema_version": 1
+}

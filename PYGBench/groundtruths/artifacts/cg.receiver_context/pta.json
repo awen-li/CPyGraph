@@ -1,0 +1,13 @@
+{
+  "case": "cg.receiver_context",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "dispatch parameter receiver"
+      ],
+      "subject": "dispatch receiver"
+    }
+  ],
+  "schema_version": 1
+}

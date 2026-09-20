@@ -1,0 +1,9 @@
+digraph "python.augmented_assignment.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__iadd__";
+  "Value.__isub__";
+  "run";
+  "run" -> "Value.__iadd__";
+  // forbidden: "run" -> "Value.__isub__"
+}

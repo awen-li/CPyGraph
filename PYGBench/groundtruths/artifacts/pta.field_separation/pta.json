@@ -1,0 +1,22 @@
+{
+  "case": "pta.field_separation",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "second"
+      ],
+      "points_to": [
+        "first"
+      ],
+      "subject": "read left.payload"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "second"
+      ],
+      "subject": "read right.payload"
+    }
+  ],
+  "schema_version": 1
+}

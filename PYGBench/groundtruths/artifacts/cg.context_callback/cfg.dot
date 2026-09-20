@@ -1,0 +1,7 @@
+digraph "cg.context_callback.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run_left entry";
+  "run_left return";
+  "run_left entry" -> "run_left return";
+}

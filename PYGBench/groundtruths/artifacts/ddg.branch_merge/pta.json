@@ -1,0 +1,13 @@
+{
+  "case": "ddg.branch_merge",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "merge function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1
+}

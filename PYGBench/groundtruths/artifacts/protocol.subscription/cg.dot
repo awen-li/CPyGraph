@@ -1,0 +1,11 @@
+digraph "protocol.subscription.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Store.__getitem__";
+  "Store.__setitem__";
+  "Store.unused";
+  "run";
+  "run" -> "Store.__setitem__";
+  "run" -> "Store.__getitem__";
+  // forbidden: "run" -> "Store.unused"
+}

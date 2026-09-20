@@ -1,0 +1,11 @@
+digraph "python.keyword_arguments.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "combine parameter left";
+  "combine parameter right";
+  "run left";
+  "run right";
+  "run left" -> "combine parameter left";
+  "run right" -> "combine parameter right";
+  // forbidden: "run left" -> "combine parameter right"
+}

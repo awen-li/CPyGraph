@@ -1,0 +1,13 @@
+digraph "cg.higher_order.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "apply";
+  "decrement";
+  "increment";
+  "run";
+  "apply" -> "increment";
+  "run" -> "apply";
+  // forbidden: "apply" -> "decrement"
+  // required path: "run" -> "apply" -> "increment"
+  // forbidden path: "run" -> "apply" -> "decrement"
+}

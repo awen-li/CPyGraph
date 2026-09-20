@@ -1,0 +1,13 @@
+{
+  "case": "cg.package_precision_recall",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "unreachable_decoy parameter value"
+      ],
+      "subject": "unreachable_decoy value"
+    }
+  ],
+  "schema_version": 1
+}

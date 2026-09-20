@@ -1,0 +1,7 @@
+digraph "import.package_initializer.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "initialize entry";
+  "initialize return";
+  "initialize entry" -> "initialize return";
+}

@@ -1,0 +1,7 @@
+digraph "ddg.local_def_use.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "local entry";
+  "local return";
+  "local entry" -> "local return";
+}

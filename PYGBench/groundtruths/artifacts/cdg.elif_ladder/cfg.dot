@@ -1,0 +1,7 @@
+digraph "cdg.elif_ladder.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "priority entry";
+  "priority return";
+  "priority entry" -> "priority return";
+}

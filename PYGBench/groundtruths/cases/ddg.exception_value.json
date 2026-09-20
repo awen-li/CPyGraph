@@ -1,0 +1,145 @@
+{
+  "case": "ddg.exception_value",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "capture entry",
+      "capture return"
+    ],
+    "required_edges": [
+      {
+        "source": "capture entry",
+        "target": "capture return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "capture",
+        "target": "capture"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "capture"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "normal return value",
+        "target": "handler exception"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "handler exception",
+      "normal return value",
+      "raised ValueError",
+      "return"
+    ],
+    "required_edges": [
+      {
+        "source": "raised ValueError",
+        "target": "handler exception"
+      },
+      {
+        "source": "handler exception",
+        "target": "return"
+      }
+    ],
+    "required_paths": [
+      [
+        "raised ValueError",
+        "handler exception",
+        "return"
+      ]
+    ]
+  },
+  "entry_points": [
+    "<module>",
+    "capture"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "capture function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "exception-flow",
+    "handler"
+  ]
+}

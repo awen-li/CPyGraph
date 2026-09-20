@@ -1,0 +1,7 @@
+digraph "import.alias_and_attribute.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "local_decoy return";
+  "local_decoy value";
+  "local_decoy value" -> "local_decoy return";
+}

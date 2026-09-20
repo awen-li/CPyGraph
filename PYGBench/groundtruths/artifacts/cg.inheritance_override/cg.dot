@@ -1,0 +1,11 @@
+digraph "cg.inheritance_override.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Base.work";
+  "Child.work";
+  "run base.work";
+  "run child.work";
+  "run child.work" -> "Child.work";
+  "run base.work" -> "Base.work";
+  // forbidden: "run child.work" -> "Base.work"
+}

@@ -1,0 +1,7 @@
+digraph "pta.recursive_heap.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "cycle load attribute next";
+  "cycle return";
+  "cycle load attribute next" -> "cycle return";
+}

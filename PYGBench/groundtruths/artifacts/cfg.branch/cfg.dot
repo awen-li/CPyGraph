@@ -1,0 +1,11 @@
+digraph "cfg.branch.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose entry";
+  "choose true-return";
+  "false-return";
+  "true-return";
+  "choose entry" -> "true-return";
+  "choose entry" -> "false-return";
+  // forbidden: "choose true-return" -> "false-return"
+}

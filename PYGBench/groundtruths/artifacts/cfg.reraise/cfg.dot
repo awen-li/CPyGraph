@@ -1,0 +1,12 @@
+digraph "cfg.reraise.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "bare raise";
+  "caller exceptional exit";
+  "inner handler";
+  "normal return";
+  "protected call exception";
+  "protected call exception" -> "inner handler";
+  "bare raise" -> "caller exceptional exit";
+  // forbidden: "bare raise" -> "normal return"
+}

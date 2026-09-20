@@ -1,0 +1,13 @@
+{
+  "case": "cfg.interprocedural_exception",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "caller parameter value"
+      ],
+      "subject": "caller value"
+    }
+  ],
+  "schema_version": 1
+}

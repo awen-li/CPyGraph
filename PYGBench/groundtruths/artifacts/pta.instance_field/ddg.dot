@@ -1,0 +1,7 @@
+digraph "pta.instance_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "round_trip load attribute payload";
+  "round_trip return";
+  "round_trip load attribute payload" -> "round_trip return";
+}

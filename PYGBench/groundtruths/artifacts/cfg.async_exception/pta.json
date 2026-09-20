@@ -1,0 +1,13 @@
+{
+  "case": "cfg.async_exception",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "run parameter source"
+      ],
+      "subject": "run source"
+    }
+  ],
+  "schema_version": 1
+}

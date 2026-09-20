@@ -1,0 +1,6 @@
+digraph "ddg.closure_def_use.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "outer";
+  // forbidden: "outer" -> "outer"
+}

@@ -1,0 +1,9 @@
+digraph "protocol.awaitable.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Awaitable.__await__";
+  "Awaitable.unused";
+  "run";
+  "run" -> "Awaitable.__await__";
+  // forbidden: "run" -> "Awaitable.unused"
+}

@@ -1,0 +1,15 @@
+digraph "ddg.interprocedural_field.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Box allocation";
+  "read field load";
+  "read return";
+  "run return";
+  "run value";
+  "write field store";
+  "write value";
+  "run value" -> "write value";
+  "write field store" -> "read field load";
+  "read return" -> "run return";
+  // forbidden: "Box allocation" -> "run return"
+}

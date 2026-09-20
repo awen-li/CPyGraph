@@ -1,0 +1,16 @@
+{
+  "case": "pta.weak_field_update",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "condition"
+      ],
+      "points_to": [
+        "original",
+        "replacement"
+      ],
+      "subject": "left.payload"
+    }
+  ],
+  "schema_version": 1
+}

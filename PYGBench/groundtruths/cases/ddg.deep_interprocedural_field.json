@@ -1,0 +1,298 @@
+{
+  "case": "ddg.deep_interprocedural_field",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "run entry",
+      "run return"
+    ],
+    "required_edges": [
+      {
+        "source": "run entry",
+        "target": "run return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "read",
+        "target": "run"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "read",
+      "run"
+    ],
+    "required_edges": [
+      {
+        "source": "run",
+        "target": "read"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "run return",
+        "target": "read return"
+      },
+      {
+        "source": "read return",
+        "target": "read field load"
+      },
+      {
+        "source": "read field load",
+        "target": "write field store"
+      },
+      {
+        "source": "write field store",
+        "target": "write value"
+      },
+      {
+        "source": "write value",
+        "target": "run value"
+      }
+    ],
+    "forbidden_paths": [
+      [
+        "run return",
+        "read return",
+        "read field load",
+        "write field store",
+        "write value",
+        "run value"
+      ],
+      [
+        "read field load",
+        "write field store",
+        "write value"
+      ],
+      [
+        "read field load",
+        "write field store",
+        "write value",
+        "run value"
+      ],
+      [
+        "read return",
+        "read field load",
+        "write field store"
+      ],
+      [
+        "read return",
+        "read field load",
+        "write field store",
+        "write value"
+      ],
+      [
+        "read return",
+        "read field load",
+        "write field store",
+        "write value",
+        "run value"
+      ],
+      [
+        "run return",
+        "read return",
+        "read field load"
+      ],
+      [
+        "run return",
+        "read return",
+        "read field load",
+        "write field store"
+      ],
+      [
+        "run return",
+        "read return",
+        "read field load",
+        "write field store",
+        "write value"
+      ],
+      [
+        "write field store",
+        "write value",
+        "run value"
+      ]
+    ],
+    "nodes": [
+      "read field load",
+      "read return",
+      "run return",
+      "run value",
+      "write field store",
+      "write value"
+    ],
+    "required_edges": [
+      {
+        "source": "run value",
+        "target": "write value"
+      },
+      {
+        "source": "write value",
+        "target": "write field store"
+      },
+      {
+        "source": "write field store",
+        "target": "read field load"
+      },
+      {
+        "source": "read field load",
+        "target": "read return"
+      },
+      {
+        "source": "read return",
+        "target": "run return"
+      }
+    ],
+    "required_paths": [
+      [
+        "run value",
+        "write value",
+        "write field store",
+        "read field load",
+        "read return",
+        "run return"
+      ],
+      [
+        "read field load",
+        "read return",
+        "run return"
+      ],
+      [
+        "run value",
+        "write value",
+        "write field store"
+      ],
+      [
+        "run value",
+        "write value",
+        "write field store",
+        "read field load"
+      ],
+      [
+        "run value",
+        "write value",
+        "write field store",
+        "read field load",
+        "read return"
+      ],
+      [
+        "write field store",
+        "read field load",
+        "read return"
+      ],
+      [
+        "write field store",
+        "read field load",
+        "read return",
+        "run return"
+      ],
+      [
+        "write value",
+        "write field store",
+        "read field load"
+      ],
+      [
+        "write value",
+        "write field store",
+        "read field load",
+        "read return"
+      ],
+      [
+        "write value",
+        "write field store",
+        "read field load",
+        "read return",
+        "run return"
+      ]
+    ]
+  },
+  "entry_points": [
+    "<module>",
+    "run"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "read parameter box"
+      ],
+      "subject": "read box"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "field-modeling",
+    "interprocedural",
+    "multi-hop"
+  ]
+}

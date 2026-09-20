@@ -1,0 +1,7 @@
+digraph "python.dict_comprehension.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "dictcomp";
+  "run";
+  "run" -> "dictcomp";
+}

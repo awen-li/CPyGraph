@@ -1,0 +1,7 @@
+digraph "import.cross_module_return.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "consumer.consume";
+  "run";
+  "run" -> "consumer.consume";
+}

@@ -1,0 +1,7 @@
+digraph "cg.mutual_recursion.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "is_even entry";
+  "is_even return";
+  "is_even entry" -> "is_even return";
+}

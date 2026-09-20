@@ -1,0 +1,9 @@
+digraph "python.set_comprehension.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "set elements";
+  "unrelated";
+  "values elements";
+  "values elements" -> "set elements";
+  // forbidden: "unrelated" -> "set elements"
+}

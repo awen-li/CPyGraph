@@ -1,0 +1,6 @@
+digraph "cfg.contradictory_guards.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  // forbidden: "run" -> "run"
+}

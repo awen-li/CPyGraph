@@ -1,0 +1,7 @@
+digraph "protocol.combined_dispatch.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "exercise_protocols constant";
+  "exercise_protocols return";
+  "exercise_protocols constant" -> "exercise_protocols return";
+}

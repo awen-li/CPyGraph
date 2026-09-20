@@ -1,0 +1,12 @@
+digraph "cfg.explicit_raise.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "handled return";
+  "matching handler";
+  "normal return";
+  "raise ValueError";
+  "raise ValueError" -> "matching handler";
+  "matching handler" -> "handled return";
+  // forbidden: "raise ValueError" -> "normal return"
+  // required path: "raise ValueError" -> "matching handler" -> "handled return"
+}

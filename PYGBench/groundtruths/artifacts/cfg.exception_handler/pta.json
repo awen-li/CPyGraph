@@ -1,0 +1,13 @@
+{
+  "case": "cfg.exception_handler",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "guarded_divide parameter numerator"
+      ],
+      "subject": "guarded_divide numerator"
+    }
+  ],
+  "schema_version": 1
+}

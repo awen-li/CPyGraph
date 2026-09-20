@@ -1,0 +1,12 @@
+digraph "cdg.loop_control.cdg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "count condition";
+  "count loop body";
+  "count return";
+  "count condition" -> "count loop body" [label="true"];
+  "count condition" -> "count condition" [label="true"];
+  // forbidden: "count condition" -> "count loop body" [false]
+  // forbidden: "count return" -> "count condition"
+  // forbidden path: "count return" -> "count condition" -> "count loop body"
+}

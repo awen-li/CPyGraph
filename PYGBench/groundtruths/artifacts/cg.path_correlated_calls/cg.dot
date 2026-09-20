@@ -1,0 +1,12 @@
+digraph "cg.path_correlated_calls.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "false call site";
+  "left";
+  "right";
+  "true call site";
+  "true call site" -> "left";
+  "false call site" -> "right";
+  // forbidden: "true call site" -> "right"
+  // forbidden: "false call site" -> "left"
+}

@@ -1,0 +1,6 @@
+digraph "cfg.deep_exception_cleanup.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run";
+  // forbidden: "run" -> "run"
+}

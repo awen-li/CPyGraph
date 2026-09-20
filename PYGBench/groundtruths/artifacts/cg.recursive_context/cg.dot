@@ -1,0 +1,12 @@
+digraph "cg.recursive_context.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "callback";
+  "decoy";
+  "repeat";
+  "repeat base";
+  "repeat recursive";
+  "repeat base" -> "callback";
+  "repeat recursive" -> "repeat";
+  // forbidden: "repeat" -> "decoy"
+}

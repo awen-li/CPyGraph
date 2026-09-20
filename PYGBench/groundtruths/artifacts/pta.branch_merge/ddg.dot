@@ -1,0 +1,7 @@
+digraph "pta.branch_merge.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "choose result";
+  "choose return";
+  "choose result" -> "choose return";
+}

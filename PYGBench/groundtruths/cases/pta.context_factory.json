@@ -1,0 +1,145 @@
+{
+  "case": "pta.context_factory",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "first entry",
+      "first return"
+    ],
+    "required_edges": [
+      {
+        "source": "first entry",
+        "target": "first return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "first",
+        "target": "second"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "create",
+      "first",
+      "second"
+    ],
+    "required_edges": [
+      {
+        "source": "first",
+        "target": "create"
+      }
+    ],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "first call",
+      "first return"
+    ],
+    "required_edges": [
+      {
+        "source": "first call",
+        "target": "first return"
+      }
+    ],
+    "required_paths": []
+  },
+  "entry_points": [
+    "<module>",
+    "first",
+    "second"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "Beta instance"
+      ],
+      "points_to": [
+        "Alpha instance"
+      ],
+      "subject": "first caller result"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "Beta instance"
+      ],
+      "subject": "second caller result"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "context-sensitive",
+    "factory"
+  ]
+}

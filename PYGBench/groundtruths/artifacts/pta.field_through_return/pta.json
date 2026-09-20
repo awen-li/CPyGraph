@@ -1,0 +1,15 @@
+{
+  "case": "pta.field_through_return",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "create function"
+      ],
+      "points_to": [
+        "create parameter value"
+      ],
+      "subject": "run box.payload"
+    }
+  ],
+  "schema_version": 1
+}

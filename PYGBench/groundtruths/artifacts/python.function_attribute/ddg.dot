@@ -1,0 +1,7 @@
+digraph "python.function_attribute.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run load attribute payload";
+  "run return";
+  "run load attribute payload" -> "run return";
+}

@@ -1,0 +1,7 @@
+digraph "ddg.path_correlated_definitions.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run entry";
+  "run return";
+  "run entry" -> "run return";
+}

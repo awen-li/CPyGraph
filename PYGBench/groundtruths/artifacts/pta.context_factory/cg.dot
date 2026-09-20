@@ -1,0 +1,9 @@
+digraph "pta.context_factory.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "create";
+  "first";
+  "second";
+  "first" -> "create";
+  // forbidden: "first" -> "second"
+}

@@ -1,0 +1,11 @@
+digraph "protocol.not_implemented_fallback.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Left.__add__";
+  "Right.__add__";
+  "Right.__radd__";
+  "run";
+  "run" -> "Left.__add__";
+  "run" -> "Right.__radd__";
+  // forbidden: "run" -> "Right.__add__"
+}

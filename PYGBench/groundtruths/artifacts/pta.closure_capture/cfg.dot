@@ -1,0 +1,7 @@
+digraph "pta.closure_capture.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "outer entry";
+  "outer return";
+  "outer entry" -> "outer return";
+}

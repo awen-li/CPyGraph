@@ -1,0 +1,11 @@
+digraph "protocol.comparison_not_implemented.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Left.__eq__";
+  "Right.__eq__";
+  "Right.unused";
+  "run";
+  "run" -> "Left.__eq__";
+  "run" -> "Right.__eq__";
+  // forbidden: "run" -> "Right.unused"
+}

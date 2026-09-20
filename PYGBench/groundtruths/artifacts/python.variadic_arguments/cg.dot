@@ -1,0 +1,8 @@
+digraph "python.variadic_arguments.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "collect";
+  "run";
+  "run" -> "collect";
+  // forbidden: "collect" -> "run"
+}

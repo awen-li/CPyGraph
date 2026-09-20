@@ -1,0 +1,7 @@
+digraph "python.slots.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run load attribute value";
+  "run return";
+  "run load attribute value" -> "run return";
+}

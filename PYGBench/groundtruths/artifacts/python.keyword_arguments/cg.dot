@@ -1,0 +1,8 @@
+digraph "python.keyword_arguments.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "combine";
+  "run";
+  "run" -> "combine";
+  // forbidden: "combine" -> "run"
+}

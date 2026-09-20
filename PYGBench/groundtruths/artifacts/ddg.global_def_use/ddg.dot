@@ -1,0 +1,12 @@
+digraph "ddg.global_def_use.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "global stored";
+  "module object";
+  "read return";
+  "write parameter";
+  "write parameter" -> "global stored";
+  "global stored" -> "read return";
+  // forbidden: "module object" -> "read return"
+  // required path: "write parameter" -> "global stored" -> "read return"
+}

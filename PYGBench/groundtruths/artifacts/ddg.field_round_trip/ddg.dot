@@ -1,0 +1,13 @@
+digraph "ddg.field_round_trip.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Box constructor";
+  "parameter value";
+  "return load box.value";
+  "returned payload";
+  "store box.value";
+  "parameter value" -> "store box.value";
+  "store box.value" -> "return load box.value";
+  // forbidden: "Box constructor" -> "returned payload"
+  // required path: "parameter value" -> "store box.value" -> "return load box.value"
+}

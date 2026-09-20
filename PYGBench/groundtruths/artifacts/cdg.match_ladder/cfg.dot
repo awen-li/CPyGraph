@@ -1,0 +1,7 @@
+digraph "cdg.match_ladder.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "classify entry";
+  "classify return";
+  "classify entry" -> "classify return";
+}

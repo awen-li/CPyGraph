@@ -1,0 +1,7 @@
+digraph "cdg.branch_join.cfg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "compute entry";
+  "compute return";
+  "compute entry" -> "compute return";
+}

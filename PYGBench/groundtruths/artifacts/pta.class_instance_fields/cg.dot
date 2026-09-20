@@ -1,0 +1,6 @@
+digraph "pta.class_instance_fields.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "separate";
+  // forbidden: "separate" -> "separate"
+}

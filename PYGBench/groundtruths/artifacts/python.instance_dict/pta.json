@@ -1,0 +1,27 @@
+{
+  "case": "python.instance_dict",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "value"
+      ],
+      "points_to": [],
+      "subject": "item.__dict__[other]"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "value"
+      ],
+      "subject": "item.__dict__[payload]"
+    },
+    {
+      "must_not_point_to": [],
+      "points_to": [
+        "value"
+      ],
+      "subject": "item.payload"
+    }
+  ],
+  "schema_version": 1
+}

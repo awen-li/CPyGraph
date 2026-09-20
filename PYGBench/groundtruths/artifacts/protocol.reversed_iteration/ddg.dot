@@ -1,0 +1,7 @@
+digraph "protocol.reversed_iteration.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "run call";
+  "run return";
+  "run call" -> "run return";
+}

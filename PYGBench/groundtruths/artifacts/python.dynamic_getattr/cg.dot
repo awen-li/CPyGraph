@@ -1,0 +1,9 @@
+digraph "python.dynamic_getattr.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Dynamic.__getattr__";
+  "run existing attribute";
+  "run missing attribute";
+  "run missing attribute" -> "Dynamic.__getattr__";
+  // forbidden: "run existing attribute" -> "Dynamic.__getattr__"
+}

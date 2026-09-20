@@ -1,0 +1,7 @@
+digraph "cfg.loop_back_edge.ddg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "count return";
+  "count value";
+  "count value" -> "count return";
+}

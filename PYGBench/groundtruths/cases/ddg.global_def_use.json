@@ -1,0 +1,147 @@
+{
+  "case": "ddg.global_def_use",
+  "cdg": {
+    "forbidden_edges": [
+      {
+        "source": "module entry",
+        "target": "module entry"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "module entry"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "cfg": {
+    "forbidden_edges": [],
+    "forbidden_paths": [],
+    "nodes": [
+      "write entry",
+      "write return"
+    ],
+    "required_edges": [
+      {
+        "source": "write entry",
+        "target": "write return"
+      }
+    ],
+    "required_paths": []
+  },
+  "cg": {
+    "forbidden_edges": [
+      {
+        "source": "write",
+        "target": "read"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "read",
+      "write"
+    ],
+    "required_edges": [],
+    "required_paths": []
+  },
+  "ddg": {
+    "forbidden_edges": [
+      {
+        "source": "module object",
+        "target": "read return"
+      }
+    ],
+    "forbidden_paths": [],
+    "nodes": [
+      "global stored",
+      "module object",
+      "read return",
+      "write parameter"
+    ],
+    "required_edges": [
+      {
+        "source": "write parameter",
+        "target": "global stored"
+      },
+      {
+        "source": "global stored",
+        "target": "read return"
+      }
+    ],
+    "required_paths": [
+      [
+        "write parameter",
+        "global stored",
+        "read return"
+      ]
+    ]
+  },
+  "entry_points": [
+    "<module>",
+    "write",
+    "read"
+  ],
+  "limitations": [],
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "read function object"
+      ],
+      "points_to": [],
+      "subject": "module return"
+    }
+  ],
+  "schema_version": 1,
+  "selective_sensitivity": {
+    "selective-all": {
+      "functions": [
+        {
+          "attributes": [
+            "flow",
+            "context",
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-context": {
+      "functions": [
+        {
+          "attributes": [
+            "context"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-flow": {
+      "functions": [
+        {
+          "attributes": [
+            "flow"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    },
+    "selective-path": {
+      "functions": [
+        {
+          "attributes": [
+            "path"
+          ],
+          "selector": "*"
+        }
+      ],
+      "level": "selective"
+    }
+  },
+  "tags": [
+    "global",
+    "interprocedural"
+  ]
+}

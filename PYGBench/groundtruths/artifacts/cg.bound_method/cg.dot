@@ -1,0 +1,9 @@
+digraph "cg.bound_method.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Other.execute";
+  "Worker.execute";
+  "run";
+  "run" -> "Worker.execute";
+  // forbidden: "run" -> "Other.execute"
+}

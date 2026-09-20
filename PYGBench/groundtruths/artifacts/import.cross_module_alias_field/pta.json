@@ -1,0 +1,15 @@
+{
+  "case": "import.cross_module_alias_field",
+  "points_to_sets": [
+    {
+      "must_not_point_to": [
+        "model.Decoy.payload"
+      ],
+      "points_to": [
+        "model.Record.payload"
+      ],
+      "subject": "alias.Record.payload"
+    }
+  ],
+  "schema_version": 1
+}

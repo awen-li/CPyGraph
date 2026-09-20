@@ -1,0 +1,9 @@
+digraph "negative.unused_protocol.cg" {
+  graph [rankdir="LR"];
+  node [shape=rectangle];
+  "Value.__add__";
+  "Value.__sub__";
+  "run";
+  "run" -> "Value.__add__";
+  // forbidden: "run" -> "Value.__sub__"
+}
