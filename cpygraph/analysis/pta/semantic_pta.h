@@ -42,6 +42,10 @@ struct PTAImportRequest {
 
 struct PTAConstraintResult {
     std::vector<NodeId> value_nodes;
+    // Directed copy constraints already added by the semantic PTA builder.
+    // These edges are not an identity or equivalence relation: a target may
+    // receive values from several sources.
+    std::vector<std::pair<NodeId, NodeId>> semantic_builder_copy_edges;
     // Fused CPython local operations can produce two logically independent
     // values from one bytecode instruction. Keep the second value separate so
     // PTA does not merge unrelated locals merely because one release fused
@@ -83,6 +87,11 @@ struct PTAConstraintResult {
     // without reconstructing the abstract operand stack.
     std::vector<std::vector<NodeId>> element_load_bases;
     std::vector<std::vector<NodeId>> element_load_keys;
+    // Indexed by SemanticOpcode::StoreElement (Python STORE_SUBSCR).
+    // Collection-building stores have no explicit subscript and are omitted.
+    std::vector<std::vector<NodeId>> subscript_store_bases;
+    std::vector<std::vector<NodeId>> subscript_store_keys;
+    std::vector<std::vector<NodeId>> subscript_store_values;
     // Numeric receiver values for deferred Python protocol selection.  The
     // package coordinator resolves ordered fallback only after PTA has found
     // receiver objects and their available special methods.
@@ -103,6 +112,10 @@ struct SemanticPTAOptions {
     bool defer_global_unknowns{false};
     bool defer_call_fallbacks{false};
     bool seed_external_parameters{true};
+    // Direct semantic-builder clients receive copy observations by default.
+    // Package analysis disables this when no observation snapshot was
+    // requested, avoiding retention that cannot be consumed.
+    bool collect_copy_observations{true};
     std::vector<PTAPathDecision> path_decisions;
 };
 

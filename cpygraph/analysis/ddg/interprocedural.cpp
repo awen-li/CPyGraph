@@ -12,8 +12,11 @@ DataDependencyGraph InterproceduralStitcher::stitch(
             throw std::invalid_argument("resolved call has mismatched actual and formal argument counts");
         for (std::size_t i = 0; i < call.actual_arguments.size(); ++i) {
             graph.node(call.formal_arguments[i]);
-            if (call.actual_arguments[i].empty())
-                throw std::invalid_argument("resolved DDG argument has no reaching definition");
+            // PTA retains an empty argument slot when its value is unresolved.
+            // The package coverage records that uncertainty.  Preserve the
+            // resolved call and every available edge instead of aborting the
+            // complete package analysis because this one edge is unavailable.
+            if (call.actual_arguments[i].empty()) continue;
             for (const auto actual : call.actual_arguments[i]) {
                 graph.node(actual);
                 graph.addEdge(actual, call.formal_arguments[i], EdgeKind::DefUse);

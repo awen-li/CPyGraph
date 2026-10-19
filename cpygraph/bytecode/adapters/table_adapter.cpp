@@ -183,6 +183,10 @@ SemanticInstruction TableDrivenCPythonAdapter::lift(const RawInstruction& instru
     result.jump_on_true = semantics.jump_on_true;
     result.implicit_constant = semantics.implicit_constant;
     result.positional_collection = semantics.positional_collection;
+    result.setup_annotations = semantics.setup_annotations;
+    const auto position_index = instruction.offset / kCodeUnitSize;
+    if (position_index < metadata.source_positions.size())
+        result.source_position = metadata.source_positions[position_index];
     std::uint32_t index = instruction.argument;
     switch (semantics.operand_source) {
         case OperandSource::Name:
@@ -337,6 +341,11 @@ SemanticInstruction TableDrivenCPythonAdapter::lift(const RawInstruction& instru
          result.implicit_constant) &&
         result.operand < metadata.constant_kinds.size())
         result.constant_kind = metadata.constant_kinds[result.operand];
+    if ((result.opcode == SemanticOpcode::LoadConst ||
+         result.implicit_constant) &&
+        result.operand < metadata.constant_string_tuples.size())
+        result.constant_string_tuple =
+            metadata.constant_string_tuples[result.operand];
 
     const auto has_opcode = [&](const std::vector<std::uint8_t>& opcodes) {
         return std::find(opcodes.begin(), opcodes.end(), instruction.opcode) != opcodes.end();
@@ -397,6 +406,7 @@ SemanticInstruction TableDrivenCPythonAdapter::lift(const RawInstruction& instru
     }
     if (result.opcode == SemanticOpcode::CreateFunction &&
         features_.normalize_create_function) {
+        result.function_attribute_flags = instruction.argument;
         if (features_.create_function_flag_inputs) {
             std::uint32_t inputs = 0;
             for (std::uint32_t bit = 1; bit <= 8; bit <<= 1U)
@@ -406,6 +416,8 @@ SemanticInstruction TableDrivenCPythonAdapter::lift(const RawInstruction& instru
         result.discarded_stack_values = features_.create_function_discarded_inputs;
         result.operand = 0;
     }
+    if (result.opcode == SemanticOpcode::SetFunctionAttribute)
+        result.function_attribute_flags = instruction.argument;
     if (result.opcode == SemanticOpcode::ImportModule) result.discarded_stack_values = 2;
     return result;
 }

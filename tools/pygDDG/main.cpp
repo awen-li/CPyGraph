@@ -79,6 +79,7 @@ int main(int argc, char** argv) {
                    << ",\"points_to_facts\":" << pta.points_to_fact_count
                    << ",\"content_facts\":" << pta.content_fact_count
                    << ",\"field_facts\":" << pta.field_fact_count
+                   << ",\"unknown_facts\":" << pta.unknown_fact_count
                    << ",\"solver_iterations\":"
                    << pta.solver_iteration_count << '}'
                    << ",\"cg\":{\"nodes\":"

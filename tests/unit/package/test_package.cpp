@@ -84,6 +84,11 @@ private:
 }  // namespace
 
 int main() {
+    const auto legacy_compile =
+        &cpygraph::package::PackageCompiler::compile;
+    require(legacy_compile != nullptr,
+            "the original one-argument compilation API remains available");
+
     {
         TemporaryPackageTree tree;
         const auto source = tree.root() / "standalone.py";
@@ -107,6 +112,12 @@ int main() {
             cpygraph::package::PackageAnalyzer().analyze(loaded);
         require(analysis.moduleCount() == kExpectedSingleModuleCount,
                 "direct bytecode input reaches package analysis without source");
+        const auto& program = analysis.codeObjects().front().cfg.program();
+        require(std::any_of(
+                    program.begin(), program.end(), [](const auto& instruction) {
+                        return instruction.source_position.line_available;
+                    }),
+                "bytecode loading retains code-object source positions");
     }
 
     {
@@ -156,6 +167,61 @@ int main() {
 
     {
         TemporaryPackageTree tree;
+        const auto source = tree.root() / "element_store.py";
+        std::ofstream(source)
+            << "registry = {}\n"
+               "key = 'module'\n"
+               "value = object()\n"
+               "registry[key] = value\n";
+        const auto compiled =
+            cpygraph::package::PackageCompiler().compile(source);
+        const auto loaded = cpygraph::package::PackageLoader().load(compiled);
+        const auto analysis =
+            cpygraph::package::PackageAnalyzer().analyze(loaded);
+        cpygraph::package::PackageAnalysisObservations observations;
+        cpygraph::package::OnTheFlyCallGraphAnalyzer().analyze(
+            analysis, {}, &observations);
+        const auto store = std::find_if(
+            observations.subscript_stores.begin(),
+            observations.subscript_stores.end(),
+            [](const auto& observation) {
+                return !observation.base_values.empty() &&
+                       !observation.key_values.empty() &&
+                       !observation.values.empty();
+            });
+        require(store != observations.subscript_stores.end(),
+                "package observations expose item-store base, key, and value roles");
+        const auto& program = analysis.codeObject(store->code).cfg.program();
+        require(store->instruction_index < program.size() &&
+                    program[store->instruction_index].opcode ==
+                        cpygraph::bytecode::SemanticOpcode::StoreElement,
+                "item-store observations retain their semantic instruction site");
+        const auto has_producer = [&](const auto& values,
+                                      const std::string& symbol) {
+            return std::any_of(
+                values.begin(), values.end(), [&](const auto value) {
+                    return std::any_of(
+                        observations.points_to.begin(),
+                        observations.points_to.end(),
+                        [&](const auto& point) {
+                            if (point.value != value ||
+                                point.code != store->code ||
+                                point.instruction_index >= program.size())
+                                return false;
+                            return program[point.instruction_index].symbol ==
+                                symbol;
+                        });
+                });
+        };
+        require(
+            has_producer(store->base_values, "registry") &&
+                has_producer(store->key_values, "key") &&
+                has_producer(store->values, "value"),
+            "subscript-store observations preserve base, key, and stored-value roles");
+    }
+
+    {
+        TemporaryPackageTree tree;
         const auto package_root = tree.root() / "package";
         const auto implementation = package_root / "implementation.py";
         std::filesystem::create_directories(package_root);
@@ -175,6 +241,98 @@ int main() {
         require(has_module(kAliasModuleName) &&
                     has_module(kImplementationModuleName),
                 "symlinked sources retain their logical module identities");
+    }
+
+    {
+        TemporaryPackageTree tree;
+        const auto repository_root = tree.root() / "multi-root";
+        std::filesystem::create_directories(repository_root / "src");
+        std::filesystem::create_directories(repository_root / "packages");
+        std::ofstream(repository_root / "src" / "runtime.py")
+            << "RUNTIME = True\n";
+        std::ofstream(repository_root / "packages" / "application.py")
+            << "APPLICATION = True\n";
+
+        {
+            const auto compiled =
+                cpygraph::package::PackageCompiler().compile(repository_root);
+            require(compiled.modules().size() == 1U &&
+                        compiled.modules().front().name == "runtime",
+                    "default compilation preserves src-layout selection");
+        }
+
+        cpygraph::package::PackageCompilationOptions options;
+        options.use_input_as_source_root = true;
+        const auto compiled =
+            cpygraph::package::PackageCompiler().compileWithOptions(
+                repository_root, options);
+        std::unordered_set<std::string> names;
+        for (const auto& module : compiled.modules())
+            names.insert(module.name);
+        require(compiled.modules().size() == 2U &&
+                    names.count("src.runtime") == 1U &&
+                    names.count("packages.application") == 1U,
+                "repository-root compilation retains every nested source tree");
+    }
+
+    {
+        TemporaryPackageTree tree;
+        const auto package_root = tree.root() / "filtered";
+        std::filesystem::create_directories(package_root / "runtime_pkg");
+        std::filesystem::create_directories(package_root / "tests");
+        std::ofstream(package_root / "runtime_pkg" / "__init__.py")
+            << "RUNTIME = True\n";
+        std::ofstream(package_root / "tests" / "__init__.py")
+            << "AUXILIARY = True\n";
+        std::ofstream(package_root / "test_helper.py")
+            << "AUXILIARY = True\n";
+        cpygraph::package::PackageCompilationOptions options;
+        options.include_source = [](const auto& relative) {
+            return *relative.begin() != "tests" &&
+                relative.filename() != "test_helper.py";
+        };
+        const auto compiled =
+            cpygraph::package::PackageCompiler().compileWithOptions(
+                package_root, options);
+        require(compiled.modules().size() == 1U &&
+                    compiled.modules().front().name == "runtime_pkg",
+                "package compiler omits sources rejected by its client filter");
+    }
+
+    {
+        TemporaryPackageTree tree;
+        const auto package_root = tree.root() / "partially-compatible";
+        std::filesystem::create_directories(package_root);
+        const auto valid = package_root / "valid.py";
+        const auto invalid = package_root / "invalid.py";
+        std::ofstream(valid) << "value: int = 1\n";
+        std::ofstream(invalid) << "def broken(:\n";
+
+        bool strict_rejected = false;
+        try {
+            cpygraph::package::PackageCompiler().compile(package_root);
+        } catch (const std::runtime_error&) {
+            strict_rejected = true;
+        }
+        require(strict_rejected,
+                "package compilation remains fail-fast by default");
+
+        cpygraph::package::PackageCompilationOptions options;
+        options.continue_on_error = true;
+        const auto compiled =
+            cpygraph::package::PackageCompiler().compileWithOptions(
+                package_root, options);
+        require(compiled.modules().size() == 1U &&
+                    compiled.modules().front().source_path == valid,
+                "tolerant compilation retains compatible modules");
+        require(compiled.failures().size() == 1U &&
+                    compiled.failures().front().source_path == invalid &&
+                    compiled.failures().front().exit_status != 0,
+                "tolerant compilation reports each rejected module");
+        const auto loaded =
+            cpygraph::package::PackageLoader().load(compiled);
+        require(loaded.modules().size() == 1U,
+                "a partially compatible package remains analyzable");
     }
 
     {
@@ -524,7 +682,8 @@ int main() {
                "result = run(seed)\n"
                "replaced = replace(seed, object())\n"
                "aliased = aliased_receivers(Box(), Box(), seed, object())\n"
-               "observed = read_seed()\n";
+               "observed = read_seed()\n"
+               "ordered = (seed, observed)\n";
         const auto compiled =
             cpygraph::package::PackageCompiler().compile(package_root);
         const auto loaded_ddg =
@@ -556,6 +715,8 @@ int main() {
             cpygraph::package::GraphBuilder().dataDependencyGraph(ddg_analysis);
         require(!package_ddg.call_boundaries.empty(),
                 "package DDG exposes exact remapped call boundaries");
+        require(!package_ddg.collection_boundaries.empty(),
+                "package DDG exposes exact remapped collection boundaries");
         require(!package_ddg.context_transitions.empty(),
                 "package DDG exposes contextual interprocedural transitions");
         for (const auto& transition : package_ddg.context_transitions) {
@@ -578,6 +739,15 @@ int main() {
                     "package DDG call boundary retains its code identity");
             for (const auto& argument : boundary.actual_arguments)
                 for (const auto node : argument)
+                    static_cast<void>(package_ddg.graph.node(node));
+        }
+        for (const auto& boundary : package_ddg.collection_boundaries) {
+            const auto& collection =
+                package_ddg.graph.node(boundary.collection);
+            require(collection.code == boundary.code,
+                    "package DDG collection boundary retains its code identity");
+            for (const auto& element : boundary.elements)
+                for (const auto node : element)
                     static_cast<void>(package_ddg.graph.node(node));
         }
         require(!package_ddg.heap_accesses.empty() &&
@@ -753,11 +923,20 @@ int main() {
             "on-the-fly PTA does not analyze an unreachable function body");
     require(call_graph.analyzed_code_object_count < analysis.codeObjects().size(),
             "package CG distinguishes discovered and PTA-reachable code objects");
+    const auto has_unresolved_call = std::any_of(
+        call_graph.graph.edges().begin(), call_graph.graph.edges().end(),
+        [](const auto& edge) { return !edge.target; });
+    const auto expected_call_coverage = has_unresolved_call
+        ? cpygraph::package::SoundnessCoverage::TypedUnresolved
+        : cpygraph::package::SoundnessCoverage::ConcreteOnly;
+    const auto expected_points_to_coverage =
+        call_graph.points_to_statistics.unknown_fact_count != 0U
+        ? cpygraph::package::SoundnessCoverage::TypedUnresolved
+        : cpygraph::package::SoundnessCoverage::ConcreteOnly;
     require(call_graph.points_to_coverage ==
-                cpygraph::package::SoundnessCoverage::ConservativeTop &&
-                call_graph.call_graph_coverage ==
-                cpygraph::package::SoundnessCoverage::ConservativeTop,
-            "package PTA/CG expose compact conservative-top soundness summaries");
+                expected_points_to_coverage &&
+                call_graph.call_graph_coverage == expected_call_coverage,
+            "package PTA/CG coverage follows unresolved abstract facts and call edges");
     cpygraph::CodeObjectId imported_code = 0;
     cpygraph::CodeObjectId identity_code = 0;
     cpygraph::CodeObjectId run_code = 0;
@@ -827,6 +1006,14 @@ int main() {
                             return observation.context == 0U;
                         }),
             "default package PTA is context and path insensitive");
+    require(!observations.semantic_builder_copy_edges.empty() &&
+                std::all_of(
+                    observations.semantic_builder_copy_edges.begin(),
+                    observations.semantic_builder_copy_edges.end(),
+                    [](const auto& copy) {
+                        return copy.source != 0U && copy.target != 0U;
+                    }),
+            "package observations expose directed PTA copy edges");
     const auto relative_import = std::find_if(
         observations.import_requests.begin(), observations.import_requests.end(),
         [](const auto& request) {
@@ -993,8 +1180,8 @@ int main() {
     require(control_flow.graphs.size() == kExpectedCodeObjectCount,
             "package CFG API returns each discovered code object's graph");
     require(control_flow.coverage ==
-                cpygraph::package::SoundnessCoverage::TypedUnresolved,
-            "package CFG scopes unresolved control transfers by semantic query");
+                cpygraph::package::SoundnessCoverage::ConcreteOnly,
+            "package CFG reports complete supported semantic instructions");
 
     const auto control_dependency =
         cpygraph::package::GraphBuilder().controlDependencyGraphs(analysis);
@@ -1004,8 +1191,8 @@ int main() {
     require(control_dependency.graphs.size() == kExpectedCodeObjectCount,
             "package CDG API returns each discovered code object's graph");
     require(control_dependency.coverage ==
-                cpygraph::package::SoundnessCoverage::TypedUnresolved,
-            "package CDG scopes unresolved control dependence by semantic query");
+                cpygraph::package::SoundnessCoverage::ConcreteOnly,
+            "package CDG reports complete supported semantic instructions");
 
     const auto data_dependency =
         cpygraph::package::GraphBuilder().dataDependencyGraph(analysis);

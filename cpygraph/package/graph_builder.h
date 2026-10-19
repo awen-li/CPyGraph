@@ -41,6 +41,13 @@ struct PackageDataDependencyGraphResult {
         std::vector<std::vector<ddg::NodeId>> actual_arguments;
     };
     std::vector<CallBoundary> call_boundaries;
+    struct CollectionBoundary {
+        CodeObjectId code{};
+        std::size_t instruction_index{};
+        ddg::NodeId collection{};
+        std::vector<std::vector<ddg::NodeId>> elements;
+    };
+    std::vector<CollectionBoundary> collection_boundaries;
     enum class ContextTransitionKind : std::uint8_t {
         ActualToFormal,
         ReturnToCall,
@@ -115,7 +122,8 @@ public:
         const PackageAnalysis& package,
         const std::vector<CodeObjectId>& entry_points = {},
         const PTASensitivityConfiguration& sensitivity = {},
-        PackageAnalysisObservations* observations = nullptr) const;
+        PackageAnalysisObservations* observations = nullptr,
+        const ExternalCallConfiguration& external_calls = {}) const;
 
 private:
     static PTAPrerequisiteSummary summarize(

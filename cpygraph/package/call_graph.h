@@ -37,6 +37,7 @@ struct PackageCallGraphResult {
         std::size_t points_to_fact_count{};
         std::size_t content_fact_count{};
         std::size_t field_fact_count{};
+        std::size_t unknown_fact_count{};
         std::size_t solver_iteration_count{};
     } points_to_statistics;
 };
@@ -141,6 +142,18 @@ struct PTAElementLoadObservation {
     std::vector<NodeId> values;
 };
 
+// Operand roles for SemanticOpcode::StoreElement (Python STORE_SUBSCR).
+// Collection-building stores are intentionally outside this observation.
+// Recording these numeric values does not alter PTA store semantics.
+struct PTASubscriptStoreObservation {
+    CodeObjectId code{};
+    std::size_t instruction_index{};
+    PTAContextId context{};
+    std::vector<NodeId> base_values;
+    std::vector<NodeId> key_values;
+    std::vector<NodeId> values;
+};
+
 struct PackageCallActivationObservation {
     std::uint64_t site{};
     CodeObjectId caller{};
@@ -183,6 +196,14 @@ struct PTAContentObservation {
     ObjectId object{};
 };
 
+// Directed builder-local copy constraint emitted while lowering one semantic
+// CFG into PTA. This excludes interprocedural, import-alias, and package
+// coordinator constraints. It is not an identity/equivalence relation.
+struct PTASemanticCopyObservation {
+    NodeId source{};
+    NodeId target{};
+};
+
 struct PTAFieldObservation {
     ObjectId base{};
     FieldId field{};
@@ -213,6 +234,8 @@ struct PTAHeapBaseObservation {
 
 struct PackageAnalysisObservations {
     std::vector<PTAValueObservation> points_to;
+    std::vector<PTASemanticCopyObservation>
+        semantic_builder_copy_edges;
     std::vector<PTAObjectOrigin> object_origins;
     std::vector<PTAContentObservation> contents;
     std::vector<PTAFieldObservation> fields;
@@ -224,6 +247,7 @@ struct PackageAnalysisObservations {
     std::vector<PTAHeapBaseObservation> heap_bases;
     std::vector<PTAAttributeAccessObservation> attribute_accesses;
     std::vector<PTAElementLoadObservation> element_loads;
+    std::vector<PTASubscriptStoreObservation> subscript_stores;
     std::vector<PackageCallableObjectObservation> callable_objects;
     std::vector<PackageCallSiteObservation> call_sites;
     std::vector<PackageExternalCallObservation> external_calls;

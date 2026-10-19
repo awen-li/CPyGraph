@@ -44,7 +44,15 @@ struct OpcodeSemantics {
     PythonProtocolOperation protocol_operation{PythonProtocolOperation::None};
     PythonMethodSet protocol_methods{};
     LexicalAccessKind lexical_access{LexicalAccessKind::FastLocal};
+    bool setup_annotations{false};
 };
+
+inline OpcodeSemantics setupAnnotations() {
+    OpcodeSemantics result;
+    result.opcode = SemanticOpcode::Nop;
+    result.setup_annotations = true;
+    return result;
+}
 
 inline OpcodeSemantics lexicalAccess(SemanticOpcode opcode,
                                      LexicalAccessKind access) {
@@ -66,6 +74,16 @@ inline OpcodeSemantics fixedStack(SemanticOpcode opcode, std::uint32_t inputs,
     result.stack_outputs = outputs;
     result.stack_peeks = peeks;
     result.fresh_result = fresh_result;
+    return result;
+}
+
+inline OpcodeSemantics fixedStackOperand(
+    SemanticOpcode opcode, OperandSource operand_source,
+    std::uint32_t inputs, std::uint32_t outputs,
+    std::uint32_t peeks = 0, bool fresh_result = false) {
+    auto result = fixedStack(
+        opcode, inputs, outputs, peeks, fresh_result);
+    result.operand_source = operand_source;
     return result;
 }
 

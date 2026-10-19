@@ -239,10 +239,36 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
                     found->actual_arguments[argument].end())
                     found->actual_arguments[argument].push_back(definition);
     };
+    const auto record_collection_boundary = [&result](
+        std::size_t instruction_index, NodeId collection,
+        const std::vector<std::vector<NodeId>>& elements) {
+        const auto found = std::find_if(
+            result.collection_boundaries.begin(),
+            result.collection_boundaries.end(),
+            [instruction_index](const auto& boundary) {
+                return boundary.instruction_index == instruction_index;
+            });
+        if (found == result.collection_boundaries.end()) {
+            result.collection_boundaries.push_back(
+                {instruction_index, collection, elements});
+            return;
+        }
+        if (found->collection != collection ||
+            found->elements.size() != elements.size())
+            throw std::logic_error(
+                "DDG collection boundary changed during fixed-point iteration");
+        for (std::size_t element = 0; element < elements.size(); ++element)
+            for (const auto definition : elements[element])
+                if (std::find(found->elements[element].begin(),
+                              found->elements[element].end(), definition) ==
+                    found->elements[element].end())
+                    found->elements[element].push_back(definition);
+    };
     const auto record_heap_access = [&result](
         std::size_t instruction_index, cfg::BlockId block, NodeId node,
         DDGAccessKind kind, DDGHeapLocationKind location,
-        const std::string& field, const ValueSet& bases) {
+        const std::string& field, const ValueSet& bases,
+        const ValueSet& keys) {
         const auto found = std::find_if(
             result.heap_accesses.begin(), result.heap_accesses.end(),
             [instruction_index, kind](const auto& access) {
@@ -252,7 +278,7 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
         if (found == result.heap_accesses.end()) {
             result.heap_accesses.push_back({
                 instruction_index, block, node, kind, location, field,
-                {bases.begin(), bases.end()},
+                {bases.begin(), bases.end()}, {keys.begin(), keys.end()},
             });
             return;
         }
@@ -264,6 +290,10 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
             if (std::find(found->bases.begin(), found->bases.end(), base) ==
                 found->bases.end())
                 found->bases.push_back(base);
+        for (const auto key : keys)
+            if (std::find(found->keys.begin(), found->keys.end(), key) ==
+                found->keys.end())
+                found->keys.push_back(key);
     };
     const auto record_global_access = [&result](
         NodeId node, DDGAccessKind kind, const std::string& name) {
@@ -306,6 +336,18 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
                                  instruction.offset, "generic peek");
                     requireStack(state, instruction.stack_input_count,
                                  instruction.offset, "generic input");
+                    if (instruction.opcode == O::BuildCollection) {
+                        std::vector<std::vector<NodeId>> elements;
+                        elements.reserve(instruction.stack_input_count);
+                        const auto first = state.stack.size() -
+                                           instruction.stack_input_count;
+                        for (std::size_t element = first;
+                             element < state.stack.size(); ++element)
+                            elements.emplace_back(
+                                state.stack[element].begin(),
+                                state.stack[element].end());
+                        record_collection_boundary(index, current, elements);
+                    }
                     for (std::uint32_t peeked = 0; peeked < instruction.stack_peek_count; ++peeked) {
                         connect(state.stack[state.stack.size() - 1U - peeked], current,
                                 EdgeKind::Operand);
@@ -371,7 +413,7 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
                     connect(base, current, EdgeKind::Address);
                     record_heap_access(
                         index, block_id, current, DDGAccessKind::Load,
-                        DDGHeapLocationKind::Element, {}, base);
+                        DDGHeapLocationKind::Element, {}, base, key);
                     state.stack.push_back({current});
                     break;
                 }
@@ -384,7 +426,7 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
                     connect(value, current, EdgeKind::Operand);
                     record_heap_access(
                         index, block_id, current, DDGAccessKind::Store,
-                        DDGHeapLocationKind::Element, {}, base);
+                        DDGHeapLocationKind::Element, {}, base, key);
                     break;
                 }
                 case O::StoreCollectionElement: {
@@ -402,7 +444,7 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
                     connect(collection, current, EdgeKind::Operand);
                     record_heap_access(
                         index, block_id, current, DDGAccessKind::Store,
-                        DDGHeapLocationKind::Element, {}, collection);
+                        DDGHeapLocationKind::Element, {}, collection, {});
                     collection = {current};
                     break;
                 }
@@ -535,7 +577,7 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
                     record_heap_access(
                         index, block_id, current, DDGAccessKind::Load,
                         DDGHeapLocationKind::Attribute, instruction.symbol,
-                        base);
+                        base, {});
                     state.stack.push_back({current});
                     if (instruction.push_call_receiver) state.stack.push_back(base);
                     break;
@@ -548,7 +590,7 @@ DDGBuildResult DDGBuilder::buildWithBoundaries(
                     record_heap_access(
                         index, block_id, current, DDGAccessKind::Store,
                         DDGHeapLocationKind::Attribute, instruction.symbol,
-                        object);
+                        object, {});
                     break;
                 }
                 case O::CreateFunction: {

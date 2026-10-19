@@ -57,6 +57,42 @@ std::vector<ddg::NodeId> remapNodes(
     return result;
 }
 
+bool hasUnsupportedInstruction(const PackageAnalysis& package) noexcept {
+    return std::any_of(
+        package.codeObjects().begin(), package.codeObjects().end(),
+        [](const auto& code) {
+            return std::any_of(
+                code.cfg.program().begin(), code.cfg.program().end(),
+                [](const auto& instruction) {
+                    return instruction.opcode ==
+                           bytecode::SemanticOpcode::Unsupported;
+                });
+        });
+}
+
+SoundnessCoverage intraproceduralCoverage(
+    const PackageAnalysis& package) noexcept {
+    return hasUnsupportedInstruction(package)
+        ? SoundnessCoverage::TypedUnresolved
+        : SoundnessCoverage::ConcreteOnly;
+}
+
+SoundnessCoverage dataDependencyCoverage(
+    const PackageAnalysis& package,
+    const PackageCallGraphResult& prerequisite,
+    const ddg::DataDependencyGraph& graph) noexcept {
+    const auto has_unknown_node = std::any_of(
+        graph.nodes().begin(), graph.nodes().end(),
+        [](const auto& node) { return node.kind == ddg::NodeKind::Unknown; });
+    return hasUnsupportedInstruction(package) || has_unknown_node ||
+            prerequisite.points_to_coverage !=
+                SoundnessCoverage::ConcreteOnly ||
+            prerequisite.call_graph_coverage !=
+                SoundnessCoverage::ConcreteOnly
+        ? SoundnessCoverage::TypedUnresolved
+        : SoundnessCoverage::ConcreteOnly;
+}
+
 }  // namespace
 
 PTAPrerequisiteSummary GraphBuilder::summarize(
@@ -107,7 +143,7 @@ PackageControlFlowGraphResult GraphBuilder::buildControlFlowGraphs(
                           cfg::CFGRefiner().refine(code.cfg, parameters)});
     }
     return {summarize(prerequisite), std::move(graphs),
-            SoundnessCoverage::TypedUnresolved};
+            intraproceduralCoverage(package)};
 }
 
 PackageDataDependencyGraphResult GraphBuilder::dataDependencyGraph(
@@ -158,6 +194,8 @@ PackageDataDependencyGraphResult GraphBuilder::buildDataDependencyGraph(
     std::unordered_map<CodeObjectId, DDGBoundaryIndex> boundaries;
     std::vector<PackageDataDependencyGraphResult::CallBoundary>
         call_boundaries;
+    std::vector<PackageDataDependencyGraphResult::CollectionBoundary>
+        collection_boundaries;
     std::vector<ddg::DDGHeapAccess> heap_accesses;
     std::vector<ddg::DDGGlobalAccess> global_accesses;
     boundaries.reserve(package.codeObjects().size());
@@ -189,6 +227,16 @@ PackageDataDependencyGraphResult GraphBuilder::buildDataDependencyGraph(
                 throw std::logic_error(
                     "DDG contains duplicate call instruction boundaries");
         }
+        for (const auto& collection : fragment.collection_boundaries) {
+            std::vector<std::vector<ddg::NodeId>> elements;
+            elements.reserve(collection.elements.size());
+            for (const auto& element : collection.elements)
+                elements.push_back(remapNodes(element, remap));
+            collection_boundaries.push_back({
+                code.id, collection.instruction_index,
+                remap.at(collection.collection), std::move(elements),
+            });
+        }
         for (const auto& access : fragment.heap_accesses) {
             ddg::DDGHeapAccess remapped{
                 access.instruction_index,
@@ -198,6 +246,7 @@ PackageDataDependencyGraphResult GraphBuilder::buildDataDependencyGraph(
                 access.location,
                 access.field,
                 remapNodes(access.bases, remap),
+                remapNodes(access.keys, remap),
             };
             heap_accesses.push_back(std::move(remapped));
         }
@@ -433,11 +482,19 @@ PackageDataDependencyGraphResult GraphBuilder::buildDataDependencyGraph(
                   return std::tie(left.code, left.instruction_index) <
                          std::tie(right.code, right.instruction_index);
               });
+    std::sort(collection_boundaries.begin(), collection_boundaries.end(),
+              [](const auto& left, const auto& right) {
+                  return std::tie(left.code, left.instruction_index) <
+                         std::tie(right.code, right.instruction_index);
+              });
+    const auto coverage = dataDependencyCoverage(
+        package, prerequisite, graph);
     return {summarize(prerequisite), std::move(graph),
             std::move(call_boundaries),
+            std::move(collection_boundaries),
             std::move(context_transitions),
             std::move(heap_accesses),
-            SoundnessCoverage::TypedUnresolved};
+            coverage};
 }
 
 PackageControlDependencyGraphResult GraphBuilder::controlDependencyGraphs(
@@ -472,19 +529,21 @@ PackageControlDependencyGraphResult GraphBuilder::buildControlDependencyGraphs(
         }
     }
     return {summarize(prerequisite), std::move(graphs),
-            SoundnessCoverage::TypedUnresolved};
+            intraproceduralCoverage(package)};
 }
 
 PackageGraphAnalysisResult GraphBuilder::analyze(
     const PackageAnalysis& package,
     const std::vector<CodeObjectId>& entry_points,
     const PTASensitivityConfiguration& sensitivity,
-    PackageAnalysisObservations* retained_observations) const {
+    PackageAnalysisObservations* retained_observations,
+    const ExternalCallConfiguration& external_calls) const {
     PackageAnalysisObservations observations;
     auto call_graph = [&] {
         profile::Scope prerequisite_scope(profile::Phase::PointsToCallGraph);
         return OnTheFlyCallGraphAnalyzer().analyze(
-            package, entry_points, &observations, sensitivity);
+            package, entry_points, &observations, sensitivity,
+            external_calls);
     }();
     auto control_flow = buildControlFlowGraphs(package, call_graph);
     auto control_dependency = buildControlDependencyGraphs(

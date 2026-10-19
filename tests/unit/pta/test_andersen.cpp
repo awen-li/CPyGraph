@@ -120,6 +120,8 @@ int main() {
             unknown.pointsTo(32).count(unknown.unknownObject()) == 1 &&
             unknown.pointsTo(33).count(unknown.unknownObject()) == 1,
             "explicit unknown object propagates through copy, load, and field load");
+    require(unknown.statistics().unknown_fact_count != 0U,
+            "PTA statistics expose unresolved summary facts");
 
     cpygraph::AndersenPointerAnalysis collision;
     collision.addAddressOf(1, 2);

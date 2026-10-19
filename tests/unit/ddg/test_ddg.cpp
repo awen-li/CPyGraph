@@ -2,6 +2,7 @@
 #include "api/ddg.h"
 #include "test_support.h"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace {
@@ -70,8 +71,11 @@ int main() {
         {8, SemanticOpcode::LoadElement},
         {10, SemanticOpcode::Return},
     };
-    const auto comprehension_ddg = cpygraph::ddg::DDGBuilder().build(
-        cpygraph::cfg::CFGBuilder().build(std::move(comprehension)));
+    const auto comprehension_result =
+        cpygraph::ddg::DDGBuilder().buildWithBoundaries(
+            cpygraph::cfg::CFGBuilder().build(std::move(comprehension)), 1U,
+            {});
+    const auto& comprehension_ddg = comprehension_result.graph;
     require(comprehension_ddg.hasEdge(at(comprehension_ddg, 2),
                                       at(comprehension_ddg, 4),
                                       cpygraph::ddg::EdgeKind::Operand) &&
@@ -79,6 +83,16 @@ int main() {
                                           at(comprehension_ddg, 8),
                                           cpygraph::ddg::EdgeKind::Address),
             "DDG separates collection addressing from stored element data");
+    require(std::any_of(
+                comprehension_result.heap_accesses.begin(),
+                comprehension_result.heap_accesses.end(),
+                [](const auto& access) {
+                    return access.location ==
+                            cpygraph::ddg::DDGHeapLocationKind::Element &&
+                        access.kind == cpygraph::ddg::DDGAccessKind::Load &&
+                        !access.bases.empty() && !access.keys.empty();
+                }),
+            "DDG element boundaries preserve distinct base and key nodes");
 
     SemanticProgram joined{
         {0, SemanticOpcode::LoadGlobal, 0, "condition"},
@@ -404,6 +418,40 @@ int main() {
                     at(boundary_result.graph, 6),
             "DDG boundaries identify formal inputs and return operations");
 
+    SemanticInstruction collection{8, SemanticOpcode::BuildCollection};
+    collection.stack_input_count = 4U;
+    collection.stack_output_count = 1U;
+    const auto collection_result =
+        cpygraph::ddg::DDGBuilder().buildWithBoundaries(
+            cpygraph::cfg::CFGBuilder().build({
+                {0, SemanticOpcode::LoadConst, 0},
+                {2, SemanticOpcode::LoadConst, 1},
+                {4, SemanticOpcode::LoadConst, 2},
+                {6, SemanticOpcode::LoadConst, 3},
+                collection,
+                {10, SemanticOpcode::Return},
+            }),
+            kBoundaryCode, {});
+    require(collection_result.collection_boundaries.size() == 1U &&
+                collection_result.collection_boundaries.front().elements.size() ==
+                    4U,
+            "DDG exposes one ordered collection boundary");
+    const auto& collection_elements =
+        collection_result.collection_boundaries.front().elements;
+    require(collection_elements[0] ==
+                std::vector<cpygraph::ddg::NodeId>{
+                    at(collection_result.graph, 0)} &&
+                collection_elements[1] ==
+                    std::vector<cpygraph::ddg::NodeId>{
+                        at(collection_result.graph, 2)} &&
+                collection_elements[2] ==
+                    std::vector<cpygraph::ddg::NodeId>{
+                        at(collection_result.graph, 4)} &&
+                collection_elements[3] ==
+                    std::vector<cpygraph::ddg::NodeId>{
+                        at(collection_result.graph, 6)},
+            "DDG collection boundary preserves stack element order");
+
     constexpr std::uint32_t kTwoResults = 2U;
     SemanticInstruction split_value{2, SemanticOpcode::Generic};
     split_value.stack_input_count = kOneArgument;
@@ -472,14 +520,17 @@ int main() {
     require(rejected_stack_join,
             "DDG rejects CFG joins whose predecessor operand-stack heights disagree");
 
-    bool rejected_empty_actual = false;
-    try {
-        cpygraph::ddg::DataDependencyGraph invalid;
-        const auto invalid_call = invalid.addNode(cpygraph::ddg::NodeKind::Operation, "call", 0);
-        const auto invalid_formal = invalid.addNode(cpygraph::ddg::NodeKind::Input, "formal", 0);
-        cpygraph::ddg::InterproceduralStitcher().stitch(
-            std::move(invalid), {{invalid_call, {{}}, {invalid_formal}, {}}});
-    } catch (const std::invalid_argument&) { rejected_empty_actual = true; }
-    require(rejected_empty_actual,
-            "interprocedural DDG rejects resolved arguments without reaching definitions");
+    cpygraph::ddg::DataDependencyGraph unresolved;
+    const auto unresolved_call = unresolved.addNode(
+        cpygraph::ddg::NodeKind::Operation, "call", 0);
+    const auto unresolved_formal = unresolved.addNode(
+        cpygraph::ddg::NodeKind::Input, "formal", 0);
+    unresolved = cpygraph::ddg::InterproceduralStitcher().stitch(
+        std::move(unresolved),
+        {{unresolved_call, {{}}, {unresolved_formal}, {}}});
+    require(
+        !unresolved.hasEdge(
+            unresolved_call, unresolved_formal,
+            cpygraph::ddg::EdgeKind::DefUse),
+        "interprocedural DDG preserves a call with an unresolved argument slot");
 }

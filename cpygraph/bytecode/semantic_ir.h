@@ -83,6 +83,32 @@ enum class PythonComparisonKind : std::uint8_t {
     GreaterEqual,
 };
 
+// CPython uses the same bit assignments for MAKE_FUNCTION flags through
+// 3.12 and SET_FUNCTION_ATTRIBUTE operands from 3.13 onward. Exposing the
+// flags preserves metadata that would otherwise be discarded by semantic
+// normalization, without changing the normalized opcode or its stack model.
+enum class FunctionAttribute : std::uint32_t {
+    Defaults = 0x01U,
+    KeywordDefaults = 0x02U,
+    Annotations = 0x04U,
+    Closure = 0x08U,
+    Annotate = 0x10U,
+};
+
+inline bool hasFunctionAttribute(std::uint32_t flags,
+                                 FunctionAttribute attribute) noexcept {
+    return (flags & static_cast<std::uint32_t>(attribute)) != 0U;
+}
+
+struct SourcePosition {
+    std::uint32_t start_line{};
+    std::uint32_t end_line{};
+    std::uint32_t start_column{};
+    std::uint32_t end_column{};
+    bool line_available{false};
+    bool columns_available{false};
+};
+
 struct SemanticInstruction {
     std::uint32_t offset{};
     SemanticOpcode opcode{SemanticOpcode::Unsupported};
@@ -136,6 +162,14 @@ struct SemanticInstruction {
     // not need to know version-specific opcode numbers.
     bool clear_local_after_load{false};
     LexicalAccessKind lexical_access{LexicalAccessKind::FastLocal};
+    // Additive metadata for clients that need annotation-aware bytecode.
+    // These fields do not participate in CFG construction or stack effects.
+    bool setup_annotations{false};
+    std::uint32_t function_attribute_flags{};
+    // String-only immutable collection constants.  Tuples preserve source
+    // order; frozensets are normalized to lexical order by the loader.
+    std::vector<std::string> constant_string_tuple;
+    SourcePosition source_position;
 };
 
 inline std::uint32_t conditionalStackInputs(const SemanticInstruction& instruction,
@@ -155,6 +189,8 @@ struct CodeMetadata {
     std::vector<std::string> locals;
     std::size_t constant_count{};
     // Indexed like co_consts. Non-string-tuple constants have an empty entry.
+    // Historical name retained for API compatibility; entries may represent
+    // a string-only tuple or frozenset.
     std::vector<std::vector<std::string>> constant_string_tuples;
     std::vector<std::optional<std::string>> constant_strings;
     std::vector<std::optional<std::int64_t>> constant_integers;
@@ -169,6 +205,9 @@ struct CodeMetadata {
     // Cell variables are separate from free variables because CPython 3.13+
     // lowers the compiler-only LOAD_CLOSURE pseudo-opcode to LOAD_FAST.
     std::vector<std::string> cell_names;
+    // One entry per two-byte code unit. Missing interpreter position data is
+    // represented by an entry whose availability flags are false.
+    std::vector<SourcePosition> source_positions;
 };
 
 using SemanticProgram = std::vector<SemanticInstruction>;

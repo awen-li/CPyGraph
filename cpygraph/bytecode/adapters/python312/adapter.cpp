@@ -72,7 +72,7 @@ Python312Adapter::Python312Adapter()
           {CPYGRAPH_PY312_LOAD_ASSERTION_ERROR, {O::LoadLiteral}},
           {CPYGRAPH_PY312_RETURN_GENERATOR, {O::LoadLiteral}},               // synthetic initial send value for following POP_TOP
           {CPYGRAPH_PY312_RETURN_VALUE, {O::Return}},
-          {CPYGRAPH_PY312_SETUP_ANNOTATIONS, {O::Nop}},
+          {CPYGRAPH_PY312_SETUP_ANNOTATIONS, setupAnnotations()},
           {CPYGRAPH_PY312_LOAD_LOCALS, fixedStack(O::Generic, 0, 1)},
           {CPYGRAPH_PY312_POP_EXCEPT, fixedStack(O::Generic, 1, 0)},
           {CPYGRAPH_PY312_STORE_NAME, {O::StoreGlobal, S::Name}},
@@ -150,7 +150,8 @@ Python312Adapter::Python312Adapter()
           {CPYGRAPH_PY312_KW_NAMES, {O::PrepareKeywordCall, S::Constant}}, // KW_NAMES
           {CPYGRAPH_PY312_CALL_INTRINSIC_1, fixedStack(O::Generic, 1, 1)},
           {CPYGRAPH_PY312_CALL_INTRINSIC_2, fixedStack(O::Generic, 2, 1)},
-          {CPYGRAPH_PY312_LOAD_FROM_DICT_OR_GLOBALS, fixedStack(O::Generic, 1, 1)},   // LOAD_FROM_DICT_OR_GLOBALS
+          {CPYGRAPH_PY312_LOAD_FROM_DICT_OR_GLOBALS,
+           fixedStackOperand(O::LoadGlobal, S::Name, 1, 1)},
           {CPYGRAPH_PY312_LOAD_FROM_DICT_OR_DEREF, fixedStack(O::Generic, 1, 1)},
       }, CPYGRAPH_PY312_EXTENDED_ARG, true, CPYGRAPH_PY312_CACHE,
          true, features()) {}

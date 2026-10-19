@@ -54,6 +54,52 @@ int main() {
             generated.return_values ==
                 std::vector<cpygraph::NodeId>{generated.value_nodes[5]},
             "return instruction observation exposes its returned PTA may-set");
+    require(
+        std::find(
+            generated.semantic_builder_copy_edges.begin(),
+            generated.semantic_builder_copy_edges.end(),
+            std::pair{
+                generated.value_nodes[0], generated.value_nodes[1]}) !=
+            generated.semantic_builder_copy_edges.end() &&
+        std::find(
+            generated.semantic_builder_copy_edges.begin(),
+            generated.semantic_builder_copy_edges.end(),
+            std::pair{
+                generated.value_nodes[1], generated.value_nodes[0]}) ==
+            generated.semantic_builder_copy_edges.end(),
+        "copy-edge observations retain directed may-flow");
+    const auto stored_summary = std::find_if(
+        generated.semantic_builder_copy_edges.begin(),
+        generated.semantic_builder_copy_edges.end(),
+        [&](const auto& edge) {
+            return edge.first == generated.value_nodes[1];
+        });
+    require(
+        stored_summary != generated.semantic_builder_copy_edges.end() &&
+            std::find(
+                generated.semantic_builder_copy_edges.begin(),
+                generated.semantic_builder_copy_edges.end(),
+                std::pair{
+                    stored_summary->second, generated.value_nodes[2]}) !=
+                generated.semantic_builder_copy_edges.end(),
+        "copy-edge observations include existing flow-insensitive local "
+        "summary edges");
+
+    cpygraph::AndersenPointerAnalysis unobserved_pta;
+    cpygraph::SemanticPTAOptions unobserved_options;
+    unobserved_options.collect_copy_observations = false;
+    const auto unobserved =
+        cpygraph::SemanticPTAConstraintBuilder(
+            unobserved_pta, nullptr, {}, false, 0U,
+            std::move(unobserved_options))
+            .build(cfg, 78U);
+    unobserved_pta.solve();
+    require(
+        unobserved.semantic_builder_copy_edges.empty() &&
+            unobserved_pta.pointsTo(unobserved.value_nodes[2]).count(
+                unobserved.allocated_objects[0]) == 1U,
+        "disabling copy observations avoids retention without changing "
+        "semantic propagation");
 
     const SemanticProgram element_program{
         {0, SemanticOpcode::LoadGlobal, 0, "mapping"},

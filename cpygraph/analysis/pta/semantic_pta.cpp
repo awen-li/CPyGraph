@@ -186,6 +186,12 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                 "PTA free-variable names must be nonempty and unique");
     }
     PTAConstraintResult result;
+    const auto add_observed_copy = [&](NodeId source, NodeId target) {
+        analysis_.addCopy(source, target);
+        if (options_.collect_copy_observations)
+            result.semantic_builder_copy_edges.emplace_back(
+                source, target);
+    };
     const auto& program = cfg.program();
     result.value_nodes.resize(program.size());
     result.secondary_value_nodes.resize(program.size());
@@ -202,6 +208,9 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
     result.attribute_store_values.resize(program.size());
     result.element_load_bases.resize(program.size());
     result.element_load_keys.resize(program.size());
+    result.subscript_store_bases.resize(program.size());
+    result.subscript_store_keys.resize(program.size());
+    result.subscript_store_values.resize(program.size());
     std::vector<NodeId> call_callees(program.size(), 0);
     std::vector<std::vector<std::vector<NodeId>>> call_arguments(program.size());
     std::vector<std::size_t> call_explicit_argument_offsets(
@@ -343,7 +352,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
         const auto entry = values.find(name);
         if (entry != values.end())
             for (const auto value : entry->second)
-                analysis_.addCopy(value, summary);
+                add_observed_copy(value, summary);
         return summary;
     };
     std::deque<cfg::BlockId> work{1};
@@ -443,7 +452,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                          peeked < instruction.stack_peek_count; ++peeked) {
                         for (const auto source :
                              state.stack[state.stack.size() - 1U - peeked]) {
-                            analysis_.addCopy(source, current);
+                            add_observed_copy(source, current);
                             peeked_values.insert(source);
                         }
                     }
@@ -452,7 +461,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                          input < instruction.stack_input_count; ++input) {
                         consumed.push_back(pop(state, instruction.offset));
                         for (const auto source : consumed.back())
-                            analysis_.addCopy(source, current);
+                            add_observed_copy(source, current);
                     }
                     if (instruction.protocol_operation ==
                             bytecode::PythonProtocolOperation::Import)
@@ -499,7 +508,8 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                                                  std::to_string(instruction.offset));
                     requireStack(state, instruction.operand, instruction.offset, "stack copy");
                     const auto& sources = state.stack[state.stack.size() - instruction.operand];
-                    for (const auto source : sources) analysis_.addCopy(source, current);
+                    for (const auto source : sources)
+                        add_observed_copy(source, current);
                     for (const auto source : sources) {
                         const auto group = value_groups.find(source);
                         if (group != value_groups.end())
@@ -538,9 +548,15 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                     break;
                 }
                 case O::StoreElement: {
-                    pop(state, instruction.offset);  // key
+                    const auto keys = pop(state, instruction.offset);
                     const auto bases = pop(state, instruction.offset);
                     const auto values = pop(state, instruction.offset);
+                    result.subscript_store_bases[index].assign(
+                        bases.begin(), bases.end());
+                    result.subscript_store_keys[index].assign(
+                        keys.begin(), keys.end());
+                    result.subscript_store_values[index].assign(
+                        values.begin(), values.end());
                     for (const auto base : bases)
                         for (const auto value : values)
                             analysis_.addFieldStore(value, base, FieldId{0});
@@ -627,7 +643,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                         const auto cell = ensure_cell(state, instruction.symbol);
                         if (instruction.lexical_access ==
                             bytecode::LexicalAccessKind::CellReference) {
-                            analysis_.addCopy(cell, current);
+                            add_observed_copy(cell, current);
                             state.stack.push_back({current});
                         } else {
                             analysis_.addFieldLoad(cell, cell_contents, current);
@@ -640,16 +656,17 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                         local ? options_.flow_sensitive
                               : options_.ordered_module_globals;
                     if (!ordered_name) {
-                        analysis_.addCopy(flow_insensitive_summary(
-                                              instruction.symbol, local),
-                                          current);
+                        add_observed_copy(
+                            flow_insensitive_summary(
+                                instruction.symbol, local),
+                            current);
                     } else {
                         const auto found = names.find(instruction.symbol);
                         if (found == names.end() || found->second.empty())
                             analysis_.addUnknown(current);
                         else
                             for (const auto source : found->second)
-                                analysis_.addCopy(source, current);
+                                add_observed_copy(source, current);
                     }
                     if (instruction.push_call_protocol_marker) state.stack.push_back({});
                     state.stack.push_back({current});
@@ -669,7 +686,8 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                 case O::StoreLocal:
                 case O::StoreGlobal: {
                     const auto sources = pop(state, instruction.offset);
-                    for (const auto source : sources) analysis_.addCopy(source, current);
+                    for (const auto source : sources)
+                        add_observed_copy(source, current);
                     if (instruction.opcode == O::StoreLocal &&
                         instruction.lexical_access ==
                             bytecode::LexicalAccessKind::CellValue) {
@@ -683,7 +701,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                          !options_.flow_sensitive) ||
                         (instruction.opcode == O::StoreGlobal &&
                          !options_.ordered_module_globals))
-                        analysis_.addCopy(
+                        add_observed_copy(
                             current,
                             flow_insensitive_summary(
                                 instruction.symbol,
@@ -709,7 +727,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                         }};
                     for (const auto& [name, output] : outputs) {
                         if (!options_.flow_sensitive) {
-                            analysis_.addCopy(
+                            add_observed_copy(
                                 flow_insensitive_summary(*name, true), output);
                         } else {
                             const auto found = state.locals.find(*name);
@@ -717,7 +735,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                                 analysis_.addUnknown(output);
                             else
                                 for (const auto source : found->second)
-                                    analysis_.addCopy(source, output);
+                                    add_observed_copy(source, output);
                         }
                         state.stack.push_back({output});
                     }
@@ -733,23 +751,24 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                     for (const auto& [name, output] : outputs) {
                         const auto sources = pop(state, instruction.offset);
                         for (const auto source : sources)
-                            analysis_.addCopy(source, output);
+                            add_observed_copy(source, output);
                         state.locals[*name] = {output};
                         if (!options_.flow_sensitive)
-                            analysis_.addCopy(
+                            add_observed_copy(
                                 output, flow_insensitive_summary(*name, true));
                     }
                     break;
                 }
                 case O::StoreLoadLocal: {
                     const auto stored = pop(state, instruction.offset);
-                    for (const auto source : stored) analysis_.addCopy(source, current);
+                    for (const auto source : stored)
+                        add_observed_copy(source, current);
                     state.locals[instruction.symbol] = {current};
                     if (!options_.flow_sensitive) {
-                        analysis_.addCopy(
+                        add_observed_copy(
                             current,
                             flow_insensitive_summary(instruction.symbol, true));
-                        analysis_.addCopy(
+                        add_observed_copy(
                             flow_insensitive_summary(
                                 instruction.secondary_symbol, true),
                             result.secondary_value_nodes[index]);
@@ -761,7 +780,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                                 result.secondary_value_nodes[index]);
                         else
                             for (const auto source : found->second)
-                                analysis_.addCopy(
+                                add_observed_copy(
                                     source, result.secondary_value_nodes[index]);
                     }
                     state.stack.push_back(
@@ -844,7 +863,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                     const auto functions = pop(state, instruction.offset);
                     const auto attributes = pop(state, instruction.offset);
                     for (const auto function : functions) {
-                        analysis_.addCopy(function, current);
+                        add_observed_copy(function, current);
                         const auto field = analysis_.internField(
                             (instruction.operand & 0x08U) != 0U
                                 ? "__closure__"
@@ -892,7 +911,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                     call_callee_inputs[index].assign(
                         callees.begin(), callees.end());
                     for (const auto callee : callees) {
-                        analysis_.addCopy(callee, call_callees[index]);
+                        add_observed_copy(callee, call_callees[index]);
                         if (!options_.allocation_sensitive) {
                             const auto class_instance_field =
                                 analysis_.internField(kPTAClassInstanceFieldName);
@@ -922,7 +941,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                     } else {
                         const auto returned = pop(state, instruction.offset);
                         for (const auto source : returned)
-                            analysis_.addCopy(source, current);
+                            add_observed_copy(source, current);
                     }
                     // The instruction value is the public PTA observation for
                     // this return site.  Keep the interprocedural summary on
@@ -943,7 +962,8 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                         // construction may invoke package code.
                         if (input + 1U == instruction.stack_input_count)
                             for (const auto source : raised)
-                                analysis_.addCopy(source, call_callees[index]);
+                                add_observed_copy(
+                                    source, call_callees[index]);
                     }
                     break;
                 case O::Pop:
@@ -964,7 +984,7 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
                                 bytecode::PythonProtocolOperation::Iteration &&
                             !state.stack.empty())
                             for (const auto iterator : state.stack.back()) {
-                                analysis_.addCopy(iterator, current);
+                                add_observed_copy(iterator, current);
                                 analysis_.addFieldLoad(
                                     iterator, FieldId{0U}, current);
                             }
@@ -1055,6 +1075,14 @@ PTAConstraintResult SemanticPTAConstraintBuilder::build(const cfg::ControlFlowGr
         if (!visited_instructions[i]) allocation_objects[i] = 0U;
     }
     result.allocated_objects = std::move(allocation_objects);
+    std::sort(
+        result.semantic_builder_copy_edges.begin(),
+        result.semantic_builder_copy_edges.end());
+    result.semantic_builder_copy_edges.erase(
+        std::unique(
+            result.semantic_builder_copy_edges.begin(),
+            result.semantic_builder_copy_edges.end()),
+        result.semantic_builder_copy_edges.end());
     return result;
 }
 

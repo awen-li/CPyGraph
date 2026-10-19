@@ -456,19 +456,28 @@ void AndersenPointerAnalysis::solve() {
 AndersenPointerAnalysis::Statistics
 AndersenPointerAnalysis::statistics() const noexcept {
     std::size_t points_to_fact_count = 0U;
+    std::size_t unknown_fact_count = 0U;
     for (const auto& [value, objects] : points_to_) {
         static_cast<void>(value);
         points_to_fact_count += objects.size();
+        unknown_fact_count += objects.count(unknownObject());
     }
     std::size_t content_fact_count = 0U;
     for (const auto& [base, objects] : object_contents_) {
         static_cast<void>(base);
         content_fact_count += objects.size();
+        for (const auto object : objects)
+            if (base == unknownObject() || object == unknownObject())
+                ++unknown_fact_count;
     }
     std::size_t field_fact_count = 0U;
     for (const auto& [location, objects] : fields_) {
         static_cast<void>(location);
         field_fact_count += objects.size();
+        for (const auto object : objects)
+            if (location.base == unknownObject() ||
+                location.field == 0U || object == unknownObject())
+                ++unknown_fact_count;
     }
     return {
         used_values_.size(),
@@ -480,6 +489,7 @@ AndersenPointerAnalysis::statistics() const noexcept {
         points_to_fact_count,
         content_fact_count,
         field_fact_count,
+        unknown_fact_count,
         solver_iteration_count_,
     };
 }

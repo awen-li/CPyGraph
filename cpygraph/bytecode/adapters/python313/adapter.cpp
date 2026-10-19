@@ -81,7 +81,7 @@ Python313Adapter::Python313Adapter()
           {CPYGRAPH_PY313_PUSH_NULL, {O::CallProtocolMarker}},         // PUSH_NULL
           {CPYGRAPH_PY313_RETURN_GENERATOR, {O::LoadLiteral}},               // RETURN_GENERATOR resume input
           {CPYGRAPH_PY313_RETURN_VALUE, {O::Return}},
-          {CPYGRAPH_PY313_SETUP_ANNOTATIONS, {O::Nop}},
+          {CPYGRAPH_PY313_SETUP_ANNOTATIONS, setupAnnotations()},
           {CPYGRAPH_PY313_STORE_SLICE, fixedStack(O::Generic, 4, 0)},
           {CPYGRAPH_PY313_STORE_SUBSCR, {O::StoreElement}},
           {CPYGRAPH_PY313_TO_BOOL, preservingStack(1, 1)},
@@ -134,7 +134,8 @@ Python313Adapter::Python313Adapter()
           {CPYGRAPH_PY313_LOAD_FAST_CHECK, {O::LoadLocal, S::Deref}},        // LOAD_FAST_CHECK
           {CPYGRAPH_PY313_LOAD_FAST_LOAD_FAST, {O::LoadLocalPair}},
           {CPYGRAPH_PY313_LOAD_FROM_DICT_OR_DEREF, fixedStack(O::Generic, 1, 1)},
-          {CPYGRAPH_PY313_LOAD_FROM_DICT_OR_GLOBALS, fixedStack(O::Generic, 1, 1)},
+          {CPYGRAPH_PY313_LOAD_FROM_DICT_OR_GLOBALS,
+           fixedStackOperand(O::LoadGlobal, S::Name, 1, 1)},
           {CPYGRAPH_PY313_LOAD_GLOBAL, {O::LoadGlobal, S::Name}},
           {CPYGRAPH_PY313_LOAD_NAME, {O::LoadGlobal, S::Name}},        // LOAD_NAME
           {CPYGRAPH_PY313_LOAD_SUPER_ATTR, {O::LoadAttribute, S::Name}},

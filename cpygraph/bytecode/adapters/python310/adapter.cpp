@@ -220,7 +220,7 @@ Python310Adapter::Python310Adapter()
           {CPYGRAPH_PY310_LIST_TO_TUPLE, fixedStack(O::Generic, 1, 1, 0, true)},
           {CPYGRAPH_PY310_RETURN_VALUE, {O::Return}},
           {CPYGRAPH_PY310_IMPORT_STAR, protocolStack(1U, 0U, P::Import, {})},
-          {CPYGRAPH_PY310_SETUP_ANNOTATIONS, {O::Nop}},                       // SETUP_ANNOTATIONS
+          {CPYGRAPH_PY310_SETUP_ANNOTATIONS, setupAnnotations()},            // SETUP_ANNOTATIONS
           {CPYGRAPH_PY310_YIELD_VALUE, fixedStack(O::Yield, 1, 1)},    // YIELD_VALUE
           {CPYGRAPH_PY310_POP_BLOCK, {O::Nop}},                       // POP_BLOCK
           {CPYGRAPH_PY310_POP_EXCEPT, fixedStack(O::Generic, 3, 0)},    // POP_EXCEPT restores previous exception triple

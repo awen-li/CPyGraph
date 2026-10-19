@@ -34,6 +34,7 @@ public:
         std::size_t points_to_fact_count{};
         std::size_t content_fact_count{};
         std::size_t field_fact_count{};
+        std::size_t unknown_fact_count{};
         std::size_t solver_iteration_count{};
     };
 

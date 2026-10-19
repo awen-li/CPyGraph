@@ -64,7 +64,7 @@ Python311Adapter::Python311Adapter()
           {CPYGRAPH_PY311_LIST_TO_TUPLE, fixedStack(O::Generic, 1, 1, 0, true)},
           {CPYGRAPH_PY311_RETURN_VALUE, {O::Return}},
           {CPYGRAPH_PY311_IMPORT_STAR, protocolStack(1U, 0U, P::Import, {})},
-          {CPYGRAPH_PY311_SETUP_ANNOTATIONS, {O::Nop}},
+          {CPYGRAPH_PY311_SETUP_ANNOTATIONS, setupAnnotations()},
           {CPYGRAPH_PY311_YIELD_VALUE, fixedStack(O::Yield, 1, 1)},
           {CPYGRAPH_PY311_ASYNC_GEN_WRAP, fixedStack(O::Generic, 1, 1)},
           {CPYGRAPH_PY311_PREP_RERAISE_STAR, fixedStack(O::Generic, 2, 1)},    // PREP_RERAISE_STAR

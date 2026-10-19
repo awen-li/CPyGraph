@@ -13,6 +13,7 @@
 #include <utility>
 
 #include <spawn.h>
+#include <fcntl.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -51,9 +52,27 @@ int runProcess(const std::vector<std::string>& arguments) {
     for (const auto& argument : arguments)
         argv.push_back(const_cast<char*>(argument.c_str()));
     argv.push_back(nullptr);
+    posix_spawn_file_actions_t actions;
+    const auto actions_error = ::posix_spawn_file_actions_init(&actions);
+    if (actions_error != 0)
+        throw std::system_error(
+            actions_error, std::generic_category(),
+            "cannot initialize Python compiler process");
+    const auto stdout_error = ::posix_spawn_file_actions_addopen(
+        &actions, STDOUT_FILENO, "/dev/null", O_WRONLY, 0);
+    const auto stderr_error = ::posix_spawn_file_actions_addopen(
+        &actions, STDERR_FILENO, "/dev/null", O_WRONLY, 0);
+    if (stdout_error != 0 || stderr_error != 0) {
+        ::posix_spawn_file_actions_destroy(&actions);
+        const auto error = stdout_error != 0 ? stdout_error : stderr_error;
+        throw std::system_error(
+            error, std::generic_category(),
+            "cannot configure Python compiler process");
+    }
     pid_t child{};
-    const auto spawn_error = ::posix_spawnp(&child, argv.front(), nullptr, nullptr,
-                                            argv.data(), environ);
+    const auto spawn_error = ::posix_spawnp(
+        &child, argv.front(), &actions, nullptr, argv.data(), environ);
+    ::posix_spawn_file_actions_destroy(&actions);
     if (spawn_error != 0)
         throw std::system_error(spawn_error, std::generic_category(),
                                 "cannot start Python compiler");
@@ -92,8 +111,11 @@ bool containsPythonSource(const std::filesystem::path& directory) {
         });
 }
 
-std::filesystem::path selectSourceRoot(const std::filesystem::path& input) {
+std::filesystem::path selectSourceRoot(
+    const std::filesystem::path& input,
+    const PackageCompilationOptions& options) {
     if (std::filesystem::is_regular_file(input)) return input.parent_path();
+    if (options.use_input_as_source_root) return input;
     const auto src = input / kSourceLayoutDirectory;
     if (containsPythonSource(src)) return src;
     return input;
@@ -120,7 +142,8 @@ std::string moduleName(const std::filesystem::path& source,
 
 std::vector<std::filesystem::path> discoverSources(
     const std::filesystem::path& input,
-    const std::filesystem::path& source_root) {
+    const std::filesystem::path& source_root,
+    const PackageCompilationOptions& options) {
     const auto require_contained = [&](const std::filesystem::path& source) {
         const auto resolved = std::filesystem::canonical(source);
         const auto relative = resolved.lexically_relative(source_root);
@@ -140,13 +163,18 @@ std::vector<std::filesystem::path> discoverSources(
                                         input.string());
         const auto source = std::filesystem::absolute(input).lexically_normal();
         require_contained(source);
-        result.push_back(source);
+        const auto relative = source.lexically_relative(source_root);
+        if (!options.include_source || options.include_source(relative))
+            result.push_back(source);
         return result;
     }
     for (const auto& entry : std::filesystem::recursive_directory_iterator(source_root)) {
         if (!entry.is_regular_file() || entry.path().extension() != kSourceExtension) continue;
         const auto source = std::filesystem::absolute(entry.path()).lexically_normal();
         require_contained(source);
+        const auto relative = source.lexically_relative(source_root);
+        if (options.include_source && !options.include_source(relative))
+            continue;
         result.push_back(source);
     }
     std::sort(result.begin(), result.end());
@@ -199,14 +227,17 @@ std::string bytecodeModuleName(const std::filesystem::path& bytecode_path) {
 CompiledPackage::CompiledPackage(std::filesystem::path source_root,
                                  std::filesystem::path temporary_root,
                                  std::vector<CompiledModule> modules,
+                                 std::vector<CompilationFailure> failures,
                                  std::string python_version)
     : source_root_(std::move(source_root)), temporary_root_(std::move(temporary_root)),
-      modules_(std::move(modules)), python_version_(std::move(python_version)) {}
+      modules_(std::move(modules)), failures_(std::move(failures)),
+      python_version_(std::move(python_version)) {}
 
 CompiledPackage::CompiledPackage(CompiledPackage&& other) noexcept
     : source_root_(std::move(other.source_root_)),
       temporary_root_(std::move(other.temporary_root_)),
       modules_(std::move(other.modules_)),
+      failures_(std::move(other.failures_)),
       python_version_(std::move(other.python_version_)) {
     other.temporary_root_.clear();
 }
@@ -217,6 +248,7 @@ CompiledPackage& CompiledPackage::operator=(CompiledPackage&& other) noexcept {
     source_root_ = std::move(other.source_root_);
     temporary_root_ = std::move(other.temporary_root_);
     modules_ = std::move(other.modules_);
+    failures_ = std::move(other.failures_);
     python_version_ = std::move(other.python_version_);
     other.temporary_root_.clear();
     return *this;
@@ -238,6 +270,12 @@ PackageCompiler::PackageCompiler(std::filesystem::path python_executable)
 
 CompiledPackage PackageCompiler::compile(
     const std::filesystem::path& package_path) const {
+    return compileWithOptions(package_path, {});
+}
+
+CompiledPackage PackageCompiler::compileWithOptions(
+    const std::filesystem::path& package_path,
+    const PackageCompilationOptions& options) const {
     profile::Scope profile_scope(profile::Phase::PackageCompilation);
     if (!std::filesystem::exists(package_path))
         throw std::invalid_argument("package path does not exist: " + package_path.string());
@@ -248,8 +286,10 @@ CompiledPackage PackageCompiler::compile(
 
     ensureMatchingInterpreter(python_executable_);
     const auto canonical_input = std::filesystem::canonical(package_path);
-    const auto source_root = std::filesystem::canonical(selectSourceRoot(canonical_input));
-    const auto sources = discoverSources(canonical_input, source_root);
+    const auto source_root = std::filesystem::canonical(
+        selectSourceRoot(canonical_input, options));
+    const auto sources = discoverSources(
+        canonical_input, source_root, options);
     if (sources.empty())
         throw std::invalid_argument("package contains no Python source files: " +
                                     package_path.string());
@@ -261,6 +301,7 @@ CompiledPackage PackageCompiler::compile(
                                               (std::string(kPackageInitializer) +
                                                kSourceExtension));
         std::vector<CompiledModule> modules;
+        std::vector<CompilationFailure> failures;
         modules.reserve(sources.size());
         for (const auto& source : sources) {
             auto relative = source.lexically_relative(source_root);
@@ -269,14 +310,22 @@ CompiledPackage PackageCompiler::compile(
             std::filesystem::create_directories(bytecode.parent_path());
             const auto status = runProcess({python_executable_.string(), "-c", kCompileScript,
                                             source.string(), bytecode.string()});
-            if (status != EXIT_SUCCESS)
+            if (status != EXIT_SUCCESS && !options.continue_on_error)
                 throw std::runtime_error("failed to compile " + source.string() +
                                          " (exit status " + std::to_string(status) + ")");
+            if (status != EXIT_SUCCESS) {
+                failures.push_back({source, status});
+                continue;
+            }
             modules.push_back({moduleName(source, source_root, root_is_package), source,
                                bytecode, source.stem() == kPackageInitializer});
         }
-        return CompiledPackage(source_root, temporary_root, std::move(modules),
-                               runtimeVersion());
+        if (modules.empty())
+            throw std::runtime_error(
+                "no discovered Python source compiled successfully");
+        return CompiledPackage(
+            source_root, temporary_root, std::move(modules),
+            std::move(failures), runtimeVersion());
     } catch (...) {
         std::error_code error;
         std::filesystem::remove_all(temporary_root, error);

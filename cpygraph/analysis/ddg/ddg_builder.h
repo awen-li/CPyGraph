@@ -16,6 +16,14 @@ struct DDGCallBoundary {
     std::vector<std::vector<NodeId>> actual_arguments;
 };
 
+struct DDGCollectionBoundary {
+    std::size_t instruction_index{};
+    NodeId collection{};
+    // Reaching definitions in source stack order. Maps therefore preserve
+    // key/value alternation, while tuples and lists preserve element order.
+    std::vector<std::vector<NodeId>> elements;
+};
+
 enum class DDGAccessKind : std::uint8_t { Load, Store };
 enum class DDGHeapLocationKind : std::uint8_t { Attribute, Element };
 
@@ -27,6 +35,9 @@ struct DDGHeapAccess {
     DDGHeapLocationKind location{DDGHeapLocationKind::Attribute};
     std::string field;
     std::vector<NodeId> bases;
+    // Subscript element accesses preserve explicit key definitions separately
+    // from receivers. Collection-building stores and attributes leave it empty.
+    std::vector<NodeId> keys;
 };
 
 struct DDGGlobalAccess {
@@ -40,6 +51,7 @@ struct DDGBuildResult {
     std::vector<NodeId> formal_parameters;
     std::vector<NodeId> return_values;
     std::vector<DDGCallBoundary> call_boundaries;
+    std::vector<DDGCollectionBoundary> collection_boundaries;
     std::vector<DDGHeapAccess> heap_accesses;
     std::vector<DDGGlobalAccess> global_accesses;
 };

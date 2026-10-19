@@ -3,11 +3,31 @@
 #include "bytecode/code_object_loader.h"
 
 #include <filesystem>
+#include <functional>
 #include <string>
 #include <string_view>
 #include <vector>
 
 namespace cpygraph::package {
+
+struct PackageCompilationOptions {
+    // Treat the supplied directory itself as the source root.  This supports
+    // monorepositories with several src/ trees while preserving the historic
+    // single-package src-layout selection for callers that leave it false.
+    bool use_input_as_source_root{false};
+    // Optional predicate over a source path relative to the selected source
+    // root. Returning false omits that module before compilation.
+    std::function<bool(const std::filesystem::path&)> include_source;
+    // Keep successfully compiled modules when another discovered source is
+    // incompatible with the selected interpreter. The default remains
+    // fail-fast for existing callers.
+    bool continue_on_error{false};
+};
+
+struct CompilationFailure {
+    std::filesystem::path source_path;
+    int exit_status{};
+};
 
 struct CompiledModule {
     std::string name;
@@ -30,6 +50,9 @@ public:
 
     const std::filesystem::path& sourceRoot() const noexcept { return source_root_; }
     const std::vector<CompiledModule>& modules() const noexcept { return modules_; }
+    const std::vector<CompilationFailure>& failures() const noexcept {
+        return failures_;
+    }
     std::string_view pythonVersion() const noexcept { return python_version_; }
 
 private:
@@ -37,6 +60,7 @@ private:
     CompiledPackage(std::filesystem::path source_root,
                     std::filesystem::path temporary_root,
                     std::vector<CompiledModule> modules,
+                    std::vector<CompilationFailure> failures,
                     std::string python_version);
 
     void cleanup() noexcept;
@@ -44,6 +68,7 @@ private:
     std::filesystem::path source_root_;
     std::filesystem::path temporary_root_;
     std::vector<CompiledModule> modules_;
+    std::vector<CompilationFailure> failures_;
     std::string python_version_;
 };
 
@@ -52,7 +77,11 @@ public:
     // An empty executable selects the interpreter CPyGraph was built with.
     explicit PackageCompiler(std::filesystem::path python_executable = {});
 
-    CompiledPackage compile(const std::filesystem::path& package_path) const;
+    CompiledPackage compile(
+        const std::filesystem::path& package_path) const;
+    CompiledPackage compileWithOptions(
+        const std::filesystem::path& package_path,
+        const PackageCompilationOptions& options) const;
     const std::filesystem::path& pythonExecutable() const noexcept {
         return python_executable_;
     }

@@ -35,10 +35,23 @@ int main() {
     CodeMetadata metadata{{"module", "member"}, {"local"}, 3};
     metadata.deref_names = {"cell"};
     metadata.cell_names = {"cell"};
+    metadata.constant_string_tuples = {{}, {}, {"argument", "Type"}};
+    metadata.source_positions.resize(1);
+    metadata.source_positions.front().start_line = 7;
+    metadata.source_positions.front().end_line = 7;
+    metadata.source_positions.front().line_available = true;
     Python310Adapter py310;
     auto load310 = py310.lift(RawInstruction{0, 116, 1}, metadata);
     require(load310.opcode == SemanticOpcode::LoadGlobal && load310.symbol == "member",
             "3.10 adapter uses the unshifted name index");
+    require(load310.source_position.line_available &&
+                load310.source_position.start_line == 7,
+            "adapter attaches code-object positions without changing the opcode");
+    const auto tuple310 = py310.lift(
+        RawInstruction{0, CPYGRAPH_PY310_LOAD_CONST, 2}, metadata);
+    require(tuple310.constant_string_tuple ==
+                std::vector<std::string>({"argument", "Type"}),
+            "adapter retains string-tuple constants as semantic metadata");
     auto jump310 = py310.lift(RawInstruction{2, 114, 5}, metadata);
     require(jump310.jump_target && *jump310.jump_target == 10,
             "3.10 adapter resolves absolute jump code units");
@@ -511,6 +524,36 @@ int main() {
             "3.10 adapter normalizes MAKE_FUNCTION flags and qualname");
     require(function312.auxiliary_input_count == 2 && function312.discarded_stack_values == 0,
             "3.12 adapter normalizes MAKE_FUNCTION without a qualname stack value");
+    const auto annotated_function312 = py312.lift(
+        RawInstruction{0, CPYGRAPH_PY312_MAKE_FUNCTION, 4}, metadata);
+    require(annotated_function312.operand == 0 &&
+                hasFunctionAttribute(
+                    annotated_function312.function_attribute_flags,
+                    FunctionAttribute::Annotations),
+            "normalization preserves the MAKE_FUNCTION annotation flag");
+    const auto deferred_annotations314 = py314.lift(
+        RawInstruction{0, CPYGRAPH_PY314_SET_FUNCTION_ATTRIBUTE, 16}, metadata);
+    require(deferred_annotations314.operand == 16 &&
+                hasFunctionAttribute(
+                    deferred_annotations314.function_attribute_flags,
+                    FunctionAttribute::Annotate),
+            "adapter preserves the deferred-annotation function attribute");
+    const auto annotation_setups = std::vector<SemanticInstruction>{
+        py310.lift(RawInstruction{0, CPYGRAPH_PY310_SETUP_ANNOTATIONS, 0}, metadata),
+        py311.lift(RawInstruction{0, CPYGRAPH_PY311_SETUP_ANNOTATIONS, 0}, metadata),
+        py312.lift(RawInstruction{0, CPYGRAPH_PY312_SETUP_ANNOTATIONS, 0}, metadata),
+        py313.lift(RawInstruction{0, CPYGRAPH_PY313_SETUP_ANNOTATIONS, 0}, metadata),
+        py314.lift(RawInstruction{0, CPYGRAPH_PY314_SETUP_ANNOTATIONS, 0}, metadata),
+    };
+    require(std::all_of(
+                annotation_setups.begin(), annotation_setups.end(),
+                [](const auto& instruction) {
+                    return instruction.opcode == SemanticOpcode::Nop &&
+                           instruction.setup_annotations &&
+                           instruction.stack_input_count == 0 &&
+                           instruction.stack_output_count == 0;
+                }),
+            "all adapters tag SETUP_ANNOTATIONS without changing graph semantics");
     const auto import310 = py310.lift(RawInstruction{0, 108, 0}, metadata);
     const auto import312 = py312.lift(RawInstruction{0, 108, 0}, metadata);
     require(import310.discarded_stack_values == 2 && import312.discarded_stack_values == 2,

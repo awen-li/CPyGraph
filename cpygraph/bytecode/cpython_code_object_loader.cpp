@@ -2,6 +2,7 @@
 
 #include <marshal.h>
 
+#include <algorithm>
 #include <climits>
 #include <fstream>
 #include <iterator>
@@ -159,6 +160,40 @@ LoadedCodeObject CPythonCodeObjectLoader::loadCodeObject(PyObject* code) const {
     if (!PyBytes_Check(code_bytes.get())) throw std::runtime_error("co_code is not bytes");
     const auto* begin = reinterpret_cast<const std::uint8_t*>(PyBytes_AS_STRING(code_bytes.get()));
     result.bytecode.assign(begin, begin + PyBytes_GET_SIZE(code_bytes.get()));
+    const auto code_unit_count = (result.bytecode.size() + 1U) / 2U;
+    result.metadata.source_positions.resize(code_unit_count);
+    auto* code_object = reinterpret_cast<PyCodeObject*>(code);
+    for (std::size_t index = 0; index < code_unit_count; ++index) {
+        auto& position = result.metadata.source_positions[index];
+        const auto byte_offset = static_cast<int>(index * 2U);
+#if PY_VERSION_HEX >= 0x030B0000
+        int start_line = -1;
+        int end_line = -1;
+        int start_column = -1;
+        int end_column = -1;
+        if (PyCode_Addr2Location(code_object, byte_offset, &start_line,
+                                 &end_line, &start_column, &end_column) != 0 &&
+            start_line >= 0) {
+            position.start_line = static_cast<std::uint32_t>(start_line);
+            position.end_line = static_cast<std::uint32_t>(
+                end_line >= 0 ? end_line : start_line);
+            position.line_available = true;
+            if (start_column >= 0 && end_column >= 0) {
+                position.start_column =
+                    static_cast<std::uint32_t>(start_column);
+                position.end_column = static_cast<std::uint32_t>(end_column);
+                position.columns_available = true;
+            }
+        }
+#else
+        const auto line = PyCode_Addr2Line(code_object, byte_offset);
+        if (line > 0) {
+            position.start_line = static_cast<std::uint32_t>(line);
+            position.end_line = static_cast<std::uint32_t>(line);
+            position.line_available = true;
+        }
+#endif
+    }
     result.metadata.names = tupleStrings(attribute(code, "co_names").get(), "co_names");
     result.metadata.locals = localNames(code);
     const auto cell_names = tupleStrings(attribute(code, "co_cellvars").get(), "co_cellvars");
@@ -236,6 +271,34 @@ LoadedCodeObject CPythonCodeObjectLoader::loadCodeObject(PyObject* code) const {
                 strings.push_back(*text);
             }
             if (!all_strings) strings.clear();
+        } else if (PyFrozenSet_Check(constant)) {
+            auto& strings = result.metadata.constant_string_tuples[
+                static_cast<std::size_t>(i)];
+            bool all_strings = true;
+            PyRef iterator(PyObject_GetIter(constant));
+            if (!iterator.get())
+                throw std::runtime_error(
+                    "could not iterate a frozenset code constant");
+            while (auto* value = PyIter_Next(iterator.get())) {
+                PyRef value_ref(value);
+                const auto text = optionalString(value_ref.get());
+                if (!text) {
+                    all_strings = false;
+                    break;
+                }
+                strings.push_back(*text);
+            }
+            if (PyErr_Occurred())
+                throw std::runtime_error(
+                    "failed while decoding a frozenset code constant: " +
+                    consumePythonError());
+            if (!all_strings) {
+                strings.clear();
+            } else {
+                // Unlike tuples, frozensets have no semantic order.  A stable
+                // representation keeps serialized observations reproducible.
+                std::sort(strings.begin(), strings.end());
+            }
         }
         result.metadata.constant_strings[static_cast<std::size_t>(i)] =
             optionalString(constant);

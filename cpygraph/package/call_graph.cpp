@@ -285,11 +285,12 @@ public:
             const auto& code = package_.codeObject(entry);
             if (code.parent == 0U || !rooted.insert(entry).second) continue;
             external_entry_points_.insert(entry);
+            auto function = function_ids_.find(entry);
+            if (function == function_ids_.end()) {
+                function = function_ids_.emplace(
+                    entry, next_function_id_++).first;
+            }
             const auto body = activate(entry, 0U);
-            const auto function = function_ids_.find(entry);
-            if (function == function_ids_.end())
-                throw std::invalid_argument(
-                    "entry point is not a registered module-level callable");
             builder_.addEntryPoint({function->second, entry}, body);
         }
         finalizeGlobalInputs();
@@ -313,16 +314,26 @@ public:
         for (const auto& instance : constraints_)
             analyzed_codes.insert(instance.code);
         const auto statistics = pta_.statistics();
+        const auto has_unresolved_call = std::any_of(
+            result.graph.edges().begin(), result.graph.edges().end(),
+            [](const auto& edge) { return !edge.target; });
+        const auto relation_coverage = has_unresolved_call
+            ? SoundnessCoverage::TypedUnresolved
+            : SoundnessCoverage::ConcreteOnly;
+        const auto points_to_coverage = statistics.unknown_fact_count != 0U
+            ? SoundnessCoverage::TypedUnresolved
+            : SoundnessCoverage::ConcreteOnly;
         return {std::move(result.graph), analyzed_codes.size(),
                 result.activated_callable_count, result.call_site_count,
-                SoundnessCoverage::ConservativeTop,
-                SoundnessCoverage::ConservativeTop,
+                points_to_coverage,
+                relation_coverage,
                 {statistics.value_count,
                  statistics.object_count,
                  statistics.constraint_count,
                  statistics.points_to_fact_count,
                  statistics.content_fact_count,
                  statistics.field_fact_count,
+                 statistics.unknown_fact_count,
                  statistics.solver_iteration_count}};
     }
 
@@ -877,6 +888,10 @@ private:
             const auto code_id = instance.code;
             const auto context = instance.context;
             const auto& generated = instance.generated;
+            for (const auto& [source, target] :
+                 generated.semantic_builder_copy_edges)
+                observations.semantic_builder_copy_edges.push_back(
+                    {source, target});
             for (std::size_t index = 0; index < generated.value_nodes.size(); ++index) {
                 const auto value = generated.value_nodes[index];
                 const auto& objects = pta_.pointsTo(value);
@@ -948,6 +963,13 @@ private:
                         generated.element_load_bases[index],
                         generated.element_load_keys[index],
                         {generated.value_nodes[index]},
+                    });
+                if (!generated.subscript_store_bases[index].empty())
+                    observations.subscript_stores.push_back({
+                        code_id, index, context,
+                        generated.subscript_store_bases[index],
+                        generated.subscript_store_keys[index],
+                        generated.subscript_store_values[index],
                     });
             }
             for (std::size_t index = 0; index < generated.formal_parameters.size(); ++index)
@@ -1049,6 +1071,22 @@ private:
                             second.instruction_index, second.site);
         };
         std::sort(observations.points_to.begin(), observations.points_to.end(), value_order);
+        std::sort(
+            observations.semantic_builder_copy_edges.begin(),
+            observations.semantic_builder_copy_edges.end(),
+            [](const auto& first, const auto& second) {
+                return std::tie(first.source, first.target) <
+                    std::tie(second.source, second.target);
+            });
+        observations.semantic_builder_copy_edges.erase(
+            std::unique(
+                observations.semantic_builder_copy_edges.begin(),
+                observations.semantic_builder_copy_edges.end(),
+                [](const auto& first, const auto& second) {
+                    return first.source == second.source &&
+                        first.target == second.target;
+                }),
+            observations.semantic_builder_copy_edges.end());
         std::sort(observations.object_origins.begin(), observations.object_origins.end(),
                   origin_order);
         observations.object_origins.erase(
@@ -1601,13 +1639,23 @@ private:
             options.seed_external_parameters =
                 activation_context == 0U &&
                 external_entry_points_.count(code_id) != 0U;
+            options.collect_copy_observations =
+                collect_observations_;
             options.path_decisions = decisions[variant];
-            auto generated = SemanticPTAConstraintBuilder(
-                pta_, &module_objects_, code.module_name, code.module_is_package,
-                receiver_object,
-                std::move(options))
-                                 .build(code.cfg, code.id, parameterNames(code),
-                                        code.free_names);
+            auto generated = [&] {
+                try {
+                    return SemanticPTAConstraintBuilder(
+                        pta_, &module_objects_, code.module_name,
+                        code.module_is_package, receiver_object,
+                        std::move(options))
+                        .build(code.cfg, code.id, parameterNames(code),
+                               code.free_names);
+                } catch (const std::runtime_error& error) {
+                    throw std::runtime_error(
+                        "PTA analysis failed for " + code.filename.string() +
+                        "::" + code.qualname + ": " + error.what());
+                }
+            }();
             constraints_.push_back(
                 {code_id, context, std::move(generated)});
             auto& stored = constraints_.back().generated;
